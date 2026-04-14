@@ -637,6 +637,116 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight')lbNav(1);
   if(e.key==='ArrowLeft')lbNav(-1);
 });  
+const LEGAL_DOCS={
+  privacy:{
+    title:'Polityka prywatności',
+    html:`
+      <h4>Administrator danych osobowych</h4>
+      <p>Administratorem Twoich danych osobowych jest <strong>Bartłomiej Głąbiński</strong>, prowadzący działalność gospodarczą pod firmą <strong>Przedsiębiorstwo Techniczne Usługowo Handlowe JANTAR</strong>, ul. Szaflarska 100/1, 34-400 Nowy Targ, NIP: 7352516870, email: <strong>biuro@ekospec.pro</strong>.</p>
+      <h4>Jakie dane zbieramy</h4>
+      <p>Zbieramy wyłącznie dane, które sam nam przekazujesz za pośrednictwem formularza kontaktowego na stronie:</p>
+      <ul>
+        <li>imię i nazwisko</li>
+        <li>adres email lub numer telefonu</li>
+        <li>treść wiadomości</li>
+      </ul>
+      <h4>Cel i podstawa przetwarzania</h4>
+      <p><strong>Odpowiedź na zapytanie</strong> — przetwarzamy dane w celu udzielenia odpowiedzi na Twoje pytanie lub przygotowania oferty (podstawa: art. 6 ust. 1 lit. b RODO — niezbędność do podjęcia działań przed zawarciem umowy, lub art. 6 ust. 1 lit. f RODO — prawnie uzasadniony interes administratora).</p>
+      <p><strong>Marketing</strong> — jeśli wyraziłeś zgodę na otrzymywanie informacji marketingowych, będziemy przesyłać Ci informacje o usługach i promocjach (podstawa: art. 6 ust. 1 lit. a RODO — zgoda). Zgodę możesz wycofać w dowolnym momencie.</p>
+      <h4>Okres przechowywania danych</h4>
+      <p>Dane przechowujemy przez okres niezbędny do obsługi zapytania, a następnie przez czas wynikający z przepisów prawa (np. obowiązek archiwizacji dokumentów księgowych) lub do momentu wycofania zgody na marketing.</p>
+      <h4>Odbiorcy danych</h4>
+      <p>Twoje dane nie są sprzedawane ani udostępniane podmiotom trzecim w celach komercyjnych. Mogą być przekazywane wyłącznie podmiotom świadczącym usługi techniczne niezbędne do działania strony (np. hosting), na podstawie stosownych umów powierzenia przetwarzania danych.</p>
+      <h4>Twoje prawa</h4>
+      <p>Przysługuje Ci prawo do:</p>
+      <ul>
+        <li>dostępu do swoich danych i otrzymania ich kopii</li>
+        <li>sprostowania (poprawienia) danych</li>
+        <li>usunięcia danych („prawo do bycia zapomnianym")</li>
+        <li>ograniczenia przetwarzania danych</li>
+        <li>przenoszenia danych</li>
+        <li>wniesienia sprzeciwu wobec przetwarzania</li>
+        <li>wycofania zgody w dowolnym momencie (bez wpływu na zgodność z prawem przetwarzania dokonanego przed wycofaniem)</li>
+        <li>wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych (ul. Stawki 2, 00-193 Warszawa)</li>
+      </ul>
+      <p>Aby skorzystać z powyższych praw, skontaktuj się z nami pod adresem: <strong>biuro@ekospec.pro</strong></p>
+      <h4>Dobrowolność podania danych</h4>
+      <p>Podanie danych jest dobrowolne, jednak niezbędne do udzielenia odpowiedzi na zapytanie. Brak podania danych uniemożliwi kontakt zwrotny.</p>
+    `
+  },
+  cookies:{
+    title:'Polityka cookies',
+    html:`
+      <h4>Czym są pliki cookies</h4>
+      <p>Pliki cookies (ciasteczka) to małe pliki tekstowe zapisywane na Twoim urządzeniu (komputerze, tablecie, telefonie) podczas odwiedzania strony internetowej. Służą do prawidłowego funkcjonowania strony oraz analizy sposobu jej użytkowania.</p>
+      <h4>Jakich cookies używamy</h4>
+      <p><strong>Cookies niezbędne</strong> — konieczne do prawidłowego działania strony. Zapamiętują Twój wybór dotyczący zgody na cookies, dzięki czemu baner nie pojawia się przy każdej wizycie. Nie wymagają Twojej zgody.</p>
+      <p><strong>Cookies analityczne</strong> — pomagają nam zrozumieć jak użytkownicy korzystają ze strony (np. które sekcje są najczęściej odwiedzane). Używane wyłącznie jeśli wyrazisz na to zgodę.</p>
+      <h4>Jak zarządzać cookies</h4>
+      <p>Możesz w każdej chwili zmienić ustawienia cookies w swojej przeglądarce. Poniżej linki do instrukcji dla popularnych przeglądarek:</p>
+      <ul>
+        <li>Google Chrome — Ustawienia → Prywatność i bezpieczeństwo → Pliki cookie</li>
+        <li>Mozilla Firefox — Opcje → Prywatność i bezpieczeństwo</li>
+        <li>Safari — Preferencje → Prywatność</li>
+        <li>Microsoft Edge — Ustawienia → Pliki cookie i uprawnienia witryny</li>
+      </ul>
+      <p>Wyłączenie cookies niezbędnych może wpłynąć na działanie strony.</p>
+      <h4>Okres przechowywania</h4>
+      <p>Cookie zapamiętujące Twój wybór dotyczący zgody jest przechowywane przez okres 12 miesięcy, po czym zostaniesz ponownie zapytany o preferencje.</p>
+      <h4>Podstawa prawna</h4>
+      <p>Stosowanie cookies niezbędnych odbywa się na podstawie prawnie uzasadnionego interesu administratora (art. 6 ust. 1 lit. f RODO). Cookies analityczne stosowane są wyłącznie na podstawie Twojej zgody (art. 6 ust. 1 lit. a RODO).</p>
+    `
+  },
+  rodo:{
+    title:'Informacja RODO',
+    html:`
+      <h4>Klauzula informacyjna — art. 13 RODO</h4>
+      <p>Zgodnie z art. 13 Rozporządzenia Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych (RODO) informujemy:</p>
+      <h4>1. Administrator danych</h4>
+      <p><strong>Bartłomiej Głąbiński</strong><br/>
+      Przedsiębiorstwo Techniczne Usługowo Handlowe JANTAR<br/>
+      ul. Szaflarska 100/1, 34-400 Nowy Targ<br/>
+      NIP: 7352516870<br/>
+      Email: biuro@ekospec.pro</p>
+      <h4>2. Cel i podstawa prawna przetwarzania</h4>
+      <ul>
+        <li>Obsługa zapytań i korespondencji — art. 6 ust. 1 lit. b lub f RODO</li>
+        <li>Marketing usług własnych — art. 6 ust. 1 lit. a RODO (zgoda)</li>
+        <li>Wykonanie umowy lub podjęcie działań przed jej zawarciem — art. 6 ust. 1 lit. b RODO</li>
+        <li>Wypełnienie obowiązków prawnych (np. podatkowych) — art. 6 ust. 1 lit. c RODO</li>
+      </ul>
+      <h4>3. Okres przechowywania danych</h4>
+      <p>Dane przetwarzane są przez okres niezbędny do realizacji celu, dla którego zostały zebrane, a następnie przez czas wynikający z przepisów prawa (w szczególności przepisów podatkowych i rachunkowych — do 5 lat od końca roku kalendarzowego, w którym powstał obowiązek podatkowy).</p>
+      <h4>4. Prawa osoby, której dane dotyczą</h4>
+      <p>Przysługuje Ci prawo do: dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia danych, wniesienia sprzeciwu oraz — w przypadku zgody — jej wycofania w dowolnym momencie bez wpływu na zgodność z prawem przetwarzania sprzed wycofania.</p>
+      <h4>5. Prawo do skargi</h4>
+      <p>Masz prawo wniesienia skargi do organu nadzorczego — <strong>Prezesa Urzędu Ochrony Danych Osobowych</strong>, ul. Stawki 2, 00-193 Warszawa, gdy uznasz że przetwarzanie danych narusza przepisy RODO.</p>
+      <h4>6. Dobrowolność podania danych</h4>
+      <p>Podanie danych osobowych jest dobrowolne. Niepodanie danych niezbędnych do obsługi zapytania uniemożliwi udzielenie odpowiedzi lub zawarcie umowy.</p>
+      <h4>7. Zautomatyzowane podejmowanie decyzji</h4>
+      <p>Dane osobowe nie będą wykorzystywane do zautomatyzowanego podejmowania decyzji ani profilowania.</p>
+    `
+  }
+};
+
+function openLegal(type){
+  const doc=LEGAL_DOCS[type];
+  document.getElementById('lm-title').textContent=doc.title;
+  document.getElementById('lm-body').innerHTML=doc.html;
+  document.getElementById('lm-body').scrollTop=0;
+  document.getElementById('legal-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLegal(){
+  document.getElementById('legal-modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+function closeLegalBg(e){
+  if(e.target===document.getElementById('legal-modal'))closeLegal();
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&document.getElementById('legal-modal').classList.contains('open'))closeLegal();
+});
 function toggleService(btn){
   const card=btn.closest('.service-card');
   const isOpen=card.classList.contains('open');
