@@ -323,31 +323,85 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:52px
     <h2 class="section-title fade-up d1">Co <em>oferuję</em></h2>
     <div class="section-divider fade-up d2"></div>
     <div class="services-grid">
-      <div class="service-card fade-up d1">
-        <svg class="service-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-        <div class="service-number">01</div>
-        <div class="service-title">Audyty Energetyczne</div>
-        <p class="service-desc">[Placeholder – krótki opis usługi audytu energetycznego. Zakres, metodologia, dokumentacja, czas realizacji.]</p>
-      </div>
-      <div class="service-card fade-up d2">
-        <svg class="service-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
-        <div class="service-number">02</div>
-        <div class="service-title">Planowanie Modernizacji</div>
-        <p class="service-desc">[Placeholder – opis usługi planowania i projektowania modernizacji instalacji. Analiza opłacalności inwestycji, ROI.]</p>
-      </div>
-      <div class="service-card fade-up d3">
-        <svg class="service-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-        <div class="service-number">03</div>
-        <div class="service-title">Optymalizacja Kosztów</div>
-        <p class="service-desc">[Placeholder – opis usługi optymalizacji kosztów energii. Analiza taryf, zmiana dostawcy, zarządzanie popytem.]</p>
-      </div>
-      <div class="service-card fade-up d4">
-        <svg class="service-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
-        <div class="service-number">04</div>
-        <div class="service-title">Nadzór i Doradztwo</div>
-        <p class="service-desc">[Placeholder – opis usługi stałego doradztwa i nadzoru nad wdrożeniem zaleceń. Wsparcie podczas realizacji projektu.]</p>
+  <div class="service-card fade-up d1">
+    <svg class="service-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+    <div class="service-number">01</div>
+    <div class="service-title">Audyty Energetyczne</div>
+    <p class="service-desc">[Krótki opis – 2-3 zdania wprowadzające do usługi audytu energetycznego.]</p>
+    <button class="read-more-btn" onclick="toggleService(this)">
+      <span class="btn-label-more">Czytaj więcej</span>
+      <span class="btn-label-less">Zwiń</span>
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="service-expand">
+      <div class="expand-inner">
+        <p>[Szczegółowy opis usługi – akapit 1. Czym jest audyt energetyczny, kto go potrzebuje, jakie normy obowiązują.]</p>
+        <p>[Szczegółowy opis – akapit 2. Przebieg audytu krok po kroku, czas realizacji, dokumentacja.]</p>
+        <p>[Korzyści dla klienta, przykładowe oszczędności, informacja o dofinansowaniach.]</p>
+        <div class="expand-img"><span class="expand-img-label">ZDJĘCIE / GRAFIKA – AUDYT</span></div>
       </div>
     </div>
+  </div>
+
+  <div class="service-card fade-up d2">
+    <svg class="service-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+    <div class="service-number">02</div>
+    <div class="service-title">Planowanie Modernizacji</div>
+    <p class="service-desc">[Krótki opis – 2-3 zdania wprowadzające do planowania modernizacji instalacji.]</p>
+    <button class="read-more-btn" onclick="toggleService(this)">
+      <span class="btn-label-more">Czytaj więcej</span>
+      <span class="btn-label-less">Zwiń</span>
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="service-expand">
+      <div class="expand-inner">
+        <p>[Szczegółowy opis – akapit 1. Co obejmuje planowanie modernizacji, jakie systemy i instalacje.]</p>
+        <p>[Szczegółowy opis – akapit 2. Analiza ROI, czas zwrotu inwestycji, przykładowe projekty.]</p>
+        <p>[Etapy współpracy, harmonogram, nadzór nad realizacją.]</p>
+        <div class="expand-img"><span class="expand-img-label">ZDJĘCIE / GRAFIKA – MODERNIZACJA</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="service-card fade-up d3">
+    <svg class="service-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    <div class="service-number">03</div>
+    <div class="service-title">Optymalizacja Kosztów</div>
+    <p class="service-desc">[Krótki opis – 2-3 zdania wprowadzające do optymalizacji kosztów energii.]</p>
+    <button class="read-more-btn" onclick="toggleService(this)">
+      <span class="btn-label-more">Czytaj więcej</span>
+      <span class="btn-label-less">Zwiń</span>
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="service-expand">
+      <div class="expand-inner">
+        <p>[Szczegółowy opis – akapit 1. Analiza obecnych kosztów energii, identyfikacja obszarów do optymalizacji.]</p>
+        <p>[Szczegółowy opis – akapit 2. Zmiana taryf, zarządzanie popytem, umowy z dostawcami.]</p>
+        <p>[Przykładowe oszczędności, case study, efekty dla podobnych obiektów.]</p>
+        <div class="expand-img"><span class="expand-img-label">ZDJĘCIE / GRAFIKA – OPTYMALIZACJA</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="service-card fade-up d4">
+    <svg class="service-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+    <div class="service-number">04</div>
+    <div class="service-title">Nadzór i Doradztwo</div>
+    <p class="service-desc">[Krótki opis – 2-3 zdania wprowadzające do stałego doradztwa i nadzoru.]</p>
+    <button class="read-more-btn" onclick="toggleService(this)">
+      <span class="btn-label-more">Czytaj więcej</span>
+      <span class="btn-label-less">Zwiń</span>
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="service-expand">
+      <div class="expand-inner">
+        <p>[Szczegółowy opis – akapit 1. Na czym polega stałe doradztwo, zakres wsparcia, dostępność.]</p>
+        <p>[Szczegółowy opis – akapit 2. Nadzór nad wdrożeniem zaleceń, weryfikacja efektów po modernizacji.]</p>
+        <p>[Formy współpracy, umowa doradcza, raportowanie wyników.]</p>
+        <div class="expand-img"><span class="expand-img-label">ZDJĘCIE / GRAFIKA – DORADZTWO</span></div>
+      </div>
+    </div>
+  </div>
+</div>
   </section>
 
   <!-- GALERIA -->
