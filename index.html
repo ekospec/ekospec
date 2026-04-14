@@ -528,6 +528,7 @@ const LOGO_SRC = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAGQCAIAAAAP
 });
 
 // === INTRO ===
+if(history.scrollRestoration) history.scrollRestoration='manual';
 window.addEventListener('load',()=>{
   const intro=document.getElementById('intro');
   const wrap=document.getElementById('logoWrap');
