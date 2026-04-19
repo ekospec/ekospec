@@ -600,8 +600,22 @@ window.addEventListener('load',()=>{
   const intro=document.getElementById('intro');
   const wrap=document.getElementById('logoWrap');
   const site=document.getElementById('site');
-  setTimeout(()=>wrap.classList.add('sweep'),100);
-  const T=100+700+300;
+  setTimeout(()=>{
+  const lcolor=document.getElementById('lcolor');
+  let start=null;
+  const duration=700;
+  function animate(ts){
+    if(!start) start=ts;
+    const p=Math.min((ts-start)/duration,1);
+    const val=(p*150).toFixed(1)+'%';
+    const mask=`radial-gradient(circle at 50% 50%, black 0%, black ${val}, transparent ${val})`;
+    lcolor.style.webkitMaskImage=mask;
+    lcolor.style.maskImage=mask;
+    if(p<1) requestAnimationFrame(animate);
+  }
+  requestAnimationFrame(animate);
+},100);
+const T=100+700+300;
   setTimeout(()=>{
     intro.classList.add('fade-out');
     site.classList.add('visible');
