@@ -31,13 +31,11 @@ body{background:var(--bg);color:var(--text);font-family:'Nunito Sans',sans-serif
 .logo-layer{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;}
 .logo-gray{filter:grayscale(1) brightness(0) invert(1);opacity:.35;}
 .logo-color{
-  -webkit-mask-image:conic-gradient(from -90deg at 50% 50%,black 0deg,black var(--sw),transparent var(--sw));
-  mask-image:conic-gradient(from -90deg at 50% 50%,black 0deg,black var(--sw),transparent var(--sw));
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, black 0%, black var(--sw), transparent var(--sw));
+  mask-image: radial-gradient(circle at 50% 50%, black 0%, black var(--sw), transparent var(--sw));
 }
-.logo-color{
-  -webkit-mask-image: radial-gradient(circle at 50% 50%, black var(--rp), transparent var(--rp));
-  mask-image: radial-gradient(circle at 50% 50%, black var(--rp), transparent var(--rp));
-}
+.logo-wrap.sweep .logo-color{animation:sweep .7s cubic-bezier(.4,0,.2,1) forwards;}
+@keyframes sweep{0%{--sw:0%}100%{--sw:150%}}
 .logo-wrap.sweep .logo-color{animation:sweep .7s cubic-bezier(.4,0,.2,1) forwards;}
 @keyframes sweep{0%{--rp:0%}100%{--rp:150%}}
 
