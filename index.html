@@ -8,11 +8,6 @@
 <link rel="apple-touch-icon" href="Logo_znak_przyciete-removebg-preview.png">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Nunito+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
 <style>
-@property --sw {
-  syntax: '<percentage>';
-  inherits: false;
-  initial-value: 0%;
-}
 
 :root {
   --bg:#0b0f1e; --surface:#131929; --surface2:#1c2640;
@@ -31,11 +26,10 @@ body{background:var(--bg);color:var(--text);font-family:'Nunito Sans',sans-serif
 .logo-layer{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;}
 .logo-gray{filter:grayscale(1) brightness(0) invert(1);opacity:.35;}
 .logo-color{
-  -webkit-mask-image: radial-gradient(circle at 50% 50%, black 0%, black var(--sw), transparent var(--sw));
-  mask-image: radial-gradient(circle at 50% 50%, black 0%, black var(--sw), transparent var(--sw));
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, black 0%, black 0%, transparent 0%);
+  mask-image: radial-gradient(circle at 50% 50%, black 0%, black 0%, transparent 0%);
+  transition: none;
 }
-.logo-wrap.sweep .logo-color{animation:sweep .7s cubic-bezier(.4,0,.2,1) forwards;}
-@keyframes sweep{0%{--sw:0%}100%{--sw:150%}}
 
 /* ===== SITE ===== */
 #site{opacity:0;transition:opacity .8s ease;}
