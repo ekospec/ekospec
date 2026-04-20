@@ -24,13 +24,14 @@ body{background:var(--bg);color:var(--text);font-family:'Nunito Sans',sans-serif
 #intro.fade-out{opacity:0;pointer-events:none;}
 .logo-wrap{position:relative;width:70vmin;height:70vmin;}
 .logo-layer{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;}
-.logo-gray{filter:grayscale(1) brightness(0) invert(1);opacity:.35;}
-.logo-color{
+#slon-gray{filter:brightness(0) invert(1);opacity:.35;}
+#slon-color{
   -webkit-mask-image: radial-gradient(circle at 50% 50%, black 0%, black 0%, transparent 0%);
   mask-image: radial-gradient(circle at 50% 50%, black 0%, black 0%, transparent 0%);
-  transition: none;
   filter:brightness(0) invert(1);
 }
+#obwod-gray{filter:brightness(0) invert(1);opacity:.35;}
+#obwod-canvas{opacity:1;}
 
 /* ===== SITE ===== */
 #site{opacity:0;transition:opacity .8s ease;}
@@ -223,6 +224,10 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:52px
 .cookie-accept:hover{background:#5fa0de;}
 .cookie-reject{padding:10px 24px;background:transparent;color:var(--muted);border:1px solid var(--border);font-family:'Rajdhani',sans-serif;font-weight:600;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:color .2s,border-color .2s;}
 .cookie-reject:hover{color:var(--text);border-color:rgba(255,255,255,.2);}
+  @keyframes pulse{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.04);}
+}
 
 /* ===== ANIMATIONS ===== */
 .fade-up{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease;}
@@ -256,8 +261,10 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:52px
 <!-- INTRO -->
 <div id="intro">
   <div class="logo-wrap" id="logoWrap">
-    <img class="logo-layer logo-gray" id="lgray" alt=""/>
-    <img class="logo-layer logo-color" id="lcolor" alt=""/>
+    <img class="logo-layer" id="slon-gray" alt=""/>
+    <img class="logo-layer" id="slon-color" alt=""/>
+    <img class="logo-layer" id="obwod-gray" alt=""/>
+    <canvas class="logo-layer" id="obwod-canvas"></canvas>
   </div>
 </div>
 
@@ -589,36 +596,99 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:52px
 </button>
 
 <script>
-// === LOGO (wstrzykiwane przez JS żeby nie duplikować w HTML) ===
-['lgray','lcolor','navLogo','footerLogo'].forEach(id=>{
+
+// === LOGO navbar i footer ===
+['navLogo','footerLogo'].forEach(id=>{
   const el=document.getElementById(id);
-  if(el) el.src='Logo_znak_przyciete-removebg-preview.png';
+  if(el){el.src='Logo_znak_przyciete-removebg-preview.png';el.style.filter='brightness(0) invert(1)';}
 });
-document.getElementById('lcolor').style.filter='brightness(0) invert(1)';
-document.getElementById('lgray').style.filter='brightness(0) invert(1) opacity(0.35)';
 
 // === INTRO ===
 if(history.scrollRestoration) history.scrollRestoration='manual';
 window.addEventListener('load',()=>{
   const intro=document.getElementById('intro');
-  const wrap=document.getElementById('logoWrap');
   const site=document.getElementById('site');
-  setTimeout(()=>{
-  const lcolor=document.getElementById('lcolor');
-  let start=null;
-  const duration=700;
-  function animate(ts){
-    if(!start) start=ts;
-    const p=Math.min((ts-start)/duration,1);
+  const slonGray=document.getElementById('slon-gray');
+  const slonColor=document.getElementById('slon-color');
+  const obwodGray=document.getElementById('obwod-gray');
+  const canvas=document.getElementById('obwod-canvas');
+  const ctx=canvas.getContext('2d');
+
+  // ustaw src
+  slonGray.src='slon_r210.png';
+  slonColor.src='slon_r210.png';
+  obwodGray.src='obwod_r210.png';
+
+  // rozmiar canvasa = rozmiar wrap
+  const wrap=document.getElementById('logoWrap');
+  function resizeCanvas(){
+    canvas.width=wrap.offsetWidth;
+    canvas.height=wrap.offsetHeight;
+  }
+  resizeCanvas();
+
+  const obwodImg=new Image();
+  obwodImg.src='obwod_r210.png';
+
+  const DURATION=700;
+  const DELAY=100;
+
+  function easeInOut(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;}
+
+  // Animacja słonia — radialnie od środka
+  function animateSlon(startTs, ts){
+    const p=easeInOut(Math.min((ts-startTs)/DURATION,1));
     const val=(p*150).toFixed(1)+'%';
     const mask=`radial-gradient(circle at 50% 50%, black 0%, black ${val}, transparent ${val})`;
-    lcolor.style.webkitMaskImage=mask;
-    lcolor.style.maskImage=mask;
-    if(p<1) requestAnimationFrame(animate);
+    slonColor.style.webkitMaskImage=mask;
+    slonColor.style.maskImage=mask;
+    // pulsowanie — delikatna zmiana skali po pojawieniu
+    if(p>=1){
+      slonColor.style.animation='pulse 1.8s ease-in-out infinite';
+    }
   }
-  requestAnimationFrame(animate);
-},100);
-const T=100+700+300;
+
+  // Animacja obwodu — 3 łuki co 120° sweepują jednocześnie
+  function animateObwod(startTs, ts){
+    if(!obwodImg.complete) return;
+    const p=easeInOut(Math.min((ts-startTs)/DURATION,1));
+    const sweepAngle=p*120; // każdy łuk od 0 do 120°
+    const W=canvas.width, H=canvas.height;
+    const cx=W/2, cy=H/2;
+    const r=Math.max(W,H);
+
+    ctx.clearRect(0,0,W,H);
+    ctx.save();
+
+    // maska z 3 wycinkami co 120°
+    ctx.beginPath();
+    for(let i=0;i<3;i++){
+      const startAngle=(i*120-90)*(Math.PI/180);
+      const endAngle=(i*120-90+sweepAngle)*(Math.PI/180);
+      ctx.moveTo(cx,cy);
+      ctx.arc(cx,cy,r,startAngle,endAngle);
+      ctx.closePath();
+    }
+    ctx.clip();
+
+    // rysuj obraz z filtrem białym
+    ctx.filter='brightness(0) invert(1)';
+    ctx.drawImage(obwodImg,0,0,W,H);
+    ctx.restore();
+  }
+
+  // Główna pętla animacji
+  let startTs=null;
+  function loop(ts){
+    if(!startTs) startTs=ts;
+    animateSlon(startTs, ts);
+    animateObwod(startTs, ts);
+    if((ts-startTs)<DURATION) requestAnimationFrame(loop);
+  }
+
+  setTimeout(()=>requestAnimationFrame(loop), DELAY);
+
+  const T=DELAY+DURATION+300;
   setTimeout(()=>{
     intro.classList.add('fade-out');
     site.classList.add('visible');
