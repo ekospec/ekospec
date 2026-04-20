@@ -640,7 +640,11 @@ window.addEventListener('load',()=>{
   function animateSlon(startTs, ts){
     const p=easeInOut(Math.min((ts-startTs)/DURATION,1));
     const val=(p*150).toFixed(1)+'%';
-    const mask=`radial-gradient(circle at 50% 50%, black 0%, black ${val}, transparent ${val})`;
+    const mask = `radial-gradient(circle at 50% 50%, 
+      rgba(0,0,0,1) 0%, 
+      rgba(0,0,0,1) ${val}, 
+      rgba(0,0,0,0) ${val}
+    )`;
     slonColor.style.webkitMaskImage=mask;
     slonColor.style.maskImage=mask;
     // pulsowanie — delikatna zmiana skali po pojawieniu
