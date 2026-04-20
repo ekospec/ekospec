@@ -673,7 +673,11 @@ window.addEventListener('load',()=>{
     ctx.clip();
 
     // rysuj obraz z filtrem białym
-    ctx.filter='brightness(0) invert(1)';
+    ctx.drawImage(obwodImg,0,0,W,H);
+    ctx.globalCompositeOperation = 'source-in';
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0,0,W,H);
+    ctx.globalCompositeOperation = 'source-over';
     ctx.drawImage(obwodImg,0,0,W,H);
     ctx.restore();
   }
