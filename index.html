@@ -623,9 +623,9 @@ window.addEventListener('load',()=>{
   const ctx=canvas.getContext('2d');
 
   // ustaw src
-  slonGray.src='sam_slon.png';
-  slonColor.src='sam_slon.png';
-  obwodGray.src='logo_proba_samo_kolo.png';
+  slonGray.src='sam_slon_clean.png';
+  slonColor.src='sam_slon_clean.png';
+  obwodGray.src='logo_kolo_clean.png';
 
   // rozmiar canvasa = rozmiar wrap
   const wrap=document.getElementById('logoWrap');
@@ -636,7 +636,7 @@ window.addEventListener('load',()=>{
   resizeCanvas();
 
  const obwodImg=new Image();
-  obwodImg.src='logo_proba_samo_kolo.png';
+  obwodImg.src='logo_kolo_clean.png';
   obwodImg.crossOrigin='anonymous';
 
   const DURATION=700;
