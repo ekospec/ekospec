@@ -665,15 +665,13 @@ window.addEventListener('load',()=>{
   function animateObwod(startTs, ts){
     if(!obwodImg.complete) return;
     const p=easeInOut(Math.min((ts-startTs)/DURATION,1));
-    const sweepAngle=p*120; // każdy łuk od 0 do 120°
+    const sweepAngle=p*120;
     const W=canvas.width, H=canvas.height;
     const cx=W/2, cy=H/2;
     const r=Math.max(W,H);
 
     ctx.clearRect(0,0,W,H);
     ctx.save();
-
-    // maska z 3 wycinkami co 120°
     ctx.beginPath();
     for(let i=0;i<3;i++){
       const startAngle=(i*120-90)*(Math.PI/180);
@@ -683,13 +681,7 @@ window.addEventListener('load',()=>{
       ctx.closePath();
     }
     ctx.clip();
-
-    // rysuj obraz z filtrem białym
-    ctx.drawImage(obwodImg,0,0,W,H);
-    ctx.globalCompositeOperation = 'source-in';
-    ctx.fillStyle = '#fff';
-    ctx.fillRect(0,0,W,H);
-    ctx.globalCompositeOperation = 'source-over';
+    ctx.filter='brightness(0) invert(1)';
     ctx.drawImage(obwodImg,0,0,W,H);
     ctx.restore();
   }
