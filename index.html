@@ -718,13 +718,14 @@ window.addEventListener('load',()=>{
   Promise.all([
     new Promise(r=>{ if(slonColor.complete) r(); else slonColor.onload=r; }),
     new Promise(r=>{ if(obwodImg.complete) r(); else obwodImg.onload=r; })
-  ]).then(()=>{
+ }).then(()=>{
     setTimeout(()=>{
+      wrap.style.visibility='visible';
       obwodGray.style.opacity='.35';
       canvas.style.opacity='1';
       requestAnimationFrame(loop);
     }, DELAY);
-  });
+  }); 
 
   const T=DELAY+DURATION+300;
   setTimeout(()=>{
