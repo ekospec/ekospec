@@ -898,12 +898,36 @@ function toggleService(btn){
 }
 
 
-function submitForm(e){
+async function submitForm(e){
   e.preventDefault();
   const btn=e.target.querySelector('button[type=submit]');
-  btn.textContent='✓ Wysłano – odpiszemy wkrótce';
-  btn.style.background='#2a6b3a';
+  const originalText=btn.textContent;
+  btn.textContent='Wysyłanie...';
   btn.disabled=true;
+  
+  const data=new FormData(e.target);
+  
+  try{
+    const res=await fetch('https://formspree.io/f/xqeworaz',{
+      method:'POST',
+      body:data,
+      headers:{'Accept':'application/json'}
+    });
+    
+    if(res.ok){
+      btn.textContent='✓ Wysłano – odpiszemy wkrótce';
+      btn.style.background='#2a6b3a';
+      e.target.reset();
+    } else {
+      btn.textContent='Błąd wysyłania — spróbuj ponownie';
+      btn.style.background='#8b2020';
+      btn.disabled=false;
+    }
+  } catch(err){
+    btn.textContent='Błąd wysyłania — spróbuj ponownie';
+    btn.style.background='#8b2020';
+    btn.disabled=false;
+  }
 }
 </script>
 </body>
