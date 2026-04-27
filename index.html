@@ -722,7 +722,11 @@ window.addEventListener('load',()=>{
     new Promise(r=>{ if(slonColor.complete) r(); else slonColor.onload=r; }),
     new Promise(r=>{ if(obwodImg.complete) r(); else obwodImg.onload=r; })
   ]).then(()=>{
-    setTimeout(()=>requestAnimationFrame(loop), DELAY);
+    setTimeout(()=>{
+      obwodGray.style.opacity='.35';
+      canvas.style.opacity='1';
+      requestAnimationFrame(loop);
+    }, DELAY);
   });
 
   const T=DELAY+DURATION+300;
