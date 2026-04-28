@@ -23,11 +23,24 @@ body{background:var(--bg);color:var(--text);font-family:'Nunito Sans',sans-serif
 #intro{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:var(--bg);z-index:1000;transition:opacity .8s ease;}
 #intro.fade-out{opacity:0;pointer-events:none;}
 .logo-wrap{position:relative;width:70vmin;height:70vmin;}
-.logo-layer{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;background:transparent !important;}
+.logo-layer{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  pointer-events:none;
+  background:transparent !important;
+}
 #slon-gray{filter:brightness(0) invert(1);opacity:.35;}
-#slon-color{-webkit-mask-image:radial-gradient(circle at 50% 50%,black 0%,black 0%,transparent 0%);mask-image:radial-gradient(circle at 50% 50%,black 0%,black 0%,transparent 0%);filter:brightness(0) invert(1);}
-#obwod-gray{filter:brightness(0) invert(1);opacity:0;}
-#obwod-canvas{opacity:0;}
+#slon-color{
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, black 0%, black 0%, transparent 0%);
+  mask-image: radial-gradient(circle at 50% 50%, black 0%, black 0%, transparent 0%);
+  filter:brightness(0) invert(1);
+}
+#obwod-gray{filter:brightness(0) invert(1);opacity:.35;}
+#obwod-canvas{opacity:1;}
+
 /* ===== SITE ===== */
 #site{opacity:0;transition:opacity .8s ease;}
 #site.visible{opacity:1;}
@@ -257,9 +270,9 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:52px
 <div id="intro">
   <div class="logo-wrap" id="logoWrap">
     <img class="logo-layer" id="slon-gray" alt=""/>
-    <img class="logo-layer" id="slon-color" alt=""/>  
+    <img class="logo-layer" id="slon-color" alt=""/>
     <img class="logo-layer" id="obwod-gray" alt=""/>
-    <canvas class="logo-layer" id="obwod-canvas" style="opacity:0;"></canvas>
+    <canvas class="logo-layer" id="obwod-canvas"></canvas>
   </div>
 </div>
 
@@ -309,7 +322,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:52px
     <div class="hero-content">
       <div class="hero-eyebrow">Efektywność Energetyczna</div>
       <h1 class="hero-title">Oszczędzaj energię.<br><em>Inwestuj mądrze.</em></h1>
-      <p class="hero-sub">Profesjonalne doradztwo i audyty energetyczne dla firm, instytucji i osób prywatnych. Pomagam identyfikować straty energii i planować modernizacje przynoszące realne oszczędności operacyjne.</p>
+      <p class="hero-sub">Profesjonalne doradztwo i audyty energetyczne dla firm i instytucji. Pomagam identyfikować straty energii i planować modernizacje przynoszące realne oszczędności operacyjne.</p>
       <div class="hero-cta">
         <a href="#kontakt" class="btn-primary">
           <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.22 2.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.28-1.28a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
@@ -476,7 +489,8 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:52px
         </div>
       </div>
     </div>
-      
+  </div> 
+    
   <div class="service-card fade-up d4">
       <svg class="service-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
       <div class="service-number">07</div>
@@ -490,7 +504,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:52px
     <div class="service-expand">
       <div class="expand-inner">
         <p>Zakres usług obejmuje wykonywanie nowych oraz modernizację istniejących instalacji wodnych, kanalizacyjnych, grzewczych, chłodzących, wentylacyjnych i gazowych. Każda realizacja prowadzona jest zgodnie z obowiązującymi normami i przepisami technicznymi.</p>
-        <p>Do każdego klienta podchodzę indywidualnie — nie jestem nastawiony na masowe wykonawstwo, lecz na rzetelną i konkretną pracę, która przynosi trwały efekt. Zawsze szukam najlepszego rozwiązania dla danej sytuacji, dobierając materiały i metody z myślą o jakości, a nie tylko o czasie realizacji.</p>
+        <p>[Akapit 2 — uzupełnij gdy będziesz gotowy: dodatkowe informacje o zakresie, stosowanych materiałach, gwarancji lub przykładowych realizacjach.]</p>
         <div style="width:100%;margin-top:20px;border:1px solid rgba(78,142,203,0.2);overflow:hidden;">
           <img src="pexels-jiawei-cui-1213899-2310904.png" alt="Instalacje" style="width:100%;height:auto;display:block;"/>
           </div>
@@ -498,8 +512,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:52px
       </div>
     </div>
   </div>
-</div>
-</section>
+    </section>
 
   <!-- GALERIA -->
   <section id="galeria">
@@ -551,8 +564,11 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:52px
           <div class="ci-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
           <div><div class="ci-label">Email</div><a class="ci-val" href="mailto:biuro@ekospec.pro">biuro@ekospec.pro</a></div>
         </div>
-        
-    </div>
+        <div class="social-row">
+          <a href="#" class="social-btn"><svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg><span>Facebook</span></a>
+          <a href="#" class="social-btn"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg><span>Instagram</span></a>
+        </div>
+      </div>
       <div class="fade-up d3">
         <form onsubmit="submitForm(event)">
           <div class="form-row"><label>Imię i nazwisko</label><input type="text" name="imię" placeholder="Jan Kowalski" required/></div>
@@ -630,10 +646,9 @@ window.addEventListener('load',()=>{
   const ctx=canvas.getContext('2d');
 
   // ustaw src
-  
-  slonGray.src='slon.svg';
-  slonColor.src='slon.svg';
-  obwodGray.src='obwod.svg'; 
+  slonGray.src='sam_slon_clean.png';
+  slonColor.src='sam_slon_clean.png';
+  obwodGray.src='logo_kolo_clean.png';
 
   // rozmiar canvasa = rozmiar wrap
   const wrap=document.getElementById('logoWrap');
@@ -644,7 +659,7 @@ window.addEventListener('load',()=>{
   resizeCanvas();
 
  const obwodImg=new Image();
-  obwodImg.src='obwod.svg';
+  obwodImg.src='logo_kolo_clean.png';
   obwodImg.crossOrigin='anonymous';
 
   const DURATION=700;
@@ -706,12 +721,8 @@ window.addEventListener('load',()=>{
   Promise.all([
     new Promise(r=>{ if(slonColor.complete) r(); else slonColor.onload=r; }),
     new Promise(r=>{ if(obwodImg.complete) r(); else obwodImg.onload=r; })
- }).then(()=>{
-    setTimeout(()=>{
-      obwodGray.style.opacity='.35';
-      canvas.style.opacity='1';
-      requestAnimationFrame(loop);
-    }, DELAY);
+  ]).then(()=>{
+    setTimeout(()=>requestAnimationFrame(loop), DELAY);
   });
 
   const T=DELAY+DURATION+300;
