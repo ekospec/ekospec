@@ -29,25 +29,12 @@ window.addEventListener('load',()=>{
   const obwodGray=document.getElementById('obwod-gray');
   const canvas=document.getElementById('obwod-canvas');
   const ctx=canvas.getContext('2d');
-  const wrap=document.getElementById('logoWrap');
-
-  function showSite(){
-    intro.classList.add('fade-out');
-    site.classList.add('visible');
-    document.getElementById('fabWrap').style.display='flex';
-    document.getElementById('shareBtn').style.display='flex';
-    if(!localStorage.getItem('cookies_choice'))
-      setTimeout(()=>document.getElementById('cookie-banner').classList.add('show'),1600);
-    setTimeout(()=>{ if(intro.parentNode) intro.remove(); },900);
-  }
-
-  // Zabezpieczenie — strona załaduje się zawsze po max 4 sekundach
-  const fallback=setTimeout(showSite, 4000);
 
   slonGray.src='slon.svg';
   slonColor.src='slon.svg';
   obwodGray.src='obwod.svg';
 
+  const wrap=document.getElementById('logoWrap');
   function resizeCanvas(){
     canvas.width=wrap.offsetWidth;
     canvas.height=wrap.offsetHeight;
@@ -102,26 +89,27 @@ window.addEventListener('load',()=>{
     if((ts-startTs)<DURATION) requestAnimationFrame(loop);
   }
 
-  function startAnim(){
-    clearTimeout(fallback);
-    obwodGray.style.opacity='.35';
-    canvas.style.opacity='1';
-    requestAnimationFrame(loop);
-    const T=DELAY+DURATION+300;
-    setTimeout(showSite, T);
-  }
+  Promise.all([
+    new Promise(r=>{ if(slonColor.complete) r(); else slonColor.onload=r; }),
+    new Promise(r=>{ if(obwodImg.complete) r(); else obwodImg.onload=r; })
+  ]).then(()=>{
+    setTimeout(()=>{
+      obwodGray.style.opacity='.35';
+      canvas.style.opacity='1';
+      requestAnimationFrame(loop);
+    }, DELAY);
+  });
 
-  let slonReady=false, obwodReady=false;
-  function checkReady(){ if(slonReady&&obwodReady) setTimeout(startAnim, DELAY); }
-
-  slonColor.onload=()=>{ slonReady=true; checkReady(); };
-  slonColor.onerror=()=>{ slonReady=true; checkReady(); };
-  obwodImg.onload=()=>{ obwodReady=true; checkReady(); };
-  obwodImg.onerror=()=>{ obwodReady=true; checkReady(); };
-
-  if(slonColor.complete){ slonReady=true; }
-  if(obwodImg.complete){ obwodReady=true; }
-  checkReady();
+  const T=DELAY+DURATION+300;
+  setTimeout(()=>{
+    intro.classList.add('fade-out');
+    site.classList.add('visible');
+    document.getElementById('fabWrap').style.display='flex';
+    document.getElementById('shareBtn').style.display='flex';
+    if(!localStorage.getItem('cookies_choice'))
+      setTimeout(()=>document.getElementById('cookie-banner').classList.add('show'),1600);
+  },T);
+  setTimeout(()=>intro.remove(),T+900);
 });
 /* ===== SITE ===== */
 #site{opacity:0;transition:opacity .8s ease;}
