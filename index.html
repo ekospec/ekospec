@@ -725,6 +725,7 @@ window.addEventListener('load',()=>{
     new Promise(r=>{ if(slonColor.complete) r(); else slonColor.onload=r; }),
     new Promise(r=>{ if(obwodImg.complete) r(); else obwodImg.onload=r; })
   ]).then(()=>{
+    document.getElementById('logoWrap').classList.add('ready');
     setTimeout(()=>requestAnimationFrame(loop), DELAY);
   });
 
