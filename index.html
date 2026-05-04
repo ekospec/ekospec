@@ -159,6 +159,29 @@ section{padding:100px 5%;}
 .gallery-item::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(78,142,203,.18) 0%,rgba(200,169,110,.08) 50%,rgba(11,15,30,.7) 100%);}
 .gallery-item::after{content:attr(data-label);position:absolute;bottom:18px;left:18px;font-family:'Rajdhani',sans-serif;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.45);font-weight:600;}
 .gallery-ph{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:36px;height:36px;opacity:.12;color:var(--text);}
+/* Zdjęcie wewnątrz kafelka galerii */
+.gallery-item img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+/* Lekki, dolny gradient na kafelku ze zdjęciem — etykieta zostaje czytelna,
+   ale samo zdjęcie nie jest przyciemniane na całej powierzchni */
+.gallery-item.has-img::before{
+  background:linear-gradient(180deg,
+    transparent 0%,
+    transparent 55%,
+    rgba(11,15,30,.65) 100%);
+}
+.gallery-item.has-img:hover::before{
+  background:linear-gradient(180deg,
+    transparent 0%,
+    transparent 70%,
+    rgba(11,15,30,.45) 100%);
+}
 /* MODAL PRAWNY */
 #legal-modal{position:fixed;inset:0;z-index:950;display:flex;align-items:center;justify-content:center;background:rgba(7,10,20,.92);backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:opacity .35s ease;padding:24px;}
 #legal-modal.open{opacity:1;pointer-events:all;}
