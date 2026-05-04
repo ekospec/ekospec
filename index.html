@@ -935,6 +935,7 @@ function toggleService(btn){
 async function submitForm(e){
   e.preventDefault();
   const btn=e.target.querySelector('button[type=submit]');
+  if(btn.disabled) return;          // <-- guard przed double-click
   const originalText=btn.textContent;
   btn.textContent='Wysyłanie...';
   btn.disabled=true;
