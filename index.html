@@ -579,7 +579,8 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:52px
       </div>
       <div class="fade-up d3">
         <form onsubmit="submitForm(event)">
-          <div class="form-row"><label>Imię i nazwisko</label><input type="text" name="imię" placeholder="Jan Kowalski" required/></div>
+          <input type="text" name="_gotcha" style="display:none !important" tabindex="-1" autocomplete="off"/>
+          <div class="form-row"><label>Imię i nazwisko</label><input type="text" name="imie" placeholder="Jan Kowalski" required/></div>
           <div class="form-row"><label>Email</label><input type="email" name="_replyto" placeholder="jan@firma.pl" required/></div>
           <div class="form-row"><label>Telefon (opcjonalnie)</label><input type="text" name="telefon" placeholder="+48 573 018 657"/></div>
           <div class="form-row"><label>Wiadomość</label><textarea name="wiadomość" placeholder="Opisz krótko swój obiekt i potrzeby..."></textarea></div>
