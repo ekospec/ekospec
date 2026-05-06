@@ -1037,13 +1037,7 @@ document.addEventListener('keydown',e=>{
   if(e.key==='Escape'&&document.getElementById('legal-modal').classList.contains('open'))closeLegal();
 });
 
-  function toggleService(btn){
-  const card=btn.closest('.service-card');
-  const isOpen=card.classList.contains('open');
-  ...
-}
-
-
+  
 // Wyrównanie wysokości kafelków oferty (zwiniętych)
 function equalizeServiceCards(){
   const cards=document.querySelectorAll('.service-card');
