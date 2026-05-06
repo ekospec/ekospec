@@ -1038,9 +1038,29 @@ document.addEventListener('keydown',e=>{
 });
 function toggleService(btn){
   const card=btn.closest('.service-card');
-  // Otwiera lub zwija TYLKO klikniętą kartę.
-  // Inne otwarte karty pozostają otwarte — klikającemu nic powyżej nie ucieka.
-  card.classList.toggle('open');
+  const isOpen=card.classList.contains('open');
+
+  // Pozycja klikanej karty względem górnej krawędzi okna PRZED zmianą
+  const topBefore=card.getBoundingClientRect().top;
+
+  // Zamknij wszystkie inne otwarte karty
+  document.querySelectorAll('.service-card.open').forEach(c=>{
+    if(c!==card) c.classList.remove('open');
+  });
+  // Przełącz tę kartę (otwórz lub zwiń)
+  card.classList.toggle('open',!isOpen);
+
+  // Przez całą animację (~600 ms) co klatkę utrzymuj klikaną kartę
+  // dokładnie w tym samym miejscu na ekranie. Gdy karta wyżej się zwija
+  // i strona się skraca, scroll idzie w górę o ten sam dystans.
+  const start=performance.now();
+  const duration=600;
+  function lockPosition(now){
+    const diff=card.getBoundingClientRect().top-topBefore;
+    if(Math.abs(diff)>0.5) window.scrollBy(0,diff);
+    if(now-start<duration) requestAnimationFrame(lockPosition);
+  }
+  requestAnimationFrame(lockPosition);
 }
 
 async function submitForm(e){
