@@ -748,6 +748,23 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:52px
     <div class="lm-body" id="lm-body"></div>
   </div>
 </div>
+
+<!-- MODAL OFERTY (PC) -->
+<div id="service-modal" onclick="closeServiceModalBg(event)">
+  <button class="sm-close" onclick="closeServiceModal()">&#x2715;</button>
+  <div class="sm-box">
+    <div class="sm-text">
+      <div class="sm-eyebrow"><span id="sm-number"></span></div>
+      <h3 id="sm-title"></h3>
+      <div class="sm-divider"></div>
+      <div id="sm-content"></div>
+    </div>
+    <div class="sm-img-wrap">
+      <img id="sm-img" src="" alt=""/>
+    </div>
+  </div>
+</div>
+    
 <!-- LIGHTBOX -->
 <div id="lightbox" onclick="closeLightboxBg(event)">
   <button class="lb-close" onclick="closeLightbox()">&#x2715;</button>
