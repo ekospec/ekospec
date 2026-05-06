@@ -1038,40 +1038,10 @@ document.addEventListener('keydown',e=>{
 });
 function toggleService(btn){
   const card=btn.closest('.service-card');
-  const isOpen=card.classList.contains('open');
-
-  // Pozycja klikanej karty względem górnej krawędzi okna PRZED zmianą
-  const topBefore=card.getBoundingClientRect().top;
-
-  // Zamknij wszystkie inne karty
-  document.querySelectorAll('.service-card.open').forEach(c=>{
-    if(c!==card) c.classList.remove('open');
-  });
-  // Przełącz tę kartę
-  card.classList.toggle('open',!isOpen);
-
-  // Po zmianie sprawdź, czy karta przeskoczyła i wyrównaj scroll
-  requestAnimationFrame(()=>{
-    const topAfter=card.getBoundingClientRect().top;
-    const diff=topAfter-topBefore;
-    if(Math.abs(diff)>1){
-      window.scrollBy(0,diff);
-    }
-  });
-
-  // Jeśli właśnie otworzyliśmy kartę, dosuń ją pod navbar (przyjazne na telefonie)
-  if(!isOpen){
-    setTimeout(()=>{
-      const navH=70;
-      const cardTop=card.getBoundingClientRect().top;
-      if(cardTop<navH || cardTop>window.innerHeight*0.4){
-        const target=card.getBoundingClientRect().top+window.pageYOffset-navH-16;
-        window.scrollTo({top:target,behavior:'smooth'});
-      }
-    },60);
-  }
+  // Otwiera lub zwija TYLKO klikniętą kartę.
+  // Inne otwarte karty pozostają otwarte — klikającemu nic powyżej nie ucieka.
+  card.classList.toggle('open');
 }
-
 
 async function submitForm(e){
   e.preventDefault();
