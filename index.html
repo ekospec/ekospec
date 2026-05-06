@@ -1036,6 +1036,52 @@ function closeLegalBg(e){
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'&&document.getElementById('legal-modal').classList.contains('open'))closeLegal();
 });
+
+  function toggleService(btn){
+  const card=btn.closest('.service-card');
+  const isOpen=card.classList.contains('open');
+  ...
+}
+
+
+// Wyrównanie wysokości kafelków oferty (zwiniętych)
+function equalizeServiceCards(){
+  const cards=document.querySelectorAll('.service-card');
+  if(!cards.length) return;
+
+  cards.forEach(c=>c.style.minHeight='');
+
+  if(window.innerWidth<600) return;
+
+  let max=0;
+  cards.forEach(c=>{
+    if(c.classList.contains('open')) return;
+    const h=c.offsetHeight;
+    if(h>max) max=h;
+  });
+
+  if(max>0){
+    cards.forEach(c=>{
+      if(!c.classList.contains('open')) c.style.minHeight=max+'px';
+    });
+  }
+}
+
+window.addEventListener('load',()=>{
+  if(document.fonts && document.fonts.ready){
+    document.fonts.ready.then(equalizeServiceCards);
+  } else {
+    equalizeServiceCards();
+  }
+});
+
+let _eqTimer;
+window.addEventListener('resize',()=>{
+  clearTimeout(_eqTimer);
+  _eqTimer=setTimeout(equalizeServiceCards,150);
+});
+
+
 function toggleService(btn){
   const card=btn.closest('.service-card');
   const isOpen=card.classList.contains('open');
