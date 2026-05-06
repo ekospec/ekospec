@@ -1185,28 +1185,77 @@ window.addEventListener('resize',()=>{
   _eqTimer=setTimeout(equalizeServiceCards,150);
 });
 
+// Modal oferty — otwieranie / zamykanie (używane tylko na PC)
+function openServiceModal(card){
+  const title  = card.querySelector('.service-title')?.textContent || '';
+  const number = card.querySelector('.service-number')?.textContent || '';
+  const expand = card.querySelector('.service-expand .expand-inner');
+  if(!expand) return;
 
+  document.getElementById('sm-number').textContent = number;
+  document.getElementById('sm-title').textContent  = title;
+
+  // Skopiuj paragrafy z karty do modala
+  const contentEl = document.getElementById('sm-content');
+  contentEl.innerHTML = '';
+  expand.querySelectorAll('p').forEach(p=>{
+    const newP = document.createElement('p');
+    newP.innerHTML = p.innerHTML;
+    contentEl.appendChild(newP);
+  });
+
+  // Obrazek — opcjonalny
+  const img       = expand.querySelector('img');
+  const smImg     = document.getElementById('sm-img');
+  const smImgWrap = document.querySelector('.sm-img-wrap');
+  if(img && img.src){
+    smImg.src = img.src;
+    smImg.alt = img.alt || title;
+    smImgWrap.style.display = 'flex';
+  } else {
+    smImgWrap.style.display = 'none';
+  }
+
+  document.querySelector('.sm-text').scrollTop = 0;
+  document.getElementById('service-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeServiceModal(){
+  document.getElementById('service-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeServiceModalBg(e){
+  if(e.target===document.getElementById('service-modal')) closeServiceModal();
+}
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape' && document.getElementById('service-modal').classList.contains('open')){
+    closeServiceModal();
+  }
+});
+
+// Klik w „Czytaj więcej" — na PC modal, niżej zachowanie dotychczasowe
 function toggleService(btn){
-  const card=btn.closest('.service-card');
-  const isOpen=card.classList.contains('open');
+  const card = btn.closest('.service-card');
 
-  // Pozycja klikanej karty względem górnej krawędzi okna PRZED zmianą
-  const topBefore=card.getBoundingClientRect().top;
+  // PC (powyżej 1024 px) — otwórz modal zamiast rozwijać kartę w siatce
+  if(window.innerWidth > 1024){
+    openServiceModal(card);
+    return;
+  }
 
-  // Zamknij wszystkie inne otwarte karty
+  // Tablet / telefon — dotychczasowe rozwijanie kart w miejscu
+  const isOpen = card.classList.contains('open');
+  const topBefore = card.getBoundingClientRect().top;
+
   document.querySelectorAll('.service-card.open').forEach(c=>{
     if(c!==card) c.classList.remove('open');
   });
-  // Przełącz tę kartę (otwórz lub zwiń)
-  card.classList.toggle('open',!isOpen);
+  card.classList.toggle('open', !isOpen);
 
-  // Przez całą animację (~600 ms) co klatkę utrzymuj klikaną kartę
-  // dokładnie w tym samym miejscu na ekranie. Gdy karta wyżej się zwija
-  // i strona się skraca, scroll idzie w górę o ten sam dystans.
-  const start=performance.now();
-  const duration=600;
+  const start = performance.now();
+  const duration = 600;
   function lockPosition(now){
-    const diff=card.getBoundingClientRect().top-topBefore;
+    const diff = card.getBoundingClientRect().top - topBefore;
     if(Math.abs(diff)>0.5) window.scrollBy(0,diff);
     if(now-start<duration) requestAnimationFrame(lockPosition);
   }
