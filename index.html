@@ -565,7 +565,8 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:52px
 .hero-logo::before{content:'';position:absolute;inset:-18%;border-radius:50%;
   background:radial-gradient(circle,rgba(78,142,203,.16) 0%,rgba(200,169,110,.06) 38%,transparent 66%);animation:breathe 6s ease-in-out infinite;}
 .hero-logo img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;user-select:none;}
-.hl-base{filter:brightness(0) invert(1);opacity:.08;}
+.hl-base{filter:brightness(0) invert(1);opacity:.07;}
+.hl-base.ring{opacity:.22;}
 .hl-slon{filter:brightness(0) invert(1) drop-shadow(0 0 18px rgba(78,142,203,.35));
   -webkit-mask-image:radial-gradient(circle at 50% 55%,#000 0%,transparent 0%);mask-image:radial-gradient(circle at 50% 55%,#000 0%,transparent 0%);}
 .hl-obwod{filter:drop-shadow(0 0 6px rgba(200,169,110,.45));
@@ -708,11 +709,12 @@ input[type=range].calc-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 
 }
 
 @media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}
-  .fade-up{opacity:1;transform:none;filter:none;}
-  .hl-slon,.hl-obwod{-webkit-mask-image:none!important;mask-image:none!important;}
-  .p-card{opacity:1;transform:none;}
+  html{scroll-behavior:auto;}
   .energy-flow .pulse{display:none;}
+  .energy-flow .node.on,.hero-logo::before{animation:none;}
+  .fade-up{transform:none;filter:none;transition:opacity .8s ease;}
+  .p-card{transform:none;}
+  .case-card:hover,.service-card:hover{transform:none;}
 }
 </style>
 <!-- ===== SCHEMA.ORG JSON-LD ===== -->
@@ -944,7 +946,7 @@ input[type=range].calc-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 
         </div>
       </div>
       <div class="hero-logo" id="heroLogo" aria-hidden="true">
-        <img class="hl-base" src="obwod.svg" alt=""/>
+        <img class="hl-base ring" src="obwod.svg" alt=""/>
         <img class="hl-base" src="slon.svg" alt=""/>
         <img class="hl-obwod" id="hlObwod" alt=""/>
         <img class="hl-slon" id="hlSlon" src="slon.svg" alt=""/>
@@ -1810,9 +1812,10 @@ function initHeroLogo(){
   if(!slon||!obw) return;
   const setMask=(el,m)=>{el.style.webkitMaskImage=m;el.style.maskImage=m;};
   const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+  let started=false;
   function run(){
-    if(REDUCED){setMask(slon,'none');setMask(obw,'none');return;}
-    const D1=1100, D2=1500, START=250, OFF2=350;
+    if(started) return; started=true;
+    const D1=900, D2=1400, START=200, OFF2=950;
     let t0=null;
     function frame(ts){
       if(!t0) t0=ts;
@@ -1834,6 +1837,7 @@ function initHeroLogo(){
     obw.src=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml'}));
     obw.onload=run;
   }).catch(()=>{obw.classList.add('white');obw.src='obwod.svg';obw.onload=run;});
+  setTimeout(run,1500); // zabezpieczenie, gdyby obraz obwodu nie zgłosił załadowania
 }
 
 // --- HERO: poświata za kursorem ---
@@ -1865,7 +1869,7 @@ document.querySelectorAll('.services-grid, .cases-grid, .about-stats').forEach(g
 (function(){
   const fmt=(v,dec)=>{const s=v.toFixed(dec).split('.');return s[0].replace(/\B(?=(\d{3})+(?!\d))/g,' ')+(dec?','+s[1]:'');};
   const els=document.querySelectorAll('.count-up');
-  if(REDUCED||!('IntersectionObserver' in window)) return;
+  if(!('IntersectionObserver' in window)) return;
   els.forEach(el=>{
     const dec=+(el.dataset.decimals||0), pre=el.dataset.prefix||'', suf=el.dataset.suffix||'';
     el.textContent=pre+fmt(0,dec)+suf;
@@ -1992,7 +1996,7 @@ document.querySelectorAll('.services-grid, .cases-grid, .about-stats').forEach(g
   // start wskaźnika od zera, animacja po wjechaniu w widok
   band.setAttribute('stroke-dasharray','0 100');
   needle.style.transform='rotate(-90deg)';
-  if('IntersectionObserver' in window && !REDUCED){
+  if('IntersectionObserver' in window){
     const io=new IntersectionObserver(e=>{if(e[0].isIntersecting){io.disconnect();setTimeout(calc,300);}},{threshold:.4});
     io.observe(document.querySelector('.calc-result'));
   } else calc();
