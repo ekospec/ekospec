@@ -1,0 +1,27 @@
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="{{root}}#hero" class="nav-logo">
+      <img id="navLogo" src="{{root}}Logo_znak_przyciete-removebg-preview.png" alt="Ekospec"/>
+      <span class="nav-logo-text">EKOSPEC</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="{{root}}#o-mnie">O mnie</a></li>
+      <li><a href="{{root}}#oferta">Oferta</a></li>
+      <li><a href="{{root}}#realizacje">Realizacje</a></li>
+      <li><a href="{{root}}#kalkulator">Kalkulator</a></li>
+      <li><a href="{{root}}#kontakt">Kontakt</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="{{root}}#o-mnie" onclick="closeMenu()">O mnie</a>
+    <a href="{{root}}#oferta" onclick="closeMenu()">Oferta</a>
+    <a href="{{root}}#proces" onclick="closeMenu()">Jak pracuję</a>
+    <a href="{{root}}#realizacje" onclick="closeMenu()">Realizacje</a>
+    <a href="{{root}}#kalkulator" onclick="closeMenu()">Kalkulator</a>
+    <a href="{{root}}#kontakt" onclick="closeMenu()">Kontakt</a>
+  </div>

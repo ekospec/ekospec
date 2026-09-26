@@ -1,0 +1,66 @@
+<!-- COOKIE BANNER -->
+<div id="cookie-banner">
+  <div class="cookie-text">
+    <h4>PLIKI COOKIES</h4>
+    <p>Ta strona używa plików cookies w celu zapewnienia prawidłowego funkcjonowania i analizy ruchu. Klikając „Akceptuję" wyrażasz zgodę na ich stosowanie. <a href="#" onclick="openLegal('privacy');return false;">Polityka prywatności</a></p>
+  </div>
+  <div class="cookie-btns">
+    <button class="cookie-accept" onclick="acceptCookies()">Akceptuję</button>
+    <button class="cookie-reject" onclick="rejectCookies()">Tylko niezbędne</button>
+  </div>
+</div>
+
+<!-- MODAL PRAWNY -->
+<div id="legal-modal" onclick="closeLegalBg(event)">
+  <div class="lm-box">
+    <div class="lm-header">
+      <h3 id="lm-title">Polityka prywatności</h3>
+      <button class="lm-close" onclick="closeLegal()">&#x2715;</button>
+    </div>
+    <div class="lm-body" id="lm-body"></div>
+  </div>
+</div>
+
+<!-- MODAL OFERTY (PC) -->
+<div id="service-modal" onclick="closeServiceModalBg(event)">
+  <button class="sm-close" onclick="closeServiceModal()">&#x2715;</button>
+  <div class="sm-box">
+    <div class="sm-text">
+      <div class="sm-eyebrow"><span id="sm-number"></span></div>
+      <h3 id="sm-title"></h3>
+      <div class="sm-divider"></div>
+      <div id="sm-content"></div>
+    </div>
+    <div class="sm-img-wrap">
+      <img id="sm-img" src="" alt=""/>
+    </div>
+  </div>
+</div>
+    
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightboxBg(event)">
+  <button class="lb-close" onclick="closeLightbox()">&#x2715;</button>
+  <button class="lb-prev" onclick="lbNav(-1)">&#8249;</button>
+  <button class="lb-next" onclick="lbNav(1)">&#8250;</button>
+  <div class="lb-inner">
+    <div class="lb-img-wrap"><img id="lb-img" src="" alt=""/></div>
+    <div class="lb-caption">
+      <strong id="lb-title"></strong>
+      <p id="lb-desc"></p>
+    </div>
+  </div>
+</div>
+
+<!-- FAB (szybki kontakt) -->
+<div class="fab-wrap" id="fabWrap" style="display:none;">
+  <div class="fab-tooltip">Zadzwoń teraz</div>
+  <a href="tel:+48573018657" class="fab-btn" aria-label="Zadzwoń">
+    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.22 2.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.28-1.28a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+  </a>
+</div>
+
+<!-- Poleć znajomemu -->
+<button class="share-btn" id="shareBtn" style="display:none;" onclick="shareP()">
+  <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+  <span>Poleć znajomemu</span>
+</button>
