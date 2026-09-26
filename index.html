@@ -708,6 +708,23 @@ input[type=range].calc-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 
   .calc-cost-row{flex-wrap:wrap;}
 }
 
+
+/* ----- REALIZACJE: lista działań ----- */
+.case-list{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.case-list li{position:relative;padding-left:18px;}
+.case-list li::before{content:'';position:absolute;left:0;top:.8em;width:8px;height:2px;background:var(--gold);}
+/* ----- ZAUFALI MI ----- */
+.trust{background:var(--bg);padding-top:72px;padding-bottom:72px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.trust-inner{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:48px;align-items:center;}
+.trust-lead{color:var(--muted);max-width:380px;}
+.trust-logos{list-style:none;display:flex;flex-wrap:wrap;gap:20px;justify-content:flex-start;}
+.trust-logo{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;width:270px;padding:30px 24px 20px;border:1px solid var(--border);background:var(--surface);transition:border-color .4s,box-shadow .4s,transform .4s var(--ease-out);}
+.trust-logo img{height:130px;width:auto;opacity:.6;transition:opacity .4s,filter .4s;}
+.trust-logo span{font-family:'Rajdhani',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-align:center;transition:color .4s;}
+.trust-logo:hover{border-color:rgba(200,169,110,.5);box-shadow:0 18px 40px -22px rgba(0,0,0,.8),0 0 30px -10px rgba(200,169,110,.35);transform:translateY(-3px);}
+.trust-logo:hover img{opacity:1;filter:drop-shadow(0 0 12px rgba(200,169,110,.35));}
+.trust-logo:hover span{color:var(--text);}
+@media(max-width:900px){.trust-inner{grid-template-columns:1fr;gap:28px;}.trust-logos{justify-content:center;}}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto;}
   .energy-flow .pulse{display:none;}
@@ -1219,14 +1236,16 @@ input[type=range].calc-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 
     <div class="section-divider fade-up d2"></div>
     <div class="cases-grid">
       <article class="case-card fade-up">
-        <div class="case-img" data-lb data-title="Modernizacja instalacji — Nowy Targ" data-desc="Modernizacja instalacji grzewczej. Efekt — koszty ogrzewania spadły trzykrotnie." onclick="openLightbox(this)">
+        <div class="case-img" data-lb data-title="Termomodernizacja i nowa instalacja grzewcza — Nowy Targ" data-desc="Dom jednorodzinny ogrzewany kotłem węglowym. Wyliczenie izolacji termicznej i nadzór nad wykonaniem, projekt nowej instalacji grzewczej, wymiana źródła ciepła na gazowe, uruchomienie i regulacja. Efekt — koszty ogrzewania spadły trzykrotnie." onclick="openLightbox(this)">
           <img src="szaflarska_galeria-800.webp" srcset="szaflarska_galeria-800.webp 800w, szaflarska_galeria-1600.webp 1600w" sizes="(max-width: 600px) 100vw, (max-width: 1100px) 50vw, 420px" data-full="szaflarska_galeria-1600.webp" width="800" height="600" alt="Modernizacja instalacji budynku w Nowym Targu" loading="lazy" decoding="async"/>
           <span class="case-tag">Realizacja 01 · Nowy Targ</span>
         </div>
         <div class="case-body">
-          <h3>Modernizacja instalacji grzewczej</h3>
+          <h3>Termomodernizacja i nowa instalacja grzewcza</h3>
           <dl class="case-facts">
-            <div><dt>Zakres prac</dt><dd>Modernizacja instalacji grzewczej budynku.</dd></div>
+            <div><dt>Obiekt</dt><dd>Dom jednorodzinny, Nowy Targ.</dd></div>
+            <div><dt>Problem</dt><dd>Ogrzewanie kotłem węglowym i wysokie koszty ogrzewania.</dd></div>
+            <div><dt>Co zrobiłem</dt><dd><ul class="case-list"><li>Wyliczenie sposobu izolacji termicznej i nadzór nad wykonaniem</li><li>Projekt nowej instalacji grzewczej dopasowanej do budynku</li><li>Wymiana źródła ciepła z węglowego na gazowe</li><li>Uruchomienie i regulacja instalacji</li></ul></dd></div>
           </dl>
           <div class="case-result">
             <div class="case-num"><span class="count-up" data-target="3" data-suffix="×">3×</span></div>
@@ -1235,14 +1254,16 @@ input[type=range].calc-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 
         </div>
       </article>
       <article class="case-card fade-up">
-        <div class="case-img" data-lb data-title="Naprawa i modernizacja ogrzewania powietrznego" data-desc="Po modernizacji redukcja kosztów ogrzewania o ~165.400 PLN rocznie" onclick="openLightbox(this)">
+        <div class="case-img" data-lb data-title="Naprawa i modernizacja ogrzewania powietrznego — hotel" data-desc="Niewydajna centrala, zimą zamarzała i pękała nagrzewnica, w pomieszczeniach było zimno. Nowy sposób podłączenia do istniejącego źródła ciepła, nadzór nad modernizacją i regulacja. Urządzenie pracuje bez uwag niezależnie od warunków. Redukcja kosztów ogrzewania o ~165 400 zł rocznie." onclick="openLightbox(this)">
           <img src="centr13_kasp-800.webp" srcset="centr13_kasp-800.webp 800w, centr13_kasp-1600.webp 1600w" sizes="(max-width: 600px) 100vw, (max-width: 1100px) 50vw, 420px" data-full="centr13_kasp-1600.webp" width="800" height="600" alt="Modernizacja centrali wentylacyjnej" loading="lazy" decoding="async"/>
-          <span class="case-tag">Realizacja 02</span>
+          <span class="case-tag">Realizacja 02 · Hotel</span>
         </div>
         <div class="case-body">
           <h3>Naprawa i modernizacja ogrzewania powietrznego</h3>
           <dl class="case-facts">
-            <div><dt>Zakres prac</dt><dd>Naprawa i modernizacja układu ogrzewania powietrznego z centralą wentylacyjną.</dd></div>
+            <div><dt>Obiekt</dt><dd>Hotel.</dd></div>
+            <div><dt>Problem</dt><dd>Centrala z nagrzewnicą była niewydajna. Zimą nagrzewnica zamarzała i pękała, a inwestor musiał dogrzewać urządzenie dodatkowymi źródłami ciepła. W obsługiwanych pomieszczeniach było zimno.</dd></div>
+            <div><dt>Co zrobiłem</dt><dd><ul class="case-list"><li>Projekt nowego sposobu podłączenia do istniejącego źródła ciepła</li><li>Nadzór nad modernizacją</li><li>Regulacja nowej instalacji — urządzenie pracuje bez uwag niezależnie od warunków</li></ul></dd></div>
           </dl>
           <div class="case-result">
             <div class="case-num"><span class="count-up" data-target="165400" data-prefix="~" data-suffix=" zł">~165 400 zł</span></div>
@@ -1251,15 +1272,16 @@ input[type=range].calc-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 
         </div>
       </article>
       <article class="case-card fade-up">
-        <div class="case-img" data-lb data-title="Naprawa sterowania centralą wentylacyjną" data-desc="Nowa centrala zatrzymywała się podczas mrozów, wykonawca uznał, że problem jest nie po jego stronie. Modyfikacja programu sterującego + regulacja instalacji. Efekt - centrala pracuje bez zarzutu. Redukcja kosztów eksploatacji o ~22.500 PLN rocznie." onclick="openLightbox(this)">
+        <div class="case-img" data-lb data-title="Naprawa sterowania centralą wentylacyjną kuchni — hotel" data-desc="Nowa centrala zatrzymywała się podczas mrozów, wykonawca uznał, że problem jest nie po jego stronie. Modyfikacja programu sterującego + regulacja instalacji. Efekt - centrala pracuje bez zarzutu. Redukcja kosztów eksploatacji o ~22.500 PLN rocznie." onclick="openLightbox(this)">
           <img src="centrala_kuchcent_kas-800.webp" srcset="centrala_kuchcent_kas-800.webp 800w, centrala_kuchcent_kas-1600.webp 1600w" sizes="(max-width: 600px) 100vw, (max-width: 1100px) 50vw, 420px" data-full="centrala_kuchcent_kas-1600.webp" width="800" height="600" alt="Naprawa nowej wentylacji - zatrzymywała się przy mrozie" loading="lazy" decoding="async"/>
-          <span class="case-tag">Realizacja 03</span>
+          <span class="case-tag">Realizacja 03 · Hotel</span>
         </div>
         <div class="case-body">
-          <h3>Naprawa sterowania centralą wentylacyjną</h3>
+          <h3>Naprawa sterowania centralą wentylacyjną kuchni</h3>
           <dl class="case-facts">
+            <div><dt>Obiekt</dt><dd>Hotel — wentylacja kuchni.</dd></div>
             <div><dt>Problem</dt><dd>Nowa centrala zatrzymywała się podczas mrozów. Wykonawca uznał, że problem nie leży po jego stronie.</dd></div>
-            <div><dt>Rozwiązanie</dt><dd>Modyfikacja programu sterującego i regulacja instalacji. Centrala pracuje bez zarzutu.</dd></div>
+            <div><dt>Co zrobiłem</dt><dd><ul class="case-list"><li>Modyfikacja programu sterującego</li><li>Regulacja instalacji — centrala pracuje bez zarzutu</li></ul></dd></div>
           </dl>
           <div class="case-result">
             <div class="case-num"><span class="count-up" data-target="22500" data-prefix="~" data-suffix=" zł">~22 500 zł</span></div>
@@ -1267,6 +1289,23 @@ input[type=range].calc-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 
           </div>
         </div>
       </article>
+    </div>
+  </section>
+
+
+  <!-- ZAUFALI MI -->
+  <section id="zaufali" class="trust">
+    <div class="trust-inner">
+      <div class="trust-head">
+        <div class="section-eyebrow fade-up">Zaufali mi</div>
+        <p class="trust-lead fade-up d1">Obiekty, w których projektowałem, modernizowałem i regulowałem instalacje.</p>
+      </div>
+      <ul class="trust-logos fade-up d2">
+        <li class="trust-logo">
+          <img src="logo-klient-rzemieslnik.png" width="338" height="400" alt="Hotel Rzemieślnik Zakopane" loading="lazy" decoding="async"/>
+          <span>Hotel Rzemieślnik · Zakopane</span>
+        </li>
+      </ul>
     </div>
   </section>
 
