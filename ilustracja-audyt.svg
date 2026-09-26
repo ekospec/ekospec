@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="t">
+<title id="t">Audyt energetyczny – przekrój budynku z miejscami ucieczki ciepła</title>
+<defs>
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M40 0H0V40" fill="none" stroke="#4e8ecb" stroke-opacity=".07" stroke-width="1"/>
+  </pattern>
+  <radialGradient id="heat" cx="50%" cy="60%" r="50%">
+    <stop offset="0" stop-color="#c8a96e" stop-opacity=".32"/>
+    <stop offset=".55" stop-color="#c8a96e" stop-opacity=".08"/>
+    <stop offset="1" stop-color="#c8a96e" stop-opacity="0"/>
+  </radialGradient>
+  <marker id="ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0 0L10 5L0 10z" fill="#c8a96e"/>
+  </marker>
+  <style>
+    .ln{fill:none;stroke:#4e8ecb;stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
+    .ln2{fill:none;stroke:#4e8ecb;stroke-opacity:.55;stroke-width:1.5}
+    .dim{fill:none;stroke:#7a8aa0;stroke-width:1.2}
+    .txt{font-family:'Rajdhani','Arial Narrow',Arial,sans-serif;font-size:15px;letter-spacing:3px;fill:#7a8aa0;font-weight:600}
+    .lbl{font-family:'Rajdhani','Arial Narrow',Arial,sans-serif;font-size:17px;letter-spacing:3px;fill:#c8a96e;font-weight:700}
+    .arr{fill:none;stroke:#c8a96e;stroke-width:3;stroke-linecap:round;stroke-dasharray:10 9;animation:out 1.6s linear infinite}
+    .glow{animation:breath 4s ease-in-out infinite;transform-origin:400px 620px}
+    .wave{animation:fade 3.2s ease-in-out infinite}
+    .w2{animation-delay:-.8s}.w3{animation-delay:-1.6s}.w4{animation-delay:-2.4s}
+    @keyframes out{to{stroke-dashoffset:-38}}
+    @keyframes breath{0%,100%{opacity:.75;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}
+    @keyframes fade{0%,100%{opacity:.45}50%{opacity:1}}
+    @media (prefers-reduced-motion:reduce){.arr,.glow,.wave{animation:none}}
+  </style>
+</defs>
+<rect width="800" height="1000" fill="#0b0f1e"/>
+<rect width="800" height="1000" fill="url(#grid)"/>
+<!-- rama rysunku -->
+<rect x="24" y="24" width="752" height="952" fill="none" stroke="#4e8ecb" stroke-opacity=".25"/>
+<text class="txt" x="52" y="68">PRZEKRÓJ A–A</text>
+<text class="txt" x="748" y="68" text-anchor="end">SKALA 1:100</text>
+
+<!-- ciepło wewnątrz -->
+<ellipse class="glow" cx="400" cy="620" rx="250" ry="230" fill="url(#heat)"/>
+
+<!-- grunt -->
+<path class="ln2" d="M60 820H740"/>
+<path d="M60 820H740V850H60z" fill="#4e8ecb" fill-opacity=".05"/>
+<g stroke="#4e8ecb" stroke-opacity=".3" stroke-width="1">
+  <path d="M80 850l20-30M120 850l20-30M160 850l20-30M620 850l20-30M660 850l20-30M700 850l20-30"/>
+</g>
+
+<!-- budynek -->
+<path class="ln" d="M200 820V480H600V820"/>
+<path class="ln" d="M160 492L400 300L640 492"/>
+<path class="ln" d="M520 364V300H560V396"/>
+<path class="ln2" d="M200 650H600"/>
+<path class="ln2" d="M216 480V820M584 480V820"/>
+<path class="ln2" d="M200 800H600"/>
+<!-- okna -->
+<g class="ln2">
+  <rect x="250" y="530" width="80" height="70"/><path d="M290 530V600M250 565H330"/>
+  <rect x="470" y="530" width="80" height="70"/><path d="M510 530V600M470 565H550"/>
+  <rect x="250" y="690" width="80" height="70"/><path d="M290 690V760M250 725H330"/>
+</g>
+<!-- drzwi -->
+<rect x="470" y="690" width="60" height="110" fill="none" stroke="#4e8ecb" stroke-opacity=".55" stroke-width="1.5"/>
+<!-- grzejniki -->
+<g fill="none" stroke="#c8a96e" stroke-opacity=".7" stroke-width="2">
+  <path d="M360 625v-26M370 625v-26M380 625v-26M390 625v-26M400 625v-26"/>
+  <path d="M360 780v-26M370 780v-26M380 780v-26M390 780v-26M400 780v-26"/>
+</g>
+
+<!-- ucieczki ciepła -->
+<g marker-end="url(#ah)">
+  <path class="arr" d="M300 400C290 370 300 345 285 318"/>
+  <path class="arr" d="M500 400C510 370 500 345 515 318"/>
+  <path class="arr" d="M540 300C545 270 535 250 545 222"/>
+  <path class="arr" d="M200 700C170 690 150 705 118 692"/>
+  <path class="arr" d="M600 700C630 690 650 705 682 692"/>
+  <path class="arr" d="M250 565C215 555 195 572 160 560"/>
+  <path class="arr" d="M550 565C585 555 605 572 640 560"/>
+  <path class="arr" d="M400 820C392 842 408 858 400 890"/>
+</g>
+
+<!-- etykiety -->
+<g class="lbl">
+  <text class="wave" x="400" y="258" text-anchor="middle">DACH</text>
+  <text class="wave w2" x="560" y="206">WENTYLACJA</text>
+  <text class="wave w3" x="60" y="545">OKNA</text>
+  <text class="wave w4" x="60" y="672">ŚCIANY</text>
+  <text class="wave w2" x="418" y="878">POSADZKA</text>
+</g>
+
+<!-- wymiar -->
+<path class="dim" d="M200 930H600M200 920V940M600 920V940"/>
+<text class="txt" x="400" y="922" text-anchor="middle">10,00 m</text>
+
+<!-- tabliczka -->
+<path d="M440 948V976M440 948H776" stroke="#4e8ecb" stroke-opacity=".25" fill="none"/>
+<text class="txt" x="756" y="967" text-anchor="end" style="font-size:12px;letter-spacing:2px">EKOSPEC · AUDYT ENERGETYCZNY</text>
+</svg>
