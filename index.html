@@ -90,8 +90,6 @@ body{background:var(--bg);color:var(--text);font-family:'Nunito Sans',sans-serif
 #obwod-canvas{opacity:1;}
 
 /* ===== SITE ===== */
-#site{opacity:0;transition:opacity .8s ease;}
-#site.visible{opacity:1;}
 
 /* ===== NAV ===== */
 nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 5%;z-index:500;transition:background .3s,backdrop-filter .3s;}
@@ -530,6 +528,192 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:52px
   .share-btn{bottom:90px;right:20px;}
   .footer-inner{flex-direction:column;gap:28px;}
 }
+
+/* =====================================================
+   PRZEBUDOWA 2026-09 — hero, proces, realizacje, kalkulator
+   ===================================================== */
+:root{--ease-out:cubic-bezier(.16,1,.3,1);--gold-dim:rgba(200,169,110,.14);}
+
+/* ----- HERO ----- */
+#hero{min-height:min(100vh,920px);}
+.hero-grid{position:relative;z-index:2;width:100%;max-width:1320px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:56px;align-items:center;}
+.hero-content{max-width:680px;}
+.hero-title{font-size:clamp(2.2rem,4.2vw,3.9rem);line-height:1.06;text-wrap:balance;}
+.hero-title em{display:inline-block;background:linear-gradient(90deg,var(--accent) 0%,#7fb3e3 45%,var(--gold) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.hero-sub{margin-bottom:44px;}
+
+/* linie przepływu energii */
+.energy-flow{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;
+  -webkit-mask-image:radial-gradient(ellipse 90% 85% at 55% 50%,#000 35%,transparent 100%);
+          mask-image:radial-gradient(ellipse 90% 85% at 55% 50%,#000 35%,transparent 100%);}
+.energy-flow .pipe{fill:none;stroke:rgba(78,142,203,.13);stroke-width:1.5;}
+.energy-flow .pulse{fill:none;stroke-width:2.2;stroke-linecap:round;stroke-dasharray:70 930;stroke-dashoffset:1000;animation:flow 11s linear infinite;}
+.energy-flow .pulse.g{stroke:rgba(200,169,110,.75);filter:drop-shadow(0 0 4px rgba(200,169,110,.6));}
+.energy-flow .pulse.b{stroke:rgba(110,170,230,.7);filter:drop-shadow(0 0 4px rgba(78,142,203,.6));}
+.energy-flow .node{fill:var(--bg);stroke:rgba(78,142,203,.35);stroke-width:1.5;}
+.energy-flow .node.on{stroke:rgba(200,169,110,.55);animation:nodePulse 4s ease-in-out infinite;}
+@keyframes flow{to{stroke-dashoffset:0;}}
+@keyframes nodePulse{0%,100%{stroke-opacity:.35;}50%{stroke-opacity:1;}}
+
+/* poświata za kursorem */
+.hero-glow{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;transition:opacity .6s ease;
+  background:radial-gradient(560px circle at var(--mx,70%) var(--my,40%),rgba(78,142,203,.14),rgba(200,169,110,.05) 40%,transparent 65%);}
+@media (hover:hover) and (pointer:fine){#hero:hover .hero-glow{opacity:1;}}
+
+/* rysujący się słoń */
+.hero-logo{position:relative;width:min(100%,460px);aspect-ratio:488/511;justify-self:center;}
+.hero-logo::before{content:'';position:absolute;inset:-18%;border-radius:50%;
+  background:radial-gradient(circle,rgba(78,142,203,.16) 0%,rgba(200,169,110,.06) 38%,transparent 66%);animation:breathe 6s ease-in-out infinite;}
+.hero-logo img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;user-select:none;}
+.hl-base{filter:brightness(0) invert(1);opacity:.08;}
+.hl-slon{filter:brightness(0) invert(1) drop-shadow(0 0 18px rgba(78,142,203,.35));
+  -webkit-mask-image:radial-gradient(circle at 50% 55%,#000 0%,transparent 0%);mask-image:radial-gradient(circle at 50% 55%,#000 0%,transparent 0%);}
+.hl-obwod{filter:drop-shadow(0 0 6px rgba(200,169,110,.45));
+  -webkit-mask-image:conic-gradient(#000 0deg,transparent 0deg);mask-image:conic-gradient(#000 0deg,transparent 0deg);}
+.hl-obwod.white{filter:brightness(0) invert(1);}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:.85;}50%{transform:scale(1.06);opacity:1;}}
+
+/* ----- JAK PRACUJĘ ----- */
+#proces{background:var(--bg);position:relative;}
+.proces-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:80px;align-items:start;max-width:1320px;margin:0 auto;}
+.proces-sticky{position:sticky;top:calc(var(--nav-h) + 48px);}
+.proces-lead{color:var(--muted);max-width:440px;margin-bottom:36px;}
+.proces-nav{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:40px;}
+.proces-nav li{display:flex;align-items:center;gap:16px;padding:10px 0;font-family:'Rajdhani',sans-serif;font-weight:600;font-size:1.05rem;letter-spacing:.05em;color:var(--muted);transition:color .4s ease;}
+.proces-nav .pn-num{width:34px;height:34px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);font-size:.8rem;letter-spacing:.08em;transition:border-color .4s,background .4s,color .4s,box-shadow .4s;}
+.proces-nav li.done{color:var(--text);}
+.proces-nav li.done .pn-num{border-color:rgba(200,169,110,.5);color:var(--gold);}
+.proces-nav li.active{color:var(--text);}
+.proces-nav li.active .pn-num{border-color:var(--gold);background:var(--gold);color:var(--bg);box-shadow:0 0 22px rgba(200,169,110,.45);}
+.proces-steps{position:relative;padding-left:64px;}
+.p-list{list-style:none;}
+.proces-rail{position:absolute;left:17px;top:8px;bottom:8px;width:2px;background:var(--border);}
+.proces-rail-fill{position:absolute;left:0;top:0;width:100%;height:0;background:linear-gradient(180deg,var(--accent),var(--gold));box-shadow:0 0 12px rgba(200,169,110,.5);}
+.p-step{position:relative;min-height:62vh;display:flex;flex-direction:column;justify-content:center;padding:24px 0;}
+.p-step:first-child{min-height:48vh;justify-content:flex-start;padding-top:8px;}
+.p-step:last-child{min-height:44vh;}
+.p-dot{position:absolute;left:-64px;top:50%;width:36px;height:36px;margin-top:-18px;display:flex;align-items:center;justify-content:center;background:var(--bg);border:1px solid var(--border);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.8rem;color:var(--muted);transition:all .5s var(--ease-out);}
+.p-step:first-child .p-dot{top:8px;margin-top:0;}
+.p-step.lit .p-dot{border-color:var(--gold);color:var(--bg);background:var(--gold);box-shadow:0 0 0 6px rgba(200,169,110,.12),0 0 26px rgba(200,169,110,.45);}
+.p-card{padding:36px 36px 32px;background:var(--surface);border:1px solid var(--border);opacity:.45;transform:translateX(12px);transition:opacity .6s var(--ease-out),transform .6s var(--ease-out),border-color .6s;}
+.p-step.lit .p-card{opacity:1;transform:none;border-color:rgba(200,169,110,.35);}
+.p-label{font-family:'Rajdhani',sans-serif;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.p-card h3{font-family:'Rajdhani',sans-serif;font-size:1.7rem;font-weight:700;letter-spacing:.02em;margin-bottom:14px;line-height:1.2;}
+.p-card p{color:var(--muted);font-size:.98rem;line-height:1.85;max-width:560px;}
+.p-get{display:flex;gap:12px;align-items:flex-start;margin-top:22px;padding-top:18px;border-top:1px solid var(--border);font-size:.88rem;color:var(--text);}
+.p-get svg{flex-shrink:0;color:var(--gold);margin-top:3px;}
+
+/* ----- REALIZACJE ----- */
+#realizacje{background:var(--surface);}
+.cases-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:stretch;}
+.case-card{display:flex;flex-direction:column;background:var(--bg);border:1px solid var(--border);position:relative;overflow:hidden;transition:border-color .4s,transform .4s var(--ease-out),box-shadow .4s;}
+.case-card:hover{border-color:rgba(200,169,110,.45);transform:translateY(-4px);box-shadow:0 24px 50px -24px rgba(0,0,0,.7);}
+.case-img{position:relative;aspect-ratio:4/3;overflow:hidden;cursor:zoom-in;background:var(--surface2);}
+.case-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s var(--ease-out);}
+.case-card:hover .case-img img{transform:scale(1.05);}
+.case-img::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(11,15,30,.75));}
+.case-tag{position:absolute;left:18px;bottom:14px;z-index:1;font-family:'Rajdhani',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.7);}
+.case-body{display:flex;flex-direction:column;flex:1;padding:28px 28px 26px;gap:18px;}
+.case-body h3{font-family:'Rajdhani',sans-serif;font-size:1.3rem;font-weight:700;letter-spacing:.03em;line-height:1.25;}
+.case-facts{display:flex;flex-direction:column;gap:12px;}
+.case-facts dt{font-family:'Rajdhani',sans-serif;font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin-bottom:2px;}
+.case-facts dd{font-size:.9rem;color:var(--muted);line-height:1.7;}
+.case-result{margin-top:auto;padding-top:20px;border-top:1px solid var(--border);}
+.case-num{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:clamp(2rem,3.2vw,2.6rem);line-height:1;color:var(--gold);font-variant-numeric:tabular-nums;white-space:nowrap;text-shadow:0 0 24px rgba(200,169,110,.25);}
+.case-cap{font-size:.82rem;color:var(--muted);margin-top:6px;letter-spacing:.02em;}
+
+/* ----- KALKULATOR ----- */
+#kalkulator{background:var(--bg);position:relative;overflow:hidden;}
+#kalkulator::before{content:'';position:absolute;right:-20%;top:-30%;width:70vw;height:70vw;border-radius:50%;background:radial-gradient(circle,rgba(200,169,110,.06),transparent 60%);pointer-events:none;}
+.calc-lead{color:var(--muted);max-width:620px;margin:-28px 0 44px;}
+.calc-grid{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;border:1px solid var(--border);background:var(--surface);}
+.calc-form{padding:40px;display:flex;flex-direction:column;gap:30px;border-right:1px solid var(--border);}
+.calc-field label,.calc-field legend{display:block;font-family:'Rajdhani',sans-serif;font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+.calc-field fieldset{border:none;}
+.calc-cost-row{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+.calc-cost-row input[type=text]{width:190px;max-width:100%;padding:12px 14px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:'Rajdhani',sans-serif;font-size:1.35rem;font-weight:700;font-variant-numeric:tabular-nums;outline:none;transition:border-color .2s;}
+.calc-cost-row input[type=text]:focus{border-color:var(--accent);}
+.calc-cost-row span{color:var(--muted);font-size:.9rem;}
+input[type=range].calc-range{-webkit-appearance:none;appearance:none;width:100%;height:4px;background:linear-gradient(90deg,var(--accent) 0%,var(--gold) var(--fill,50%),var(--surface2) var(--fill,50%));outline:none;cursor:pointer;}
+input[type=range].calc-range::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--gold);border:4px solid var(--bg);box-shadow:0 0 0 1px var(--gold),0 0 16px rgba(200,169,110,.5);}
+input[type=range].calc-range::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--gold);border:4px solid var(--bg);box-shadow:0 0 0 1px var(--gold);}
+input[type=range].calc-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 3px var(--accent);}
+.calc-scale{display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);margin-top:8px;font-variant-numeric:tabular-nums;}
+.calc-select{width:100%;padding:13px 14px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:'Nunito Sans',sans-serif;font-size:.95rem;outline:none;cursor:pointer;}
+.calc-select:focus{border-color:var(--accent);}
+.calc-chips{display:flex;flex-wrap:wrap;gap:10px;}
+.calc-chips input{position:absolute;opacity:0;pointer-events:none;}
+.calc-chips label{margin:0;padding:10px 16px;border:1px solid var(--border);font-family:'Nunito Sans',sans-serif;font-size:.86rem;letter-spacing:0;text-transform:none;color:var(--muted);cursor:pointer;transition:all .2s;}
+.calc-chips input:checked+label{border-color:var(--gold);color:var(--text);background:var(--gold-dim);}
+.calc-chips input:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px;}
+.calc-result{padding:40px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;}
+.gauge{width:100%;max-width:340px;height:auto;overflow:visible;}
+.gauge .g-track{fill:none;stroke:var(--surface2);stroke-width:16;}
+.gauge .g-band{fill:none;stroke:url(#gaugeGrad);stroke-width:16;transition:stroke-dasharray .9s var(--ease-out),stroke-dashoffset .9s var(--ease-out);}
+.gauge .g-tick{stroke:rgba(122,138,160,.5);stroke-width:1.5;}
+.gauge .g-lbl{fill:var(--muted);font-family:'Nunito Sans',sans-serif;font-size:11px;}
+.gauge .g-needle{transition:transform .9s var(--ease-out);transform-origin:170px 170px;}
+.gauge .g-needle line{stroke:var(--text);stroke-width:2.5;stroke-linecap:round;}
+.gauge .g-hub{fill:var(--gold);}
+.calc-pct{font-family:'Rajdhani',sans-serif;font-size:.8rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-top:-6px;}
+.calc-money{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:clamp(1.9rem,3.4vw,2.7rem);line-height:1.1;font-variant-numeric:tabular-nums;color:var(--text);}
+.calc-money-cap{font-size:.86rem;color:var(--muted);margin-bottom:24px;}
+.calc-note{font-size:.76rem;color:var(--muted);line-height:1.65;max-width:400px;margin-top:20px;opacity:.85;}
+
+/* ----- KARTY USŁUG — poświata od kursora ----- */
+.service-card::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .4s ease;
+  background:radial-gradient(380px circle at var(--gx,50%) var(--gy,0%),rgba(200,169,110,.13),rgba(78,142,203,.08) 40%,transparent 70%);}
+.service-card:hover::after{opacity:1;}
+.service-card>*{position:relative;z-index:1;}
+.service-card:hover{box-shadow:0 22px 50px -26px rgba(0,0,0,.8),0 0 0 1px rgba(200,169,110,.12);}
+.service-card:hover .service-icon{color:var(--gold);filter:drop-shadow(0 0 10px rgba(200,169,110,.45));}
+.service-icon{transition:color .4s,filter .4s;}
+
+/* ----- PŁYNNE WJEŻDŻANIE ----- */
+.fade-up{opacity:0;transform:translateY(34px) scale(.985);filter:blur(4px);
+  transition:opacity 1s var(--ease-out),transform 1s var(--ease-out),filter 1s var(--ease-out);}
+.fade-up.visible{opacity:1;transform:none;filter:none;}
+.section-eyebrow::before{transition:width .9s var(--ease-out) .15s;}
+.section-eyebrow.fade-up:not(.visible)::before{width:0;}
+.section-divider.fade-up{transform:none;filter:none;transform-origin:left;}
+.section-divider.fade-up:not(.visible){transform:scaleX(0);}
+.section-divider.fade-up{transition:transform 1.1s var(--ease-out),opacity .6s ease;}
+.no-js .fade-up{opacity:1;transform:none;filter:none;}
+
+/* ----- RESPONSYWNOŚĆ ----- */
+@media(max-width:1100px){
+  .cases-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .proces-grid{gap:56px;}
+}
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:28px;}
+  .hero-logo{width:min(60vw,240px);margin-top:8px;}
+  .proces-grid{grid-template-columns:1fr;gap:40px;}
+  .proces-sticky{position:static;}
+  .proces-nav{display:none;}
+  .p-step,.p-step:first-child,.p-step:last-child{min-height:0;padding:14px 0;justify-content:flex-start;}
+  .p-dot,.p-step:first-child .p-dot{top:38px;margin-top:0;}
+  .calc-grid{grid-template-columns:1fr;}
+  .calc-form{border-right:none;border-bottom:1px solid var(--border);}
+}
+@media(max-width:600px){
+  #hero{min-height:0;}
+  .cases-grid{grid-template-columns:1fr;}
+  .proces-steps{padding-left:52px;}
+  .p-dot{left:-52px;}
+  .proces-rail{left:17px;}
+  .p-card{padding:26px 22px;}
+  .calc-form,.calc-result{padding:28px 20px;}
+  .calc-cost-row{flex-wrap:wrap;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}
+  .fade-up{opacity:1;transform:none;filter:none;}
+  .hl-slon,.hl-obwod{-webkit-mask-image:none!important;mask-image:none!important;}
+  .p-card{opacity:1;transform:none;}
+  .energy-flow .pulse{display:none;}
+}
 </style>
 <!-- ===== SCHEMA.ORG JSON-LD ===== -->
 <script type="application/ld+json">
@@ -665,16 +849,6 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:52px
 </head>
 <body>
 
-<!-- INTRO -->
-<div id="intro">
-  <div class="logo-wrap" id="logoWrap">
-    <img class="logo-layer" id="slon-gray" alt=""/>
-    <img class="logo-layer" id="slon-color" alt=""/>
-    <img class="logo-layer" id="obwod-gray" alt=""/>
-    <canvas class="logo-layer" id="obwod-canvas"></canvas>
-  </div>
-</div>
-
 <!-- COOKIE BANNER -->
 <div id="cookie-banner">
   <div class="cookie-text">
@@ -699,7 +873,8 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:52px
     <ul class="nav-links">
       <li><a href="#o-mnie">O mnie</a></li>
       <li><a href="#oferta">Oferta</a></li>
-      <li><a href="#galeria">Galeria</a></li>
+      <li><a href="#realizacje">Realizacje</a></li>
+      <li><a href="#kalkulator">Kalkulator</a></li>
       <li><a href="#kontakt">Kontakt</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMenu()">
@@ -711,26 +886,68 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:52px
   <div class="mobile-menu" id="mobileMenu">
     <a href="#o-mnie" onclick="closeMenu()">O mnie</a>
     <a href="#oferta" onclick="closeMenu()">Oferta</a>
-    <a href="#galeria" onclick="closeMenu()">Galeria</a>
+    <a href="#proces" onclick="closeMenu()">Jak pracuję</a>
+    <a href="#realizacje" onclick="closeMenu()">Realizacje</a>
+    <a href="#kalkulator" onclick="closeMenu()">Kalkulator</a>
     <a href="#kontakt" onclick="closeMenu()">Kontakt</a>
   </div>
 
   <!-- HERO -->
   <section id="hero">
     <div class="hero-bg"></div>
-    <div class="hero-content">
-      <div class="hero-eyebrow">Efektywność Energetyczna</div>
-      <h1 class="hero-title">Oszczędzaj energię.<br><em>Inwestuj mądrze.</em></h1>
-      <p class="hero-sub">Profesjonalne doradztwo i audyty energetyczne dla firm, instytucji oraz osób prywatnych. Pomagam identyfikować straty energii i planować modernizacje przynoszące realne oszczędności operacyjne.</p>
-      <div class="hero-cta">
-        <a href="#kontakt" class="btn-primary">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.22 2.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.28-1.28a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-          Skontaktuj się
-        </a>
-        <a href="#oferta" class="btn-outline">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
-          Zobacz ofertę
-        </a>
+    <svg class="energy-flow" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+      <g>
+        <path class="pipe" d="M-20 170 H300 Q330 170 330 200 V410 Q330 440 360 440 H700"/>
+        <path class="pipe" d="M1460 110 H1140 Q1110 110 1110 140 V290 Q1110 320 1080 320 H860"/>
+        <path class="pipe" d="M-20 720 H200 Q230 720 230 690 V580 Q230 550 260 550 H520"/>
+        <path class="pipe" d="M1460 650 H1260 Q1230 650 1230 680 V770 Q1230 800 1200 800 H880"/>
+        <path class="pipe" d="M620 -20 V70 Q620 100 650 100 H990"/>
+        <path class="pipe" d="M1460 470 H1320 Q1290 470 1290 440 V380 Q1290 350 1260 350 H1180"/>
+        <path class="pipe" d="M430 920 V840 Q430 810 460 810 H720"/>
+        <path class="pipe" d="M-20 440 H120 Q150 440 150 410 V300"/>
+      </g>
+      <g>
+        <path class="pulse g" pathLength="1000" d="M-20 170 H300 Q330 170 330 200 V410 Q330 440 360 440 H700" style="animation-duration:12s"/>
+        <path class="pulse b" pathLength="1000" d="M1460 110 H1140 Q1110 110 1110 140 V290 Q1110 320 1080 320 H860" style="animation-duration:10s;animation-delay:-3s"/>
+        <path class="pulse b" pathLength="1000" d="M-20 720 H200 Q230 720 230 690 V580 Q230 550 260 550 H520" style="animation-duration:13s;animation-delay:-7s"/>
+        <path class="pulse g" pathLength="1000" d="M1460 650 H1260 Q1230 650 1230 680 V770 Q1230 800 1200 800 H880" style="animation-duration:11s;animation-delay:-5s"/>
+        <path class="pulse g" pathLength="1000" d="M620 -20 V70 Q620 100 650 100 H990" style="animation-duration:9s;animation-delay:-2s"/>
+        <path class="pulse b" pathLength="1000" d="M1460 470 H1320 Q1290 470 1290 440 V380 Q1290 350 1260 350 H1180" style="animation-duration:8s;animation-delay:-6s"/>
+        <path class="pulse g" pathLength="1000" d="M430 920 V840 Q430 810 460 810 H720" style="animation-duration:10s;animation-delay:-8s"/>
+      </g>
+      <g>
+        <circle class="node on" cx="700" cy="440" r="5"/>
+        <circle class="node" cx="860" cy="320" r="5"/>
+        <circle class="node on" cx="520" cy="550" r="5" style="animation-delay:-1.5s"/>
+        <circle class="node" cx="880" cy="800" r="5"/>
+        <circle class="node on" cx="990" cy="100" r="5" style="animation-delay:-2.5s"/>
+        <circle class="node" cx="1180" cy="350" r="5"/>
+        <circle class="node on" cx="720" cy="810" r="5" style="animation-delay:-.8s"/>
+        <circle class="node" cx="150" cy="300" r="5"/>
+      </g>
+    </svg>
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-eyebrow">Efektywność energetyczna · Podhale i Małopolska</div>
+        <h1 class="hero-title">Twój budynek zużywa za dużo energii. <em>Znajdę, gdzie ją traci.</em></h1>
+        <p class="hero-sub">Profesjonalne doradztwo i audyty energetyczne dla firm, instytucji oraz osób prywatnych. Pomagam identyfikować straty energii i planować modernizacje przynoszące realne oszczędności operacyjne.</p>
+        <div class="hero-cta">
+          <a href="#kontakt" class="btn-primary">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.22 2.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.28-1.28a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            Umów rozmowę
+          </a>
+          <a href="#kalkulator" class="btn-outline">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h2M14 10h2M8 14h2M14 14h2M8 18h2M14 18h2"/></svg>
+            Oblicz oszczędności
+          </a>
+        </div>
+      </div>
+      <div class="hero-logo" id="heroLogo" aria-hidden="true">
+        <img class="hl-base" src="obwod.svg" alt=""/>
+        <img class="hl-base" src="slon.svg" alt=""/>
+        <img class="hl-obwod" id="hlObwod" alt=""/>
+        <img class="hl-slon" id="hlSlon" src="slon.svg" alt=""/>
       </div>
     </div>
   </section>
@@ -745,10 +962,10 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:52px
         <p class="fade-up d2">Jestem inżynierem szerokiej specjalizacji, który przez lata praktyki skupił się na tym, co naprawdę ma znaczenie — efektywnym i inteligentnym wykorzystaniu energii.</p>
         <p class="fade-up d3">Doradzam osobom prywatnym, firmom i instytucjom jak optymalnie zorganizować instalacje i urządzenia energetyczne, by służyły lepiej, dłużej i taniej. Każde wdrożenie traktuję indywidualnie — moim celem jest rozwiązanie, które przynosi klientowi konkretne korzyści: wyższy komfort, niższe rachunki, dłuższa żywotność urządzeń i mniejszy ślad środowiskowy.</p>
         <div class="about-stats">
-          <div class="stat-card fade-up d3"><div class="stat-number">100+</div><div class="stat-label">Zrealizowanych audytów</div></div>
-          <div class="stat-card fade-up d4"><div class="stat-number">27,3%</div><div class="stat-label">Śr. oszczędności klientów</div></div>
-          <div class="stat-card fade-up d4"><div class="stat-number">17</div><div class="stat-label">Lat doświadczenia</div></div>
-          <div class="stat-card fade-up d5"><div class="stat-number">200+</div><div class="stat-label">Zadowolonych klientów</div></div>
+          <div class="stat-card fade-up d3"><div class="stat-number"><span class="count-up" data-target="100" data-suffix="+">100+</span></div><div class="stat-label">Zrealizowanych audytów</div></div>
+          <div class="stat-card fade-up d4"><div class="stat-number"><span class="count-up" data-target="27.3" data-decimals="1" data-suffix="%">27,3%</span></div><div class="stat-label">Śr. oszczędności klientów</div></div>
+          <div class="stat-card fade-up d4"><div class="stat-number"><span class="count-up" data-target="17">17</span></div><div class="stat-label">Lat doświadczenia</div></div>
+          <div class="stat-card fade-up d5"><div class="stat-number"><span class="count-up" data-target="200" data-suffix="+">200+</span></div><div class="stat-label">Zadowolonych klientów</div></div>
         </div>
       </div>
       <div class="about-photo fade-up d2">
@@ -933,42 +1150,184 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:52px
   </div>
     </section>
 
-  <!-- GALERIA -->
-  <section id="galeria">
-    <div class="section-eyebrow fade-up">Galeria</div>
-    <h2 class="section-title fade-up d1">Wybrane <em>realizacje</em></h2>
+  <!-- JAK PRACUJĘ -->
+  <section id="proces">
+    <div class="proces-grid">
+      <div class="proces-sticky">
+        <div class="section-eyebrow fade-up">Jak pracuję</div>
+        <h2 class="section-title fade-up d1">Od rozmowy <em>do oszczędności</em></h2>
+        <div class="section-divider fade-up d2"></div>
+        <p class="proces-lead fade-up d2">Cztery kroki, które przechodzimy razem. Od początku wiesz, co będzie się działo i co dostaniesz na każdym etapie.</p>
+        <ol class="proces-nav fade-up d3" id="procesNav">
+          <li data-step="1"><span class="pn-num">01</span>Rozmowa</li>
+          <li data-step="2"><span class="pn-num">02</span>Pomiary na obiekcie</li>
+          <li data-step="3"><span class="pn-num">03</span>Raport z wyliczeniami</li>
+          <li data-step="4"><span class="pn-num">04</span>Wdrożenie i kontrola efektu</li>
+        </ol>
+        <a href="#kontakt" class="btn-primary fade-up d3">Umów rozmowę</a>
+      </div>
+      <div class="proces-steps" id="procesSteps">
+        <div class="proces-rail" aria-hidden="true"><span class="proces-rail-fill" id="procesRailFill"></span></div>
+        <ol class="p-list">
+        <li class="p-step" data-step="1">
+          <span class="p-dot">01</span>
+          <div class="p-card">
+            <div class="p-label">Krok 1</div>
+            <h3>Rozmowa</h3>
+            <p>Opowiadasz o budynku i o tym, co Cię niepokoi: wysokie rachunki, awarie, brak komfortu. Pytam o rodzaj instalacji, zużycie energii i Twoje plany. Po rozmowie wiesz, czy i w czym mogę pomóc.</p>
+            <div class="p-get"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Wstępna ocena sytuacji i propozycja dalszych kroków</span></div>
+          </div>
+        </li>
+        <li class="p-step" data-step="2">
+          <span class="p-dot">02</span>
+          <div class="p-card">
+            <div class="p-label">Krok 2</div>
+            <h3>Pomiary na obiekcie</h3>
+            <p>Przyjeżdżam na miejsce. Oglądam instalacje i urządzenia, sprawdzam nastawy i sterowanie, analizuję rachunki i dane o zużyciu. Tam, gdzie to potrzebne, wykonuję pomiary.</p>
+            <div class="p-get"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Rzetelny obraz stanu instalacji i miejsc, w których ucieka energia</span></div>
+          </div>
+        </li>
+        <li class="p-step" data-step="3">
+          <span class="p-dot">03</span>
+          <div class="p-card">
+            <div class="p-label">Krok 3</div>
+            <h3>Raport z wyliczeniami</h3>
+            <p>Dostajesz listę konkretnych działań: co zmienić, ile to kosztuje, ile pozwoli zaoszczędzić i po jakim czasie inwestycja się zwróci. Działania są uporządkowane od najbardziej opłacalnych.</p>
+            <div class="p-get"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Raport z kosztami, oszczędnościami i okresem zwrotu</span></div>
+          </div>
+        </li>
+        <li class="p-step" data-step="4">
+          <span class="p-dot">04</span>
+          <div class="p-card">
+            <div class="p-label">Krok 4</div>
+            <h3>Wdrożenie i kontrola efektu</h3>
+            <p>Pomagam wprowadzić zmiany: wykonuję je sam albo nadzoruję wykonawców. Po wdrożeniu sprawdzam, czy instalacja pracuje tak, jak zakładaliśmy, i czy oszczędności są realne.</p>
+            <div class="p-get"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Sprawnie działająca instalacja i potwierdzony efekt</span></div>
+          </div>
+        </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- REALIZACJE -->
+  <section id="realizacje">
+    <div class="section-eyebrow fade-up">Realizacje</div>
+    <h2 class="section-title fade-up d1">Wyniki, które <em>widać na rachunkach</em></h2>
     <div class="section-divider fade-up d2"></div>
-    <p class="gallery-hint fade-up d2">
-  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M9 11V6a3 3 0 116 0v5"/>
-    <path d="M9 11V8a1.5 1.5 0 10-3 0v6a6 6 0 006 6h1a6 6 0 006-6v-3a1.5 1.5 0 10-3 0"/>
-  </svg>
-  Kliknij na zdjęcie, aby otworzyć opis projektu.
-</p>
-    <div class="gallery-grid fade-up d2">
-  <div class="gallery-item has-img"
-     data-label="Realizacja 01"
-     data-title="Modernizacja instalacji — Nowy Targ"
-     data-desc="Modernizacja instalacji grzewczej. Efekt — koszty ogrzewania spadły trzykrotnie."
-     onclick="openLightbox(this)">
-  <img src="szaflarska_galeria-800.webp" srcset="szaflarska_galeria-800.webp 800w, szaflarska_galeria-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 800px" data-full="szaflarska_galeria-1600.webp" width="800" height="600" alt="Modernizacja instalacji budynku w Nowym Targu" loading="lazy" decoding="async"/>
-  </div>
-  <div class="gallery-item has-img"
-       data-label="Realizacja 02"
-       data-title="Naprawa i modernizacja ogrzewania powietrznego"
-       data-desc="Po modernizacji redukcja kosztów ogrzewania o ~165.400 PLN rocznie"
-       onclick="openLightbox(this)">
-    <img src="centr13_kasp-800.webp" srcset="centr13_kasp-800.webp 800w, centr13_kasp-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 800px" data-full="centr13_kasp-1600.webp" width="800" height="600" alt="Modernizacja centrali wentylacyjnej" loading="lazy" decoding="async"/>
-  </div>
-  <div class="gallery-item has-img"
-       data-label="Realizacja 03"
-       data-title="Naprawa sterowania centralą wentylacyjną"
-       data-desc="Nowa centrala zatrzymywała się podczas mrozów, wykonawca uznał, że problem jest nie po jego stronie. Modyfikacja programu sterującego + regulacja instalacji. Efekt - centrala pracuje bez zarzutu. Redukcja kosztów eksploatacji o ~22.500 PLN rocznie." 
-       onclick="openLightbox(this)">
-    <img src="centrala_kuchcent_kas-800.webp" srcset="centrala_kuchcent_kas-800.webp 800w, centrala_kuchcent_kas-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 800px" data-full="centrala_kuchcent_kas-1600.webp" width="800" height="600" alt="Naprawa nowej wentylacji - zatrzymywała się przy mrozie" loading="lazy" decoding="async"/>
-  </div>
-  <div class="gallery-item" data-label="Realizacja 04" data-title="Realizacja 04" data-desc="[Opis realizacji – lokalizacja, zakres prac, osiągnięte oszczędności.]" onclick="openLightbox(this)"><svg class="gallery-ph" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg></div>
-</div>
+    <div class="cases-grid">
+      <article class="case-card fade-up">
+        <div class="case-img" data-lb data-title="Modernizacja instalacji — Nowy Targ" data-desc="Modernizacja instalacji grzewczej. Efekt — koszty ogrzewania spadły trzykrotnie." onclick="openLightbox(this)">
+          <img src="szaflarska_galeria-800.webp" srcset="szaflarska_galeria-800.webp 800w, szaflarska_galeria-1600.webp 1600w" sizes="(max-width: 600px) 100vw, (max-width: 1100px) 50vw, 420px" data-full="szaflarska_galeria-1600.webp" width="800" height="600" alt="Modernizacja instalacji budynku w Nowym Targu" loading="lazy" decoding="async"/>
+          <span class="case-tag">Realizacja 01 · Nowy Targ</span>
+        </div>
+        <div class="case-body">
+          <h3>Modernizacja instalacji grzewczej</h3>
+          <dl class="case-facts">
+            <div><dt>Zakres prac</dt><dd>Modernizacja instalacji grzewczej budynku.</dd></div>
+          </dl>
+          <div class="case-result">
+            <div class="case-num"><span class="count-up" data-target="3" data-suffix="×">3×</span></div>
+            <div class="case-cap">niższe koszty ogrzewania</div>
+          </div>
+        </div>
+      </article>
+      <article class="case-card fade-up">
+        <div class="case-img" data-lb data-title="Naprawa i modernizacja ogrzewania powietrznego" data-desc="Po modernizacji redukcja kosztów ogrzewania o ~165.400 PLN rocznie" onclick="openLightbox(this)">
+          <img src="centr13_kasp-800.webp" srcset="centr13_kasp-800.webp 800w, centr13_kasp-1600.webp 1600w" sizes="(max-width: 600px) 100vw, (max-width: 1100px) 50vw, 420px" data-full="centr13_kasp-1600.webp" width="800" height="600" alt="Modernizacja centrali wentylacyjnej" loading="lazy" decoding="async"/>
+          <span class="case-tag">Realizacja 02</span>
+        </div>
+        <div class="case-body">
+          <h3>Naprawa i modernizacja ogrzewania powietrznego</h3>
+          <dl class="case-facts">
+            <div><dt>Zakres prac</dt><dd>Naprawa i modernizacja układu ogrzewania powietrznego z centralą wentylacyjną.</dd></div>
+          </dl>
+          <div class="case-result">
+            <div class="case-num"><span class="count-up" data-target="165400" data-prefix="~" data-suffix=" zł">~165 400 zł</span></div>
+            <div class="case-cap">mniej rocznie na ogrzewaniu</div>
+          </div>
+        </div>
+      </article>
+      <article class="case-card fade-up">
+        <div class="case-img" data-lb data-title="Naprawa sterowania centralą wentylacyjną" data-desc="Nowa centrala zatrzymywała się podczas mrozów, wykonawca uznał, że problem jest nie po jego stronie. Modyfikacja programu sterującego + regulacja instalacji. Efekt - centrala pracuje bez zarzutu. Redukcja kosztów eksploatacji o ~22.500 PLN rocznie." onclick="openLightbox(this)">
+          <img src="centrala_kuchcent_kas-800.webp" srcset="centrala_kuchcent_kas-800.webp 800w, centrala_kuchcent_kas-1600.webp 1600w" sizes="(max-width: 600px) 100vw, (max-width: 1100px) 50vw, 420px" data-full="centrala_kuchcent_kas-1600.webp" width="800" height="600" alt="Naprawa nowej wentylacji - zatrzymywała się przy mrozie" loading="lazy" decoding="async"/>
+          <span class="case-tag">Realizacja 03</span>
+        </div>
+        <div class="case-body">
+          <h3>Naprawa sterowania centralą wentylacyjną</h3>
+          <dl class="case-facts">
+            <div><dt>Problem</dt><dd>Nowa centrala zatrzymywała się podczas mrozów. Wykonawca uznał, że problem nie leży po jego stronie.</dd></div>
+            <div><dt>Rozwiązanie</dt><dd>Modyfikacja programu sterującego i regulacja instalacji. Centrala pracuje bez zarzutu.</dd></div>
+          </dl>
+          <div class="case-result">
+            <div class="case-num"><span class="count-up" data-target="22500" data-prefix="~" data-suffix=" zł">~22 500 zł</span></div>
+            <div class="case-cap">mniej rocznie na eksploatacji</div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- KALKULATOR -->
+  <section id="kalkulator">
+    <div class="section-eyebrow fade-up">Kalkulator</div>
+    <h2 class="section-title fade-up d1">Ile możesz <em>zaoszczędzić?</em></h2>
+    <div class="section-divider fade-up d2"></div>
+    <p class="calc-lead fade-up d2">Podaj roczny koszt energii w swoim obiekcie. Zobaczysz orientacyjny przedział oszczędności, jaki zwykle przynosi modernizacja instalacji w podobnych budynkach.</p>
+    <div class="calc-grid fade-up d3">
+      <form class="calc-form" id="calcForm" onsubmit="return false;">
+        <div class="calc-field">
+          <label for="calcCost">Roczny koszt energii (ogrzewanie, prąd, ciepła woda)</label>
+          <div class="calc-cost-row">
+            <input type="text" id="calcCost" inputmode="numeric" autocomplete="off" value="60 000" aria-describedby="calcCostHint"/>
+            <span id="calcCostHint">zł / rok</span>
+          </div>
+          <input type="range" class="calc-range" id="calcRange" min="0" max="1000" step="1" aria-label="Roczny koszt energii — suwak"/>
+          <div class="calc-scale"><span>5 tys.</span><span>50 tys.</span><span>500 tys.</span><span>3 mln zł</span></div>
+        </div>
+        <div class="calc-field">
+          <label for="calcType">Rodzaj obiektu</label>
+          <select class="calc-select" id="calcType">
+            <option value="dom">Dom jednorodzinny</option>
+            <option value="wielo">Budynek wielorodzinny / wspólnota</option>
+            <option value="biuro" selected>Biuro, sklep, usługi</option>
+            <option value="hotel">Hotel, pensjonat, obiekt z basenem</option>
+            <option value="prod">Zakład produkcyjny, warsztat</option>
+            <option value="publ">Szkoła, urząd, obiekt publiczny</option>
+          </select>
+        </div>
+        <div class="calc-field">
+          <fieldset>
+            <legend>Wiek instalacji grzewczej i wentylacyjnej</legend>
+            <div class="calc-chips">
+              <input type="radio" name="calcAge" id="calcAge1" value="new"/><label for="calcAge1">Do 5 lat</label>
+              <input type="radio" name="calcAge" id="calcAge2" value="mid" checked/><label for="calcAge2">5–15 lat</label>
+              <input type="radio" name="calcAge" id="calcAge3" value="old"/><label for="calcAge3">Ponad 15 lat / nie wiem</label>
+            </div>
+          </fieldset>
+        </div>
+      </form>
+      <div class="calc-result" aria-live="polite">
+        <svg class="gauge" viewBox="-10 0 360 190" role="img" aria-label="Wskaźnik szacowanych oszczędności w procentach">
+          <defs>
+            <linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#4e8ecb"/><stop offset="1" stop-color="#c8a96e"/>
+            </linearGradient>
+          </defs>
+          <path class="g-track" d="M40 170 A130 130 0 0 1 300 170"/>
+          <path class="g-band" id="gaugeBand" pathLength="100" d="M40 170 A130 130 0 0 1 300 170" stroke-dasharray="0 100"/>
+          <g id="gaugeTicks"></g>
+          <g class="g-needle" id="gaugeNeedle"><line x1="170" y1="170" x2="170" y2="72"/></g>
+          <circle class="g-hub" cx="170" cy="170" r="7"/>
+        </svg>
+        <div class="calc-pct" id="calcPct">12–28% kosztów</div>
+        <div class="calc-money" id="calcMoney">7 200 – 16 800 zł</div>
+        <div class="calc-money-cap">szacowana oszczędność rocznie</div>
+        <a href="#kontakt" class="btn-primary" id="calcCta">Sprawdźmy to na Twoim obiekcie</a>
+        <p class="calc-note">To orientacyjny szacunek na podstawie typowych wyników modernizacji instalacji w podobnych obiektach. Rzeczywisty potencjał zależy od stanu budynku i sposobu użytkowania. Można go określić dopiero po ocenie na miejscu.</p>
+      </div>
+    </div>
+  </section>
 
 <!-- MODAL PRAWNY -->
 <div id="legal-modal" onclick="closeLegalBg(event)">
@@ -1010,7 +1369,6 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:52px
     </div>
   </div>
 </div>
-  </section>
 
   <!-- KONTAKT -->
   <section id="kontakt">
@@ -1057,7 +1415,8 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:52px
         <h5>Nawigacja</h5>
         <a href="#o-mnie">O mnie</a>
         <a href="#oferta">Oferta</a>
-        <a href="#galeria">Galeria</a>
+        <a href="#realizacje">Realizacje</a>
+        <a href="#kalkulator">Kalkulator</a>
         <a href="#kontakt">Kontakt</a>
       </div>
       <div class="footer-links">
@@ -1097,110 +1456,6 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:52px
   if(el){el.src='Logo_znak_przyciete-removebg-preview.png';el.style.filter='brightness(0) invert(1)';}
 });
 
-// === INTRO ===
-if(history.scrollRestoration) history.scrollRestoration='manual';
-window.addEventListener('DOMContentLoaded',()=>{
-  const intro=document.getElementById('intro');
-  const site=document.getElementById('site');
-  const slonGray=document.getElementById('slon-gray');
-  const slonColor=document.getElementById('slon-color');
-  const obwodGray=document.getElementById('obwod-gray');
-  const canvas=document.getElementById('obwod-canvas');
-  const ctx=canvas.getContext('2d');
-
-  // ustaw src
-  slonGray.src='slon.svg';
-  slonColor.src='slon.svg';
-  obwodGray.src='obwod.svg';
-
-  // rozmiar canvasa = rozmiar wrap
-  const wrap=document.getElementById('logoWrap');
-  function resizeCanvas(){
-    canvas.width=wrap.offsetWidth;
-    canvas.height=wrap.offsetHeight;
-  }
-  resizeCanvas();
-
- const obwodImg=new Image();
-  obwodImg.src='obwod.svg';
-  obwodImg.crossOrigin='anonymous';
-
-  const DURATION=700;
-  const DELAY=100;
-
-  function easeInOut(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;}
-
-  // Animacja słonia — radialnie od środka
-  function animateSlon(startTs, ts){
-    const p=easeInOut(Math.min((ts-startTs)/DURATION,1));
-    const val=(p*150).toFixed(1)+'%';
-    const mask = `radial-gradient(circle at 50% 50%, 
-      rgba(0,0,0,1) 0%, 
-      rgba(0,0,0,1) ${val}, 
-      rgba(0,0,0,0) ${val}
-    )`;
-    slonColor.style.webkitMaskImage=mask;
-    slonColor.style.maskImage=mask;
-    // pulsowanie — delikatna zmiana skali po pojawieniu
-    if(p>=1){
-      slonColor.style.animation='pulse 1.8s ease-in-out infinite';
-    }
-  }
-
-  // Animacja obwodu — 3 łuki co 120° sweepują jednocześnie
-  function animateObwod(startTs, ts){
-    if(!obwodImg.complete) return;
-    const p=easeInOut(Math.min((ts-startTs)/DURATION,1));
-    const sweepAngle=p*120;
-    const W=canvas.width, H=canvas.height;
-    const cx=W/2, cy=H/2;
-    const r=Math.max(W,H);
-
-    ctx.clearRect(0,0,W,H);
-    ctx.save();
-    ctx.beginPath();
-    for(let i=0;i<3;i++){
-      const startAngle=(i*120-90)*(Math.PI/180);
-      const endAngle=(i*120-90+sweepAngle)*(Math.PI/180);
-      ctx.moveTo(cx,cy);
-      ctx.arc(cx,cy,r,startAngle,endAngle);
-      ctx.closePath();
-    }
-    ctx.clip();
-    ctx.filter='brightness(0) invert(1)';
-    ctx.drawImage(obwodImg,0,0,W,H);
-    ctx.restore();
-  }
-
-  // Główna pętla animacji
-  let startTs=null;
-  function loop(ts){
-    if(!startTs) startTs=ts;
-    animateSlon(startTs, ts);
-    animateObwod(startTs, ts);
-    if((ts-startTs)<DURATION) requestAnimationFrame(loop);
-  }
-
-  Promise.all([
-    new Promise(r=>{ if(slonColor.complete) r(); else slonColor.onload=r; }),
-    new Promise(r=>{ if(obwodImg.complete) r(); else obwodImg.onload=r; })
-  ]).then(()=>{
-    document.getElementById('logoWrap').classList.add('ready');
-    setTimeout(()=>requestAnimationFrame(loop), DELAY);
-  });
-
-  const T=DELAY+DURATION+300;
-  setTimeout(()=>{
-    intro.classList.add('fade-out');
-    site.classList.add('visible');
-    document.getElementById('fabWrap').style.display='flex';
-    document.getElementById('shareBtn').style.display='flex';
-    if(!localStorage.getItem('cookies_choice'))
-      setTimeout(()=>document.getElementById('cookie-banner').classList.add('show'),1600);
-  },T);
-  setTimeout(()=>intro.remove(),T+900);
-});
-
 // === NAVBAR ===
 window.addEventListener('scroll',()=>{
   document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40);
@@ -1221,8 +1476,8 @@ const obs=new IntersectionObserver(entries=>{
 document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
 
 // === COOKIES ===
-function acceptCookies(){localStorage.setItem('cookies_choice','accepted');document.getElementById('cookie-banner').classList.remove('show');}
-function rejectCookies(){localStorage.setItem('cookies_choice','rejected');document.getElementById('cookie-banner').classList.remove('show');}
+function acceptCookies(){lsSet('cookies_choice','accepted');document.getElementById('cookie-banner').classList.remove('show');}
+function rejectCookies(){lsSet('cookies_choice','rejected');document.getElementById('cookie-banner').classList.remove('show');}
 
 // === SHARE ===
 function shareP(){
@@ -1239,7 +1494,7 @@ function shareP(){
 // === FORM ===
 let lbItems=[],lbIndex=0;
 function openLightbox(el){
-  lbItems=Array.from(document.querySelectorAll('.gallery-item'));
+  lbItems=Array.from(document.querySelectorAll('[data-lb]'));
   lbIndex=lbItems.indexOf(el);
   lbShow();
   document.getElementById('lightbox').classList.add('open');
@@ -1531,6 +1786,218 @@ async function submitForm(e){
     btn.disabled=false;
   }
 }
+
+// =====================================================
+// PRZEBUDOWA 2026-09
+// =====================================================
+const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function lsGet(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+
+// --- start strony (bez intro) ---
+window.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('fabWrap').style.display='flex';
+  document.getElementById('shareBtn').style.display='flex';
+  if(!lsGet('cookies_choice'))
+    setTimeout(()=>document.getElementById('cookie-banner').classList.add('show'),1800);
+  initHeroLogo();
+});
+
+// --- HERO: słoń i obwód rysują się ---
+function initHeroLogo(){
+  const slon=document.getElementById('hlSlon');
+  const obw=document.getElementById('hlObwod');
+  if(!slon||!obw) return;
+  const setMask=(el,m)=>{el.style.webkitMaskImage=m;el.style.maskImage=m;};
+  const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+  function run(){
+    if(REDUCED){setMask(slon,'none');setMask(obw,'none');return;}
+    const D1=1100, D2=1500, START=250, OFF2=350;
+    let t0=null;
+    function frame(ts){
+      if(!t0) t0=ts;
+      const t=ts-t0-START;
+      const p1=ease(Math.min(Math.max(t/D1,0),1));
+      const p2=ease(Math.min(Math.max((t-OFF2)/D2,0),1));
+      const r=(p1*85).toFixed(1);
+      setMask(slon,`radial-gradient(circle at 50% 55%, #000 ${r}%, transparent ${(+r+8).toFixed(1)}%)`);
+      const a=(p2*120).toFixed(2);
+      setMask(obw,`conic-gradient(from -90deg, #000 0deg ${a}deg, transparent ${a}deg 120deg, #000 120deg ${120+ +a}deg, transparent ${120+ +a}deg 240deg, #000 240deg ${240+ +a}deg, transparent ${240+ +a}deg 360deg)`);
+      if(t<OFF2+D2) requestAnimationFrame(frame);
+      else {setMask(slon,'none');setMask(obw,'none');}
+    }
+    requestAnimationFrame(frame);
+  }
+  // obwód w kolorze złotym — przekolorowanie SVG
+  fetch('obwod.svg').then(r=>{if(!r.ok) throw 0; return r.text();}).then(txt=>{
+    const svg=txt.replace(/fill="#000000"/g,'fill="#c8a96e"');
+    obw.src=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml'}));
+    obw.onload=run;
+  }).catch(()=>{obw.classList.add('white');obw.src='obwod.svg';obw.onload=run;});
+}
+
+// --- HERO: poświata za kursorem ---
+(function(){
+  const hero=document.getElementById('hero');
+  if(!hero||!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+  let raf=0,x=0,y=0;
+  hero.addEventListener('pointermove',e=>{
+    const r=hero.getBoundingClientRect(); x=e.clientX-r.left; y=e.clientY-r.top;
+    if(!raf) raf=requestAnimationFrame(()=>{hero.style.setProperty('--mx',x+'px');hero.style.setProperty('--my',y+'px');raf=0;});
+  });
+})();
+
+// --- KARTY USŁUG: poświata od kursora ---
+document.querySelectorAll('.service-card').forEach(card=>{
+  card.addEventListener('pointermove',e=>{
+    const r=card.getBoundingClientRect();
+    card.style.setProperty('--gx',(e.clientX-r.left)+'px');
+    card.style.setProperty('--gy',(e.clientY-r.top)+'px');
+  });
+});
+
+// --- PŁYNNE WJEŻDŻANIE: kaskada w siatkach ---
+document.querySelectorAll('.services-grid, .cases-grid, .about-stats').forEach(g=>{
+  [...g.children].forEach((c,i)=>{ if(c.classList.contains('fade-up')) c.style.transitionDelay=((i%3)*0.09+0.05).toFixed(2)+'s'; });
+});
+
+// --- LICZNIKI ---
+(function(){
+  const fmt=(v,dec)=>{const s=v.toFixed(dec).split('.');return s[0].replace(/\B(?=(\d{3})+(?!\d))/g,' ')+(dec?','+s[1]:'');};
+  const els=document.querySelectorAll('.count-up');
+  if(REDUCED||!('IntersectionObserver' in window)) return;
+  els.forEach(el=>{
+    const dec=+(el.dataset.decimals||0), pre=el.dataset.prefix||'', suf=el.dataset.suffix||'';
+    el.textContent=pre+fmt(0,dec)+suf;
+  });
+  const io=new IntersectionObserver(ents=>{
+    ents.forEach(en=>{
+      if(!en.isIntersecting) return;
+      io.unobserve(en.target);
+      const el=en.target, target=+el.dataset.target, dec=+(el.dataset.decimals||0);
+      const pre=el.dataset.prefix||'', suf=el.dataset.suffix||'', D=target<10?900:1800;
+      let t0=null;
+      function step(ts){
+        if(!t0) t0=ts;
+        const p=Math.min((ts-t0)/D,1), e=1-Math.pow(1-p,4);
+        let v=target*e; v=dec?v:Math.round(v);
+        if(target>=1000&&p<1) v=Math.round(v/100)*100;
+        el.textContent=pre+fmt(v,dec)+suf;
+        if(p<1) requestAnimationFrame(step);
+      }
+      setTimeout(()=>requestAnimationFrame(step),250);
+    });
+  },{threshold:.6});
+  els.forEach(el=>io.observe(el));
+})();
+
+// --- JAK PRACUJĘ: aktywny krok + linia postępu ---
+(function(){
+  const wrap=document.getElementById('procesSteps');
+  if(!wrap) return;
+  const steps=[...wrap.querySelectorAll('.p-step')];
+  const nav=[...document.querySelectorAll('#procesNav li')];
+  const fill=document.getElementById('procesRailFill');
+  let ticking=false;
+  function update(){
+    ticking=false;
+    const vh=window.innerHeight, mark=vh*0.62;
+    let active=0;
+    steps.forEach((s,i)=>{
+      const dot=s.querySelector('.p-dot').getBoundingClientRect();
+      const lit=dot.top+dot.height/2<mark;
+      s.classList.toggle('lit',lit);
+      if(lit) active=i+1;
+    });
+    nav.forEach((li,i)=>{li.classList.toggle('active',i+1===active);li.classList.toggle('done',i+1<active);});
+    const first=steps[0].querySelector('.p-dot').getBoundingClientRect();
+    const last=steps[steps.length-1].querySelector('.p-dot').getBoundingClientRect();
+    const wr=wrap.getBoundingClientRect();
+    const start=first.top+first.height/2, end=last.top+last.height/2;
+    const p=Math.min(Math.max((mark-start)/(end-start),0),1);
+    fill.style.top=(start-wr.top)+'px';
+    fill.style.height=(p*(end-start))+'px';
+  }
+  const req=()=>{if(!ticking){ticking=true;requestAnimationFrame(update);}};
+  window.addEventListener('scroll',req,{passive:true});
+  window.addEventListener('resize',req);
+  update();
+})();
+
+// --- KALKULATOR ---
+(function(){
+  const cost=document.getElementById('calcCost'); if(!cost) return;
+  const range=document.getElementById('calcRange');
+  const type=document.getElementById('calcType');
+  const band=document.getElementById('gaugeBand');
+  const needle=document.getElementById('gaugeNeedle');
+  const pctEl=document.getElementById('calcPct');
+  const moneyEl=document.getElementById('calcMoney');
+  const cta=document.getElementById('calcCta');
+  // Założenia: typowy przedział oszczędności [%] dla instalacji 5–15 letniej
+  const BASE={dom:[8,20],wielo:[10,25],biuro:[12,28],hotel:[15,32],prod:[10,25],publ:[12,28]};
+  const AGE={new:0.6,mid:1.0,old:1.25};
+  const AGE_TXT={new:'do 5 lat',mid:'5–15 lat',old:'ponad 15 lat / nie wiem'};
+  const MIN=5000, MAX=3000000, SCALE_MAX=50;
+  const toVal=s=>Math.round(MIN*Math.pow(MAX/MIN,s/1000));
+  const toPos=v=>Math.round(1000*Math.log(v/MIN)/Math.log(MAX/MIN));
+  const fmt=v=>String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+  const round=v=>v>=100000?Math.round(v/1000)*1000:Math.round(v/100)*100;
+  const parse=s=>+String(s).replace(/[^\d]/g,'');
+
+  // podziałka wskaźnika
+  const ticks=document.getElementById('gaugeTicks');
+  for(let p=0;p<=SCALE_MAX;p+=10){
+    const a=Math.PI*(1-p/SCALE_MAX), cx=170, cy=170;
+    const x1=cx+Math.cos(a)*141, y1=cy-Math.sin(a)*141, x2=cx+Math.cos(a)*148, y2=cy-Math.sin(a)*148;
+    const lx=cx+Math.cos(a)*161, ly=cy-Math.sin(a)*161+4;
+    ticks.insertAdjacentHTML('beforeend',`<line class="g-tick" x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"/><text class="g-lbl" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle">${p}%</text>`);
+  }
+  let last={};
+  function calc(){
+    const v=Math.min(Math.max(parse(cost.value)||0,0),50000000);
+    const age=(document.querySelector('input[name=calcAge]:checked')||{}).value||'mid';
+    const b=BASE[type.value], m=AGE[age];
+    const lo=Math.round(b[0]*m), hi=Math.min(Math.round(b[1]*m),40);
+    const mLo=round(v*lo/100), mHi=round(v*hi/100);
+    // wskaźnik: pasmo od lo do hi, wskazówka na środku
+    const a=lo/SCALE_MAX*100, bb=hi/SCALE_MAX*100;
+    band.setAttribute('stroke-dasharray',`${(bb-a).toFixed(2)} 100`);
+    band.setAttribute('stroke-dashoffset',(-a).toFixed(2));
+    const mid=(lo+hi)/2/SCALE_MAX;
+    needle.style.transform=`rotate(${(mid*180-90).toFixed(1)}deg)`;
+    pctEl.textContent=`${lo}–${hi}% kosztów`;
+    moneyEl.textContent=v?`${fmt(mLo)} – ${fmt(mHi)} zł`:'—';
+    last={v,lo,hi,mLo,mHi,type:type.options[type.selectedIndex].text,age:AGE_TXT[age]};
+    range.style.setProperty('--fill',(range.value/10)+'%');
+  }
+  function fromRange(){cost.value=fmt(toVal(+range.value));calc();}
+  function fromInput(){
+    const v=parse(cost.value);
+    if(v) range.value=Math.min(Math.max(toPos(Math.max(v,MIN)),0),1000);
+    calc();
+  }
+  range.addEventListener('input',fromRange);
+  cost.addEventListener('input',fromInput);
+  cost.addEventListener('blur',()=>{const v=parse(cost.value); cost.value=v?fmt(v):'';});
+  type.addEventListener('change',calc);
+  document.querySelectorAll('input[name=calcAge]').forEach(r=>r.addEventListener('change',calc));
+  cta.addEventListener('click',()=>{
+    const ta=document.querySelector('#kontakt textarea[name=wiadomosc]');
+    if(ta&&last.v&&!ta.value.trim()){
+      ta.value=`Dzień dobry, skorzystałem z kalkulatora na stronie.\nObiekt: ${last.type}\nRoczny koszt energii: ok. ${fmt(last.v)} zł\nWiek instalacji: ${last.age}\nSzacowany potencjał: ${fmt(last.mLo)} – ${fmt(last.mHi)} zł rocznie (${last.lo}–${last.hi}%).\nProszę o kontakt w sprawie oceny obiektu.`;
+    }
+  });
+  range.value=toPos(parse(cost.value));
+  // start wskaźnika od zera, animacja po wjechaniu w widok
+  band.setAttribute('stroke-dasharray','0 100');
+  needle.style.transform='rotate(-90deg)';
+  if('IntersectionObserver' in window && !REDUCED){
+    const io=new IntersectionObserver(e=>{if(e[0].isIntersecting){io.disconnect();setTimeout(calc,300);}},{threshold:.4});
+    io.observe(document.querySelector('.calc-result'));
+  } else calc();
+  range.style.setProperty('--fill',(range.value/10)+'%');
+})();
 </script>
 </body>
 </html>
