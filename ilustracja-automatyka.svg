@@ -18,7 +18,6 @@
     .dev{fill:#0b0f1e;stroke:#4e8ecb;stroke-width:2.5}
     .gold{fill:none;stroke:#c8a96e;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
     .txt{font-family:'Rajdhani','Arial Narrow',Arial,sans-serif;font-size:15px;letter-spacing:3px;fill:#7a8aa0;font-weight:600}
-    .lbl{font-family:'Rajdhani','Arial Narrow',Arial,sans-serif;font-size:15px;letter-spacing:2.5px;fill:#e8edf5;font-weight:700}
     .led{animation:blink 1.4s steps(2,end) infinite}
     .l2{animation-delay:-.35s}.l3{animation-delay:-.7s}.l4{animation-delay:-1.05s}
     .fan{animation:spin 2.4s linear infinite;transform-origin:650px 300px}
@@ -75,7 +74,6 @@
   <rect x="402" y="500" width="20" height="4"/><rect x="402" y="512" width="20" height="4"/><rect x="402" y="524" width="20" height="4"/>
   <rect x="448" y="500" width="36" height="24"/>
 </g>
-<text class="lbl" x="400" y="630" text-anchor="middle">STEROWNIK</text>
 
 <!-- panel (góra) -->
 <rect class="dev" x="330" y="150" width="140" height="100" rx="4"/>
@@ -86,7 +84,6 @@
   <rect class="bar b3" x="400" y="200" width="14" height="22"/>
   <rect class="bar b4" x="422" y="176" width="14" height="46"/>
 </g>
-<text class="lbl" x="400" y="136" text-anchor="middle">PANEL</text>
 
 <!-- czujnik temperatury (lewo góra) -->
 <circle class="dev" cx="180" cy="300" r="50"/>
@@ -94,7 +91,6 @@
 <circle cx="180" cy="326" r="13" fill="none" stroke="#c8a96e" stroke-width="2.5"/>
 <circle cx="180" cy="326" r="6" fill="#c8a96e"/>
 <path d="M180 318V290" stroke="#c8a96e" stroke-width="4" stroke-linecap="round"/>
-<text class="lbl" x="180" y="226" text-anchor="middle">TEMPERATURA</text>
 
 <!-- wentylator (prawo góra) -->
 <circle class="dev" cx="650" cy="300" r="50"/>
@@ -104,19 +100,16 @@
   <path d="M650 300C638 318 622 328 612 322C612 308 630 300 650 300Z" fill="#c8a96e"/>
   <circle cx="650" cy="300" r="6" fill="#0b0f1e" stroke="#c8a96e" stroke-width="2"/>
 </g>
-<text class="lbl" x="650" y="226" text-anchor="middle">WENTYLACJA</text>
 
 <!-- pompa (lewo dół) -->
 <circle class="dev" cx="180" cy="740" r="50"/>
 <circle cx="180" cy="740" r="26" fill="none" stroke="#c8a96e" stroke-width="2.5"/>
 <path d="M168 724L196 740L168 756Z" fill="#c8a96e"/>
-<text class="lbl" x="180" y="824" text-anchor="middle">POMPA</text>
 
 <!-- zawór (prawo dół) -->
 <circle class="dev" cx="620" cy="740" r="50"/>
 <path class="gold" d="M596 752L620 740L596 728ZM644 752L620 740L644 728Z" fill="#c8a96e" fill-opacity=".25"/>
 <path class="gold" d="M620 740V716M608 716H632"/>
-<text class="lbl" x="620" y="824" text-anchor="middle">ZAWÓR</text>
 
 <!-- ogrzewanie (dół) -->
 <rect class="dev" x="320" y="790" width="160" height="90" rx="4"/>
@@ -124,7 +117,6 @@
   <path d="M344 810v50M364 810v50M384 810v50M404 810v50M424 810v50M444 810v50M456 810v50"/>
   <path d="M338 866H462"/>
 </g>
-<text class="lbl" x="400" y="912" text-anchor="middle">OGRZEWANIE</text>
 
 <path d="M440 948V976M440 948H776" stroke="#4e8ecb" stroke-opacity=".25" fill="none"/>
 <text class="txt" x="756" y="967" text-anchor="end" style="font-size:12px;letter-spacing:2px">EKOSPEC · AUTOMATYKA BUDYNKOWA</text>

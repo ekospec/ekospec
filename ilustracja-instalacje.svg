@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="t">
+<title id="t">Instalacje – schemat technologiczny kotłowni z buforem, zasobnikiem i rozdzielaczem</title>
+<defs>
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M40 0H0V40" fill="none" stroke="#4e8ecb" stroke-opacity=".07" stroke-width="1"/>
+  </pattern>
+  <marker id="ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0 0L10 5L0 10z" fill="#c8a96e"/>
+  </marker>
+  <marker id="ahb" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0 0L10 5L0 10z" fill="#4e8ecb"/>
+  </marker>
+
+  <style>
+    .ln{fill:none;stroke:#4e8ecb;stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
+    .ln2{fill:none;stroke:#4e8ecb;stroke-opacity:.5;stroke-width:1.5;stroke-linejoin:round}
+    .thin{fill:none;stroke:#4e8ecb;stroke-opacity:.3;stroke-width:1}
+    .gold{fill:none;stroke:#c8a96e;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .dim{fill:none;stroke:#7a8aa0;stroke-width:1.2}
+    .dev{fill:#0b0f1e;stroke:#4e8ecb;stroke-width:2.5}
+    .txt{font-family:'Rajdhani','Arial Narrow',Arial,sans-serif;font-size:15px;letter-spacing:3px;fill:#7a8aa0;font-weight:600}
+    .tag{font-family:'Rajdhani','Arial Narrow',Arial,sans-serif;font-size:13px;letter-spacing:1.5px;fill:#7a8aa0;font-weight:700}
+    .flow{fill:none;stroke:#c8a96e;stroke-width:3;stroke-linecap:round;stroke-dasharray:22 400;animation:flow 3.2s linear infinite}
+    .flowb{fill:none;stroke:#8fbde8;stroke-width:3;stroke-linecap:round;stroke-dasharray:22 400;animation:flow 3.2s linear infinite}
+    @keyframes flow{from{stroke-dashoffset:422}to{stroke-dashoffset:0}}
+    @keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    .sup{fill:none;stroke:#c8a96e;stroke-width:2.5;stroke-linejoin:round}
+    .ret{fill:none;stroke:#4e8ecb;stroke-width:2.5;stroke-linejoin:round}
+    .eq{fill:#0b0f1e;stroke:#4e8ecb;stroke-width:2.5}
+    .pm{fill:#0b0f1e;stroke:#4e8ecb;stroke-width:2}
+    .vv{fill:#0b0f1e;stroke:#4e8ecb;stroke-width:2;stroke-linejoin:round}
+    .act{fill:#0b0f1e;stroke:#4e8ecb;stroke-width:1.5}
+    .th{fill:none;stroke:#4e8ecb;stroke-width:1.5}
+    .coil{fill:none;stroke:#c8a96e;stroke-width:2.5}
+    .man{fill:#c8a96e;fill-opacity:.12;stroke:#c8a96e;stroke-width:2}
+    .manb{fill:#4e8ecb;fill-opacity:.12;stroke:#4e8ecb;stroke-width:2}
+    .flame{animation:pulse 1.8s ease-in-out infinite}
+    .heat{animation:pulse 4s ease-in-out infinite}
+    .fan{animation:spin 2.6s linear infinite;transform-origin:130px 485px}
+    .flow,.flowb{stroke-width:3.5}
+
+    @media (prefers-reduced-motion:reduce){*{animation:none!important}}
+  </style>
+</defs>
+<rect width="800" height="1000" fill="#0b0f1e"/>
+<rect width="800" height="1000" fill="url(#grid)"/>
+<rect x="24" y="24" width="752" height="952" fill="none" stroke="#4e8ecb" stroke-opacity=".25"/>
+<text class="txt" x="52" y="68">SCHEMAT TECHNOLOGICZNY</text>
+<text class="txt" x="748" y="68" text-anchor="end">KOTŁOWNIA</text>
+<path class="sup" d="M190 200H300"/>
+<path class="ret" d="M300 300H190"/>
+<path class="sup" d="M190 450H232 a8 8 0 0 1 16 0H300"/>
+<path class="ret" d="M300 530H248 a8 8 0 0 0 -16 0H190"/>
+<path class="sup" d="M240 200V700H300"/>
+<path class="ret" d="M300 740H270V600H342V570"/>
+<path class="ret" d="M60 850H300"/>
+<path class="sup" d="M384 670H440V900"/>
+<path class="ret" d="M440 780H410V840H384"/>
+<path class="sup" d="M384 200H420V230H460"/>
+<path class="ret" d="M460 300H430V520H384"/>
+<path class="sup" d="M505 239V292 a8 8 0 0 1 0 16V640"/>
+<path class="ret" d="M527 640V309"/>
+<path class="sup" d="M565 239V292 a8 8 0 0 1 0 16V640"/>
+<path class="ret" d="M587 640V309"/>
+<path class="sup" d="M625 239V292 a8 8 0 0 1 0 16V640"/>
+<path class="ret" d="M647 640V309"/>
+<path class="sup" d="M685 239V292 a8 8 0 0 1 0 16V640"/>
+<path class="ret" d="M707 640V309"/>
+<path class="ret" d="M740 309V760"/>
+<path class="flow" pathLength="422" d="M190 200H300" style="animation-delay:0s"/>
+<path class="flowb" pathLength="422" d="M300 300H190" style="animation-delay:-1.2s"/>
+<path class="flow" pathLength="422" d="M190 450H232 a8 8 0 0 1 16 0H300" style="animation-delay:-0.6s"/>
+<path class="flowb" pathLength="422" d="M300 530H248 a8 8 0 0 0 -16 0H190" style="animation-delay:-1.8s"/>
+<path class="flow" pathLength="422" d="M240 200V700H300" style="animation-delay:-0.3s"/>
+<path class="flow" pathLength="422" d="M384 200H420V230H460" style="animation-delay:-0.9s"/>
+<path class="flowb" pathLength="422" d="M460 300H430V520H384" style="animation-delay:-2.2s"/>
+<path class="flow" pathLength="422" d="M505 239V292 a8 8 0 0 1 0 16V640" style="animation-delay:-0.0s"/>
+<path class="flowb" pathLength="422" d="M527 640V309" style="animation-delay:-1.6s"/>
+<path class="flow" pathLength="422" d="M565 239V292 a8 8 0 0 1 0 16V640" style="animation-delay:-0.4s"/>
+<path class="flowb" pathLength="422" d="M587 640V309" style="animation-delay:-2.0s"/>
+<path class="flow" pathLength="422" d="M625 239V292 a8 8 0 0 1 0 16V640" style="animation-delay:-0.8s"/>
+<path class="flowb" pathLength="422" d="M647 640V309" style="animation-delay:-2.4000000000000004s"/>
+<path class="flow" pathLength="422" d="M685 239V292 a8 8 0 0 1 0 16V640" style="animation-delay:-1.2000000000000002s"/>
+<path class="flowb" pathLength="422" d="M707 640V309" style="animation-delay:-2.8000000000000003s"/>
+<rect class="eq" x="70" y="160" width="120" height="170" rx="6"/><path d="M130 300c-16-16-10-36 4-52c2 16 14 20 16 32c8-7 8-19 5-28c14 12 17 34 3 48z" fill="#c8a96e" fill-opacity=".55" class="flame"/><path class="ln2" d="M84 180H176"/>
+<text class="tag" x="80" y="150" text-anchor="start">K1</text>
+<path class="sup" d="M110 160V128"/><path class="vv" d="M102 128L110 116L118 128Z"/><path class="act" d="M110 116V104M104 104h12"/>
+<rect class="eq" x="70" y="410" width="120" height="150" rx="6"/><circle cx="130" cy="485" r="38" fill="none" stroke="#4e8ecb" stroke-opacity=".6" stroke-width="2"/><g class="fan"><path d="M130 485C122 469 124 455 130 451C139 456 139 472 130 485Z" fill="#4e8ecb"/><path d="M130 485C147 484 160 490 161 498C153 505 139 497 130 485Z" fill="#4e8ecb"/><path d="M130 485C121 499 108 507 102 502C102 491 116 485 130 485Z" fill="#4e8ecb"/></g>
+<text class="tag" x="80" y="400" text-anchor="start">PC1</text>
+<rect class="eq" x="300" y="160" width="84" height="410" rx="42"/><g class="heat"><rect x="304" y="200" width="76" height="130" fill="#c8a96e" fill-opacity=".10"/></g>
+<path class="th" d="M384 230h12"/><circle cx="400" cy="230" r="4" class="pm"/>
+<path class="th" d="M384 330h12"/><circle cx="400" cy="330" r="4" class="pm"/>
+<path class="th" d="M384 430h12"/><circle cx="400" cy="430" r="4" class="pm"/>
+<path class="th" d="M384 520h12"/><circle cx="400" cy="520" r="4" class="pm"/>
+<text class="tag" x="342" y="150" text-anchor="middle">B1</text>
+<rect class="eq" x="300" y="640" width="84" height="230" rx="42"/>
+<path class="coil" d="M300 700H372 a10 10 0 0 1 0 20 H312 a10 10 0 0 0 0 20H372 a10 10 0 0 1 0 20 H312 a10 10 0 0 0 0 20H300"/>
+<text class="tag" x="342" y="632" text-anchor="middle">ZW1</text>
+<path class="vv" d="M239 192L250 200L239 208ZM261 192L250 200L261 208Z"/>
+<circle class="pm" cx="222" cy="300" r="13"/><path d="M-6 -7L8 0L-6 7Z" fill="#c8a96e" transform="translate(222 300) rotate(180)"/>
+<text class="tag" x="214" y="330" text-anchor="start">P0</text>
+<path class="vv" d="M266 442L280 450L266 458Z"/><path d="M281 441V459" stroke="#4e8ecb" stroke-width="2"/>
+<path class="vv" d="M232 599L240 610L248 599ZM232 621L240 610L248 621Z"/>
+<path class="vv" d="M251 602L240 610L251 618Z"/>
+<path class="act" d="M240 610H224M216 603h8v14h-8z"/>
+<path class="vv" d="M101 842L115 850L101 858Z"/><path d="M116 841V859" stroke="#4e8ecb" stroke-width="2"/>
+<path class="vv" d="M140 850L150 864L160 850"/><path d="M146 854l8 8" stroke="#4e8ecb" stroke-width="1.5"/>
+<rect class="pm" x="176" y="840" width="26" height="20" rx="3"/><path d="M182 850h14" stroke="#4e8ecb" stroke-width="1.5"/>
+<text class="tag" x="176" y="880" text-anchor="start">WM</text>
+<path d="M440 900V916" stroke="#c8a96e" stroke-width="2.5" marker-end="url(#ah)"/>
+<circle class="pm" cx="410" cy="810" r="13"/><path d="M-6 -7L8 0L-6 7Z" fill="#c8a96e" transform="translate(410 810) rotate(90)"/>
+<text class="tag" x="418" y="830" text-anchor="start">PC</text>
+<rect class="man" x="460" y="221" width="290" height="18" rx="3"/><rect class="manb" x="460" y="291" width="290" height="18" rx="3"/>
+<text class="tag" x="460" y="212" text-anchor="start">R1</text>
+<path class="th" d="M420 215h14M434 207v16"/><circle cx="434" cy="215" r="4" class="pm"/>
+<path class="vv" d="M497 369L505 380L513 369ZM497 391L505 380L513 391Z"/>
+<path class="vv" d="M516 372L505 380L516 388Z"/>
+<path class="act" d="M505 380H489M481 373h8v14h-8z"/>
+<path class="ret" d="M516 380H527"/>
+<circle class="pm" cx="505" cy="450" r="13"/><path d="M-6 -7L8 0L-6 7Z" fill="#c8a96e" transform="translate(505 450) rotate(90)"/>
+<path class="th" d="M505 520h14M519 512v16"/><circle cx="519" cy="520" r="4" class="pm"/>
+<path class="vv" d="M519 549L527 560L535 549ZM519 571L527 560L535 571Z"/>
+<text class="tag" x="485" y="455" text-anchor="end">P1</text>
+<path d="M505 640V660" stroke="#c8a96e" stroke-width="2.5" marker-end="url(#ah)"/>
+<path d="M527 668V650" stroke="#4e8ecb" stroke-width="2.5" marker-end="url(#ahb)"/>
+<text class="tag" x="516" y="700" text-anchor="middle">O1</text>
+<path class="vv" d="M557 369L565 380L573 369ZM557 391L565 380L573 391Z"/>
+<path class="vv" d="M576 372L565 380L576 388Z"/>
+<path class="act" d="M565 380H549M541 373h8v14h-8z"/>
+<path class="ret" d="M576 380H587"/>
+<circle class="pm" cx="565" cy="450" r="13"/><path d="M-6 -7L8 0L-6 7Z" fill="#c8a96e" transform="translate(565 450) rotate(90)"/>
+<path class="th" d="M565 520h14M579 512v16"/><circle cx="579" cy="520" r="4" class="pm"/>
+<path class="vv" d="M579 549L587 560L595 549ZM579 571L587 560L595 571Z"/>
+<path d="M565 640V660" stroke="#c8a96e" stroke-width="2.5" marker-end="url(#ah)"/>
+<path d="M587 668V650" stroke="#4e8ecb" stroke-width="2.5" marker-end="url(#ahb)"/>
+<text class="tag" x="576" y="700" text-anchor="middle">O2</text>
+<path class="vv" d="M617 369L625 380L633 369ZM617 391L625 380L633 391Z"/>
+<path class="vv" d="M636 372L625 380L636 388Z"/>
+<path class="act" d="M625 380H609M601 373h8v14h-8z"/>
+<path class="ret" d="M636 380H647"/>
+<circle class="pm" cx="625" cy="450" r="13"/><path d="M-6 -7L8 0L-6 7Z" fill="#c8a96e" transform="translate(625 450) rotate(90)"/>
+<path class="th" d="M625 520h14M639 512v16"/><circle cx="639" cy="520" r="4" class="pm"/>
+<path class="vv" d="M639 549L647 560L655 549ZM639 571L647 560L655 571Z"/>
+<path d="M625 640V660" stroke="#c8a96e" stroke-width="2.5" marker-end="url(#ah)"/>
+<path d="M647 668V650" stroke="#4e8ecb" stroke-width="2.5" marker-end="url(#ahb)"/>
+<text class="tag" x="636" y="700" text-anchor="middle">O3</text>
+<path class="vv" d="M677 369L685 380L693 369ZM677 391L685 380L693 391Z"/>
+<path class="vv" d="M696 372L685 380L696 388Z"/>
+<path class="act" d="M685 380H669M661 373h8v14h-8z"/>
+<path class="ret" d="M696 380H707"/>
+<circle class="pm" cx="685" cy="450" r="13"/><path d="M-6 -7L8 0L-6 7Z" fill="#c8a96e" transform="translate(685 450) rotate(90)"/>
+<path class="th" d="M685 520h14M699 512v16"/><circle cx="699" cy="520" r="4" class="pm"/>
+<path class="vv" d="M699 549L707 560L715 549ZM699 571L707 560L715 571Z"/>
+<path d="M685 640V660" stroke="#c8a96e" stroke-width="2.5" marker-end="url(#ah)"/>
+<path d="M707 668V650" stroke="#4e8ecb" stroke-width="2.5" marker-end="url(#ahb)"/>
+<text class="tag" x="696" y="700" text-anchor="middle">O4</text>
+<rect class="eq" x="718" y="760" width="44" height="90" rx="22"/><path class="ln2" d="M718 805H762"/>
+<text class="tag" x="740" y="870" text-anchor="middle">N1</text>
+<circle class="pm" cx="720" cy="190" r="14"/><path d="M720 190l7-8" stroke="#c8a96e" stroke-width="2"/><path class="ret" d="M720 204V221"/>
+<path d="M440 948V976M440 948H776" stroke="#4e8ecb" stroke-opacity=".25" fill="none"/>
+<text class="txt" x="756" y="967" text-anchor="end" style="font-size:12px;letter-spacing:2px">EKOSPEC · INSTALACJE</text>
+</svg>

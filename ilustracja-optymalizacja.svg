@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="t">
+<title id="t">Optymalizacja kosztów – wykres zużycia energii przed i po optymalizacji</title>
+<defs>
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M40 0H0V40" fill="none" stroke="#4e8ecb" stroke-opacity=".07" stroke-width="1"/>
+  </pattern>
+  <marker id="ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0 0L10 5L0 10z" fill="#c8a96e"/>
+  </marker>
+  <marker id="ahb" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0 0L10 5L0 10z" fill="#4e8ecb"/>
+  </marker>
+
+  <style>
+    .ln{fill:none;stroke:#4e8ecb;stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
+    .ln2{fill:none;stroke:#4e8ecb;stroke-opacity:.5;stroke-width:1.5;stroke-linejoin:round}
+    .thin{fill:none;stroke:#4e8ecb;stroke-opacity:.3;stroke-width:1}
+    .gold{fill:none;stroke:#c8a96e;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .dim{fill:none;stroke:#7a8aa0;stroke-width:1.2}
+    .dev{fill:#0b0f1e;stroke:#4e8ecb;stroke-width:2.5}
+    .txt{font-family:'Rajdhani','Arial Narrow',Arial,sans-serif;font-size:15px;letter-spacing:3px;fill:#7a8aa0;font-weight:600}
+    .tag{font-family:'Rajdhani','Arial Narrow',Arial,sans-serif;font-size:13px;letter-spacing:1.5px;fill:#7a8aa0;font-weight:700}
+    .flow{fill:none;stroke:#c8a96e;stroke-width:3;stroke-linecap:round;stroke-dasharray:22 400;animation:flow 3.2s linear infinite}
+    .flowb{fill:none;stroke:#8fbde8;stroke-width:3;stroke-linecap:round;stroke-dasharray:22 400;animation:flow 3.2s linear infinite}
+    @keyframes flow{from{stroke-dashoffset:422}to{stroke-dashoffset:0}}
+    @keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    .bar{fill:#4e8ecb;fill-opacity:.07;stroke:#4e8ecb;stroke-opacity:.45;stroke-width:1.5;transform-box:fill-box;transform-origin:bottom;animation:grow 1.2s cubic-bezier(.16,1,.3,1) both}
+    .lb{fill:none;stroke:#4e8ecb;stroke-opacity:.7;stroke-width:2;stroke-dasharray:6 6}
+    .la{fill:none;stroke:#c8a96e;stroke-width:4;stroke-linecap:round;stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 2.4s .6s cubic-bezier(.16,1,.3,1) forwards;filter:drop-shadow(0 0 6px rgba(200,169,110,.5))}
+    .save{fill:#c8a96e;fill-opacity:.24;animation:pulse 3.4s ease-in-out infinite}
+    .brk{animation:pulse 3.4s ease-in-out infinite}
+    @keyframes grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+    @keyframes draw{to{stroke-dashoffset:0}}
+    @media (prefers-reduced-motion:reduce){.la{stroke-dashoffset:0}}
+
+    @media (prefers-reduced-motion:reduce){*{animation:none!important}}
+  </style>
+</defs>
+<rect width="800" height="1000" fill="#0b0f1e"/>
+<rect width="800" height="1000" fill="url(#grid)"/>
+<rect x="24" y="24" width="752" height="952" fill="none" stroke="#4e8ecb" stroke-opacity=".25"/>
+<text class="txt" x="52" y="68">ZUŻYCIE ENERGII</text>
+<text class="txt" x="748" y="68" text-anchor="end">ROK</text>
+
+<text class="tag" x="150" y="220">kWh</text>
+<path class="dim" d="M150 234V800H730"/>
+<path class="thin" d="M150 662.5H720"/><path class="thin" d="M150 525.0H720"/><path class="thin" d="M150 387.5H720"/><path class="thin" d="M150 250.0H720"/>
+<rect class="bar" x="158.6" y="294.0" width="30.4" height="506.0" style="animation-delay:0.00s"/><rect class="bar" x="206.1" y="327.0" width="30.4" height="473.0" style="animation-delay:0.06s"/><rect class="bar" x="253.6" y="393.0" width="30.4" height="407.0" style="animation-delay:0.12s"/><rect class="bar" x="301.1" y="481.0" width="30.4" height="319.0" style="animation-delay:0.18s"/><rect class="bar" x="348.6" y="569.0" width="30.4" height="231.0" style="animation-delay:0.24s"/><rect class="bar" x="396.1" y="613.0" width="30.4" height="187.0" style="animation-delay:0.30s"/><rect class="bar" x="443.6" y="624.0" width="30.4" height="176.0" style="animation-delay:0.36s"/><rect class="bar" x="491.1" y="613.0" width="30.4" height="187.0" style="animation-delay:0.42s"/><rect class="bar" x="538.5" y="547.0" width="30.4" height="253.0" style="animation-delay:0.48s"/><rect class="bar" x="586.0" y="459.0" width="30.4" height="341.0" style="animation-delay:0.54s"/><rect class="bar" x="633.5" y="371.0" width="30.4" height="429.0" style="animation-delay:0.60s"/><rect class="bar" x="681.0" y="305.0" width="30.4" height="495.0" style="animation-delay:0.66s"/>
+<path class="save" d="M173.8 294.0 C197.5 294.0 197.5 327.0 221.2 327.0 C245.0 327.0 245.0 393.0 268.8 393.0 C292.5 393.0 292.5 481.0 316.2 481.0 C340.0 481.0 340.0 569.0 363.8 569.0 C387.5 569.0 387.5 613.0 411.2 613.0 C435.0 613.0 435.0 624.0 458.8 624.0 C482.5 624.0 482.5 613.0 506.2 613.0 C530.0 613.0 530.0 547.0 553.8 547.0 C577.5 547.0 577.5 459.0 601.2 459.0 C625.0 459.0 625.0 371.0 648.8 371.0 C672.5 371.0 672.5 305.0 696.2 305.0 L696.2 453.5 L648.8 499.7 L601.2 561.3 L553.8 622.9 L506.2 669.1 L458.8 676.8 L411.2 669.1 L363.8 638.3 L316.2 576.7 L268.8 515.1 L221.2 468.9 L173.8 445.8 Z"/>
+<path class="lb" d="M173.8 294.0 C197.5 294.0 197.5 327.0 221.2 327.0 C245.0 327.0 245.0 393.0 268.8 393.0 C292.5 393.0 292.5 481.0 316.2 481.0 C340.0 481.0 340.0 569.0 363.8 569.0 C387.5 569.0 387.5 613.0 411.2 613.0 C435.0 613.0 435.0 624.0 458.8 624.0 C482.5 624.0 482.5 613.0 506.2 613.0 C530.0 613.0 530.0 547.0 553.8 547.0 C577.5 547.0 577.5 459.0 601.2 459.0 C625.0 459.0 625.0 371.0 648.8 371.0 C672.5 371.0 672.5 305.0 696.2 305.0"/>
+<path class="la" pathLength="1400" d="M173.8 445.8 C197.5 445.8 197.5 468.9 221.2 468.9 C245.0 468.9 245.0 515.1 268.8 515.1 C292.5 515.1 292.5 576.7 316.2 576.7 C340.0 576.7 340.0 638.3 363.8 638.3 C387.5 638.3 387.5 669.1 411.2 669.1 C435.0 669.1 435.0 676.8 458.8 676.8 C482.5 676.8 482.5 669.1 506.2 669.1 C530.0 669.1 530.0 622.9 553.8 622.9 C577.5 622.9 577.5 561.3 601.2 561.3 C625.0 561.3 625.0 499.7 648.8 499.7 C672.5 499.7 672.5 453.5 696.2 453.5"/>
+<text class="tag" x="173.8" y="830" text-anchor="middle">I</text><text class="tag" x="221.2" y="830" text-anchor="middle">II</text><text class="tag" x="268.8" y="830" text-anchor="middle">III</text><text class="tag" x="316.2" y="830" text-anchor="middle">IV</text><text class="tag" x="363.8" y="830" text-anchor="middle">V</text><text class="tag" x="411.2" y="830" text-anchor="middle">VI</text><text class="tag" x="458.8" y="830" text-anchor="middle">VII</text><text class="tag" x="506.2" y="830" text-anchor="middle">VIII</text><text class="tag" x="553.8" y="830" text-anchor="middle">IX</text><text class="tag" x="601.2" y="830" text-anchor="middle">X</text><text class="tag" x="648.8" y="830" text-anchor="middle">XI</text><text class="tag" x="696.2" y="830" text-anchor="middle">XII</text>
+<g class="brk">
+  <path d="M110 294.0H128M119 294.0V445.8M110 445.8H128" fill="none" stroke="#c8a96e" stroke-width="2.5"/>
+  <path d="M119 314.0V435.8" fill="none" stroke="#c8a96e" stroke-width="2.5" marker-end="url(#ah)"/>
+</g>
+
+<path d="M440 948V976M440 948H776" stroke="#4e8ecb" stroke-opacity=".25" fill="none"/>
+<text class="txt" x="756" y="967" text-anchor="end" style="font-size:12px;letter-spacing:2px">EKOSPEC · OPTYMALIZACJA KOSZTÓW</text>
+</svg>

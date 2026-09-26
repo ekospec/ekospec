@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="t">
+<title id="t">Doradztwo techniczne – rzut budynku z trasami instalacji i uwagami</title>
+<defs>
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M40 0H0V40" fill="none" stroke="#4e8ecb" stroke-opacity=".07" stroke-width="1"/>
+  </pattern>
+  <marker id="ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0 0L10 5L0 10z" fill="#c8a96e"/>
+  </marker>
+  <marker id="ahb" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0 0L10 5L0 10z" fill="#4e8ecb"/>
+  </marker>
+
+  <style>
+    .ln{fill:none;stroke:#4e8ecb;stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
+    .ln2{fill:none;stroke:#4e8ecb;stroke-opacity:.5;stroke-width:1.5;stroke-linejoin:round}
+    .thin{fill:none;stroke:#4e8ecb;stroke-opacity:.3;stroke-width:1}
+    .gold{fill:none;stroke:#c8a96e;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .dim{fill:none;stroke:#7a8aa0;stroke-width:1.2}
+    .dev{fill:#0b0f1e;stroke:#4e8ecb;stroke-width:2.5}
+    .txt{font-family:'Rajdhani','Arial Narrow',Arial,sans-serif;font-size:15px;letter-spacing:3px;fill:#7a8aa0;font-weight:600}
+    .tag{font-family:'Rajdhani','Arial Narrow',Arial,sans-serif;font-size:13px;letter-spacing:1.5px;fill:#7a8aa0;font-weight:700}
+    .flow{fill:none;stroke:#c8a96e;stroke-width:3;stroke-linecap:round;stroke-dasharray:22 400;animation:flow 3.2s linear infinite}
+    .flowb{fill:none;stroke:#8fbde8;stroke-width:3;stroke-linecap:round;stroke-dasharray:22 400;animation:flow 3.2s linear infinite}
+    @keyframes flow{from{stroke-dashoffset:422}to{stroke-dashoffset:0}}
+    @keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    .wall{fill:none;stroke:#4e8ecb;stroke-width:7;stroke-linejoin:miter}
+    .wall2{fill:none;stroke:#4e8ecb;stroke-width:4}
+    .door{fill:none;stroke:#4e8ecb;stroke-opacity:.5;stroke-width:1.5}
+    .pipe{fill:none;stroke:#c8a96e;stroke-width:2.5;stroke-dasharray:10 6}
+    .pipeb{fill:none;stroke:#8fbde8;stroke-opacity:.8;stroke-width:2;stroke-dasharray:10 6}
+    .rad{fill:#c8a96e;fill-opacity:.25;stroke:#c8a96e;stroke-width:1.5}
+    .cloud{fill:none;stroke:#c8a96e;stroke-width:2;animation:pulse 3s ease-in-out infinite}
+    .co{animation:pulse 3.2s ease-in-out infinite}
+    .c2{animation-delay:-.8s}.c3{animation-delay:-1.6s}.c4{animation-delay:-2.4s}
+    .note{stroke:#7a8aa0;stroke-opacity:.55;stroke-width:3;stroke-linecap:round}
+    .pen{animation:write 5s ease-in-out infinite}
+    @keyframes write{0%,100%{transform:translate(0,0)}50%{transform:translate(-60px,6px)}}
+
+    @media (prefers-reduced-motion:reduce){*{animation:none!important}}
+  </style>
+</defs>
+<rect width="800" height="1000" fill="#0b0f1e"/>
+<rect width="800" height="1000" fill="url(#grid)"/>
+<rect x="24" y="24" width="752" height="952" fill="none" stroke="#4e8ecb" stroke-opacity=".25"/>
+<text class="txt" x="52" y="68">RZUT PARTERU</text>
+<text class="txt" x="748" y="68" text-anchor="end">REW. 1</text>
+
+<!-- rzut -->
+<g>
+  <path class="wall" d="M100 150H700V650H100Z"/>
+  <path class="wall2" d="M380 150V330M380 400V650M100 420H300M340 420H380M380 470H560M620 470H700"/>
+  <!-- drzwi -->
+  <path class="door" d="M300 420A40 40 0 0 1 340 380M300 420H340"/>
+  <path class="door" d="M380 330A70 70 0 0 1 450 400M380 400V330"/>
+  <path class="door" d="M560 470A60 60 0 0 0 620 410M560 470H620"/>
+  <!-- okna -->
+  <g stroke="#0b0f1e" stroke-width="9"><path d="M170 150H270M480 150H600M700 240V340M170 650H270M480 650H600"/></g>
+  <g stroke="#4e8ecb" stroke-opacity=".7" stroke-width="1.5"><path d="M170 147H270M170 153H270M480 147H600M480 153H600M697 240V340M703 240V340M170 647H270M170 653H270M480 647H600M480 653H600"/></g>
+  <!-- grzejniki -->
+  <rect class="rad" x="180" y="166" width="80" height="12"/>
+  <rect class="rad" x="490" y="166" width="100" height="12"/>
+  <rect class="rad" x="672" y="250" width="12" height="80"/>
+  <rect class="rad" x="180" y="622" width="80" height="12"/>
+  <rect class="rad" x="490" y="622" width="100" height="12"/>
+  <!-- trasy rur -->
+  <path class="pipe" d="M340 560H420V200H500M420 300H660M340 560H220V190M420 560V610H520M300 560V615"/>
+  <path class="pipeb" d="M330 575H435V215H510M435 315H660M330 575H235V190M435 575V600H520"/>
+  <!-- kotłownia -->
+  <rect x="300" y="530" width="60" height="60" fill="#0b0f1e" stroke="#c8a96e" stroke-width="2"/>
+  <circle cx="330" cy="560" r="14" fill="none" stroke="#c8a96e" stroke-width="2"/>
+  <!-- chmurka rewizyjna -->
+  <path class="cloud" d="M460 270 a14 14 0 0 1 31.4 0 a14 14 0 0 1 31.4 0 a14 14 0 0 1 31.4 0 a14 14 0 0 1 31.4 0 a14 14 0 0 1 31.4 0 a14 14 0 0 1 31.4 0 a14 14 0 0 1 31.4 0 a14 14 0 0 1 0 40.0 a14 14 0 0 1 0 40.0 a14 14 0 0 1 -31.4 0 a14 14 0 0 1 -31.4 0 a14 14 0 0 1 -31.4 0 a14 14 0 0 1 -31.4 0 a14 14 0 0 1 -31.4 0 a14 14 0 0 1 -31.4 0 a14 14 0 0 1 -31.4 0 a14 14 0 0 1 0 -40.0 a14 14 0 0 1 0 -40.0Z"/>
+  <text class="tag" x="690" y="262" text-anchor="end" style="fill:#c8a96e">Δ1</text>
+  <!-- wymiary -->
+  <path class="dim" d="M100 700H700M100 690V710M380 690V710M700 690V710"/>
+  <path class="dim" d="M60 150V650M50 150H70M50 420H70M50 650H70"/>
+</g>
+<g class="co "><path d="M330 560L250 480" stroke="#c8a96e" stroke-width="1.5" fill="none"/><circle cx="250" cy="480" r="15" fill="#0b0f1e" stroke="#c8a96e" stroke-width="2"/><text x="250" y="485" text-anchor="middle" style="font-family:Rajdhani,Arial Narrow,Arial,sans-serif;font-weight:700;font-size:15px;fill:#c8a96e">1</text><circle cx="330" cy="560" r="4" fill="#c8a96e"/></g>
+<g class="co c2"><path d="M540 300L600 220" stroke="#c8a96e" stroke-width="1.5" fill="none"/><circle cx="600" cy="220" r="15" fill="#0b0f1e" stroke="#c8a96e" stroke-width="2"/><text x="600" y="225" text-anchor="middle" style="font-family:Rajdhani,Arial Narrow,Arial,sans-serif;font-weight:700;font-size:15px;fill:#c8a96e">2</text><circle cx="540" cy="300" r="4" fill="#c8a96e"/></g>
+<g class="co c3"><path d="M220 250L150 230" stroke="#c8a96e" stroke-width="1.5" fill="none"/><circle cx="150" cy="230" r="15" fill="#0b0f1e" stroke="#c8a96e" stroke-width="2"/><text x="150" y="235" text-anchor="middle" style="font-family:Rajdhani,Arial Narrow,Arial,sans-serif;font-weight:700;font-size:15px;fill:#c8a96e">3</text><circle cx="220" cy="250" r="4" fill="#c8a96e"/></g>
+<g class="co c4"><path d="M470 610L560 560" stroke="#c8a96e" stroke-width="1.5" fill="none"/><circle cx="560" cy="560" r="15" fill="#0b0f1e" stroke="#c8a96e" stroke-width="2"/><text x="560" y="565" text-anchor="middle" style="font-family:Rajdhani,Arial Narrow,Arial,sans-serif;font-weight:700;font-size:15px;fill:#c8a96e">4</text><circle cx="470" cy="610" r="4" fill="#c8a96e"/></g>
+<!-- notatki -->
+<text class="tag" x="96" y="765" style="fill:#c8a96e">1</text><path class="note" d="M120 760H420"/><path class="note" d="M440 760H560" style="stroke-opacity:.3"/><text class="tag" x="96" y="805" style="fill:#c8a96e">2</text><path class="note" d="M120 800H360"/><path class="note" d="M380 800H550" style="stroke-opacity:.3"/><text class="tag" x="96" y="845" style="fill:#c8a96e">3</text><path class="note" d="M120 840H450"/><path class="note" d="M470 840H560" style="stroke-opacity:.3"/><text class="tag" x="96" y="885" style="fill:#c8a96e">4</text><path class="note" d="M120 880H320"/><path class="note" d="M340 880H550" style="stroke-opacity:.3"/>
+<!-- ołówek -->
+<g class="pen">
+  <g transform="translate(560 830) rotate(-35)">
+    <rect x="0" y="-8" width="150" height="16" fill="#0b0f1e" stroke="#c8a96e" stroke-width="2"/>
+    <path d="M0 -8L-24 0L0 8Z" fill="#0b0f1e" stroke="#c8a96e" stroke-width="2"/>
+    <path d="M-24 0L-16 -3V3Z" fill="#c8a96e"/>
+    <path d="M130 -8V8" stroke="#c8a96e" stroke-width="2"/>
+  </g>
+</g>
+
+<path d="M440 948V976M440 948H776" stroke="#4e8ecb" stroke-opacity=".25" fill="none"/>
+<text class="txt" x="756" y="967" text-anchor="end" style="font-size:12px;letter-spacing:2px">EKOSPEC · DORADZTWO TECHNICZNE</text>
+</svg>

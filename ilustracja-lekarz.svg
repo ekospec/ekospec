@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="t">
+<title id="t">Lekarz budynków – diagnoza usterki w instalacji pod lupą</title>
+<defs>
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M40 0H0V40" fill="none" stroke="#4e8ecb" stroke-opacity=".07" stroke-width="1"/>
+  </pattern>
+  <marker id="ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0 0L10 5L0 10z" fill="#c8a96e"/>
+  </marker>
+  <marker id="ahb" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0 0L10 5L0 10z" fill="#4e8ecb"/>
+  </marker>
+
+  <clipPath id="lensClip"><circle cx="420" cy="520" r="92"/></clipPath>
+  <g id="net">
+  <path class="p" d="M80 300H300V520H520V300H720"/>
+  <path class="p" d="M80 380H240V600H580V380H720"/>
+  <path class="pr" d="M300 300V220H520V300"/>
+  <path class="pr" d="M240 600V700H580V600"/>
+  <!-- zawory -->
+  <g class="v"><path d="M290 510L310 520L290 530ZM330 510L310 520L330 530Z"/></g>
+  <g class="v"><path d="M400 590L420 600L400 610ZM440 590L420 600L440 610Z"/></g>
+  <g class="v"><path d="M150 290L170 300L150 310ZM190 290L170 300L190 310Z"/></g>
+  <g class="v"><path d="M610 370L630 380L610 390ZM650 370L630 380L650 390Z"/></g>
+  <!-- pompa -->
+  <circle cx="520" cy="410" r="20" fill="#0b0f1e" stroke="#4e8ecb" stroke-width="2.5"/>
+  <path d="M512 400L530 410L512 420Z" fill="#4e8ecb"/>
+  <!-- grzejniki -->
+  <rect x="640" y="250" width="60" height="30" fill="none" stroke="#4e8ecb" stroke-width="2"/>
+  <path d="M652 250v30M664 250v30M676 250v30M688 250v30" stroke="#4e8ecb" stroke-width="1.5"/>
+</g>
+
+  <style>
+    .ln{fill:none;stroke:#4e8ecb;stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
+    .ln2{fill:none;stroke:#4e8ecb;stroke-opacity:.5;stroke-width:1.5;stroke-linejoin:round}
+    .thin{fill:none;stroke:#4e8ecb;stroke-opacity:.3;stroke-width:1}
+    .gold{fill:none;stroke:#c8a96e;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .dim{fill:none;stroke:#7a8aa0;stroke-width:1.2}
+    .dev{fill:#0b0f1e;stroke:#4e8ecb;stroke-width:2.5}
+    .txt{font-family:'Rajdhani','Arial Narrow',Arial,sans-serif;font-size:15px;letter-spacing:3px;fill:#7a8aa0;font-weight:600}
+    .tag{font-family:'Rajdhani','Arial Narrow',Arial,sans-serif;font-size:13px;letter-spacing:1.5px;fill:#7a8aa0;font-weight:700}
+    .flow{fill:none;stroke:#c8a96e;stroke-width:3;stroke-linecap:round;stroke-dasharray:22 400;animation:flow 3.2s linear infinite}
+    .flowb{fill:none;stroke:#8fbde8;stroke-width:3;stroke-linecap:round;stroke-dasharray:22 400;animation:flow 3.2s linear infinite}
+    @keyframes flow{from{stroke-dashoffset:422}to{stroke-dashoffset:0}}
+    @keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    .p{fill:none;stroke:#4e8ecb;stroke-width:3;stroke-linejoin:round}
+    .pr{fill:none;stroke:#4e8ecb;stroke-opacity:.45;stroke-width:2}
+    .v path{fill:#0b0f1e;stroke:#4e8ecb;stroke-width:2}
+    .fault{animation:pulse 1.6s ease-in-out infinite}
+    .ring{fill:none;stroke:#c8a96e;stroke-width:2;transform-origin:420px 520px;animation:ring 2.4s ease-out infinite}
+    .r2{animation-delay:-1.2s}
+    .ecg{fill:none;stroke:#c8a96e;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:260 1500;animation:ecg 3.6s linear infinite;filter:drop-shadow(0 0 5px rgba(200,169,110,.6))}
+    .ecgbase{fill:none;stroke:#4e8ecb;stroke-opacity:.25;stroke-width:2}
+    .lens{animation:hover 5s ease-in-out infinite}
+    @keyframes ring{0%{transform:scale(.4);opacity:1}100%{transform:scale(2.2);opacity:0}}
+    @keyframes ecg{from{stroke-dashoffset:1760}to{stroke-dashoffset:0}}
+    @keyframes hover{0%,100%{transform:translate(0,0)}50%{transform:translate(6px,-6px)}}
+
+    @media (prefers-reduced-motion:reduce){*{animation:none!important}}
+  </style>
+</defs>
+<rect width="800" height="1000" fill="#0b0f1e"/>
+<rect width="800" height="1000" fill="url(#grid)"/>
+<rect x="24" y="24" width="752" height="952" fill="none" stroke="#4e8ecb" stroke-opacity=".25"/>
+<text class="txt" x="52" y="68">DIAGNOSTYKA</text>
+<text class="txt" x="748" y="68" text-anchor="end">PUNKT KONTROLNY 03</text>
+
+<use href="#net"/>
+<!-- usterka -->
+<g class="fault">
+  <path d="M414 512l10 6-6 4 10 8" fill="none" stroke="#c8a96e" stroke-width="2.5" stroke-linecap="round"/>
+</g>
+<circle class="ring" cx="420" cy="520" r="18"/>
+<circle class="ring r2" cx="420" cy="520" r="18"/>
+<!-- lupa -->
+<g class="lens">
+  <g clip-path="url(#lensClip)">
+    <circle cx="420" cy="520" r="92" fill="#0b0f1e"/>
+    <g transform="translate(420 520) scale(1.8) translate(-420 -520)"><use href="#net"/>
+      <path d="M414 512l10 6-6 4 10 8" fill="none" stroke="#c8a96e" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="424" cy="520" r="3" fill="#c8a96e"/>
+    </g>
+  </g>
+  <circle cx="420" cy="520" r="92" fill="none" stroke="#c8a96e" stroke-width="5"/>
+  <circle cx="420" cy="520" r="100" fill="none" stroke="#c8a96e" stroke-opacity=".35" stroke-width="2"/>
+  <path d="M488 588L580 680" stroke="#c8a96e" stroke-width="16" stroke-linecap="round"/>
+  <path d="M488 588L580 680" stroke="#0b0f1e" stroke-width="6" stroke-linecap="round"/>
+</g>
+<!-- puls instalacji -->
+<path class="ecgbase" d="M60 840H260L280 840L295 800L315 890L335 770L355 860L370 840H470L485 825L500 840H740"/>
+<path class="ecg" pathLength="1760" d="M60 840H260L280 840L295 800L315 890L335 770L355 860L370 840H470L485 825L500 840H740"/>
+
+<path d="M440 948V976M440 948H776" stroke="#4e8ecb" stroke-opacity=".25" fill="none"/>
+<text class="txt" x="756" y="967" text-anchor="end" style="font-size:12px;letter-spacing:2px">EKOSPEC · LEKARZ BUDYNKÓW</text>
+</svg>
