@@ -84,7 +84,14 @@ const LEGAL_DOCS={
       <h4>Okres przechowywania danych</h4>
       <p>Dane przechowujemy przez okres niezbędny do obsługi zapytania, a następnie przez czas wynikający z przepisów prawa (np. obowiązek archiwizacji dokumentów księgowych) lub do momentu wycofania zgody na marketing.</p>
       <h4>Odbiorcy danych</h4>
-      <p>Twoje dane nie są sprzedawane ani udostępniane podmiotom trzecim w celach komercyjnych. Mogą być przekazywane wyłącznie podmiotom świadczącym usługi techniczne niezbędne do działania strony (np. hosting), na podstawie stosownych umów powierzenia przetwarzania danych.</p>
+      <p>Twoje dane nie są sprzedawane ani udostępniane podmiotom trzecim w celach komercyjnych. Mogą być przetwarzane wyłącznie przez dostawców usług technicznych niezbędnych do działania strony:</p>
+      <ul>
+        <li><strong>GitHub</strong> (GitHub Pages) — hosting strony,</li>
+        <li><strong>Formspree</strong> — przekazywanie wiadomości z formularza kontaktowego na adres biuro@ekospec.pro,</li>
+        <li><strong>Cloudflare</strong> — zabezpieczenie formularza przed spamem (Turnstile) oraz anonimowe statystyki odwiedzin (Web Analytics).</li>
+      </ul>
+      <h4>Statystyki odwiedzin</h4>
+      <p>Korzystamy z usługi Cloudflare Web Analytics, która nie używa plików cookies, nie śledzi użytkowników między stronami i nie tworzy ich profili. Zbieramy wyłącznie dane zbiorcze: liczbę odwiedzin, odwiedzane podstrony, źródło wejścia (np. wyszukiwarka), rodzaj urządzenia i przeglądarki oraz kraj. Na tej podstawie nie da się zidentyfikować konkretnej osoby.</p>
       <h4>Twoje prawa</h4>
       <p>Przysługuje Ci prawo do:</p>
       <ul>
@@ -106,10 +113,11 @@ const LEGAL_DOCS={
     title:'Polityka cookies',
     html:`
       <h4>Czym są pliki cookies</h4>
-      <p>Pliki cookies (ciasteczka) to małe pliki tekstowe zapisywane na Twoim urządzeniu (komputerze, tablecie, telefonie) podczas odwiedzania strony internetowej. Służą do prawidłowego funkcjonowania strony oraz analizy sposobu jej użytkowania.</p>
-      <h4>Jakich cookies używamy</h4>
-      <p><strong>Cookies niezbędne</strong> — konieczne do prawidłowego działania strony. Zapamiętują Twój wybór dotyczący zgody na cookies, dzięki czemu baner nie pojawia się przy każdej wizycie. Nie wymagają Twojej zgody.</p>
-      <p><strong>Cookies analityczne</strong> — pomagają nam zrozumieć jak użytkownicy korzystają ze strony (np. które sekcje są najczęściej odwiedzane). Używane wyłącznie jeśli wyrazisz na to zgodę.</p>
+      <p>Pliki cookies (ciasteczka) i podobne technologie (np. pamięć przeglądarki) to małe porcje danych zapisywane na Twoim urządzeniu podczas odwiedzania strony internetowej.</p>
+      <h4>Czego używamy</h4>
+      <p><strong>Elementy niezbędne</strong> — zapamiętanie, że zapoznałeś się z informacją o prywatności (w pamięci przeglądarki), oraz zabezpieczenie formularza kontaktowego przed spamem (Cloudflare Turnstile). Są konieczne do działania strony i nie wymagają zgody.</p>
+      <p><strong>Statystyki odwiedzin</strong> — Cloudflare Web Analytics działa <strong>bez plików cookies</strong> i bez identyfikowania użytkowników. Zbiera wyłącznie anonimowe dane zbiorcze o ruchu na stronie.</p>
+      <p>Nie używamy cookies reklamowych ani narzędzi śledzących.</p>
       <h4>Jak zarządzać cookies</h4>
       <p>Możesz w każdej chwili zmienić ustawienia cookies w swojej przeglądarce. Poniżej linki do instrukcji dla popularnych przeglądarek:</p>
       <ul>
@@ -118,11 +126,11 @@ const LEGAL_DOCS={
         <li>Safari — Preferencje → Prywatność</li>
         <li>Microsoft Edge — Ustawienia → Pliki cookie i uprawnienia witryny</li>
       </ul>
-      <p>Wyłączenie cookies niezbędnych może wpłynąć na działanie strony.</p>
+      <p>Zablokowanie elementów niezbędnych może utrudnić wysłanie formularza kontaktowego.</p>
       <h4>Okres przechowywania</h4>
-      <p>Cookie zapamiętujące Twój wybór dotyczący zgody jest przechowywane przez okres 12 miesięcy, po czym zostaniesz ponownie zapytany o preferencje.</p>
+      <p>Informacja o zapoznaniu się z komunikatem o prywatności pozostaje w pamięci Twojej przeglądarki do czasu jej wyczyszczenia.</p>
       <h4>Podstawa prawna</h4>
-      <p>Stosowanie cookies niezbędnych odbywa się na podstawie prawnie uzasadnionego interesu administratora (art. 6 ust. 1 lit. f RODO). Cookies analityczne stosowane są wyłącznie na podstawie Twojej zgody (art. 6 ust. 1 lit. a RODO).</p>
+      <p>Elementy niezbędne oraz anonimowe statystyki odwiedzin stosujemy na podstawie prawnie uzasadnionego interesu administratora (art. 6 ust. 1 lit. f RODO), polegającego na zapewnieniu działania i bezpieczeństwa strony oraz jej rozwoju.</p>
     `
   },
   rodo:{
