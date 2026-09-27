@@ -789,3 +789,21 @@ input[type=range].calc-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 
 @media(max-width:1100px){.feat-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.steps.steps-4{grid-template-columns:repeat(2,minmax(0,1fr));}}
 @media(max-width:700px){.feat-grid,.numbers{grid-template-columns:1fr;}}
 @media(max-width:600px){.steps.steps-4{grid-template-columns:1fr;}}
+
+/* ----- PROFILE I OPINIE ----- */
+.social-block{margin-top:8px;padding-top:28px;border-top:1px solid var(--border);}
+.social-block .social-row{margin-top:12px;}
+.social-btn svg{flex-shrink:0;}
+.review-card{display:flex;flex-direction:column;gap:6px;margin-top:22px;padding:22px 24px;max-width:440px;text-decoration:none;border:1px solid rgba(200,169,110,.35);background:radial-gradient(ellipse 80% 120% at 100% 0%,rgba(200,169,110,.08),transparent 70%),var(--surface);transition:border-color .3s,transform .3s var(--ease-out),box-shadow .3s;}
+.review-card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 0 36px -14px rgba(200,169,110,.5);}
+.rc-stars{display:flex;gap:4px;margin-bottom:4px;}
+.rc-stars svg{fill:none;stroke:var(--gold);stroke-width:1.6;stroke-linejoin:round;transition:fill .25s;}
+.review-card:hover .rc-stars svg{fill:var(--gold);}
+.review-card:hover .rc-stars svg:nth-child(2){transition-delay:.05s}.review-card:hover .rc-stars svg:nth-child(3){transition-delay:.1s}
+.review-card:hover .rc-stars svg:nth-child(4){transition-delay:.15s}.review-card:hover .rc-stars svg:nth-child(5){transition-delay:.2s}
+.rc-title{font-family:'Rajdhani',sans-serif;font-size:1.15rem;font-weight:700;color:var(--text);letter-spacing:.03em;}
+.rc-text{font-size:.88rem;color:var(--muted);line-height:1.7;}
+.rc-cta{font-family:'Rajdhani',sans-serif;font-size:.74rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-top:6px;}
+.footer-social{display:flex;gap:10px;margin-bottom:4px;}
+.footer-social a{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);color:var(--muted);transition:color .2s,border-color .2s,box-shadow .2s;}
+.footer-social a:hover{color:var(--gold);border-color:var(--gold);box-shadow:0 0 16px -6px rgba(200,169,110,.6);}
