@@ -78,7 +78,7 @@ const LEGAL_DOCS={
         <li>adres email lub numer telefonu</li>
         <li>treść wiadomości oraz informacje o obiekcie, które zaznaczysz (np. rodzaj obiektu, powierzchnia, przybliżone koszty energii)</li>
       </ul>
-      <p>Razem z wiadomością formularz przekazuje też informację techniczną: skąd trafiłeś na stronę (np. wyszukiwarka Google, LinkedIn, wejście bezpośrednie) oraz które strony serwisu oglądałeś podczas tej wizyty. Nie zawiera ona adresu IP ani żadnych identyfikatorów. Pomaga nam lepiej przygotować odpowiedź i ocenić, które formy informowania o naszych usługach działają.</p>
+      <p>Razem z wiadomością formularz przekazuje też informację techniczną: skąd trafiłeś na stronę (np. wyszukiwarka Google, LinkedIn, wejście bezpośrednie) oraz z której strony serwisu wysłano formularz. Informacja ta nie jest zapisywana na Twoim urządzeniu i nie zawiera adresu IP ani żadnych identyfikatorów. Pomaga nam lepiej przygotować odpowiedź i ocenić, które formy informowania o naszych usługach działają.</p>
       <h4>Cel i podstawa przetwarzania</h4>
       <p><strong>Odpowiedź na zapytanie</strong> — przetwarzamy dane w celu udzielenia odpowiedzi na Twoje pytanie lub przygotowania oferty (podstawa: art. 6 ust. 1 lit. b RODO — niezbędność do podjęcia działań przed zawarciem umowy, lub art. 6 ust. 1 lit. f RODO — prawnie uzasadniony interes administratora).</p>
       <p><strong>Marketing</strong> — jeśli wyraziłeś zgodę na otrzymywanie informacji marketingowych, będziemy przesyłać Ci informacje o usługach i promocjach (podstawa: art. 6 ust. 1 lit. a RODO — zgoda). Zgodę możesz wycofać w dowolnym momencie.</p>
@@ -117,7 +117,6 @@ const LEGAL_DOCS={
       <p>Pliki cookies (ciasteczka) i podobne technologie (np. pamięć przeglądarki) to małe porcje danych zapisywane na Twoim urządzeniu podczas odwiedzania strony internetowej.</p>
       <h4>Czego używamy</h4>
       <p><strong>Elementy niezbędne</strong> — zapamiętanie, że zapoznałeś się z informacją o prywatności (w pamięci przeglądarki), oraz zabezpieczenie formularza kontaktowego przed spamem (Cloudflare Turnstile). Są konieczne do działania strony i nie wymagają zgody.</p>
-      <p><strong>Informacja do formularza</strong> — w bieżącej karcie przeglądarki (sessionStorage, nie cookies) zapamiętujemy, skąd trafiłeś na stronę i które jej strony oglądasz. Dołączamy to do wiadomości tylko wtedy, gdy sam wyślesz formularz; w przeciwnym razie informacja nie opuszcza Twojej przeglądarki i znika po zamknięciu karty.</p>
       <p><strong>Statystyki odwiedzin</strong> — Cloudflare Web Analytics działa <strong>bez plików cookies</strong> i bez identyfikowania użytkowników. Zbiera wyłącznie anonimowe dane zbiorcze o ruchu na stronie.</p>
       <p>Nie używamy cookies reklamowych ani narzędzi śledzących.</p>
       <h4>Jak zarządzać cookies</h4>
@@ -130,7 +129,7 @@ const LEGAL_DOCS={
       </ul>
       <p>Zablokowanie elementów niezbędnych może utrudnić wysłanie formularza kontaktowego.</p>
       <h4>Okres przechowywania</h4>
-      <p>Informacja o zapoznaniu się z komunikatem o prywatności pozostaje w pamięci Twojej przeglądarki do czasu jej wyczyszczenia. Informacja o źródle wizyty i oglądanych stronach jest usuwana automatycznie po zamknięciu karty przeglądarki.</p>
+      <p>Informacja o zapoznaniu się z komunikatem o prywatności pozostaje w pamięci Twojej przeglądarki do czasu jej wyczyszczenia.</p>
       <h4>Podstawa prawna</h4>
       <p>Elementy niezbędne oraz anonimowe statystyki odwiedzin stosujemy na podstawie prawnie uzasadnionego interesu administratora (art. 6 ust. 1 lit. f RODO), polegającego na zapewnieniu działania i bezpieczeństwa strony oraz jej rozwoju.</p>
     `
@@ -354,43 +353,39 @@ function lsGet(k){try{return localStorage.getItem(k);}catch(e){return null;}}
 function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
 
 // --- SKĄD PRZYSZŁO ZAPYTANIE ---
-// Zapamiętuje w bieżącej karcie (sessionStorage) źródło wizyty i oglądane strony.
-// Dane opuszczają przeglądarkę tylko razem z wiadomością wysłaną przez formularz.
-const TRASA=(function(){
-  const KEY='ekospec_trasa';
-  let t=null;
-  try{t=JSON.parse(sessionStorage.getItem(KEY)||'null');}catch(e){}
-  if(!t||!t.src){
-    const q=new URLSearchParams(location.search);
-    const tag=q.get('z')||q.get('utm_source');
-    let src='Wejście bezpośrednie (wpisany adres, zakładka, QR, link z maila lub aplikacji)';
-    if(tag){
-      const T={linkedin:'LinkedIn',facebook:'Facebook',fb:'Facebook',qr:'Kod QR',gmb:'Profil firmy w Google',google:'Profil firmy w Google',mail:'E-mail',email:'E-mail',sms:'SMS',wizytowka:'Wizytówka'};
-      src=(T[tag.toLowerCase()]||tag)+' (oznaczony link)';
-    } else if(document.referrer){
-      let h='';try{h=new URL(document.referrer).hostname.replace(/^www\./,'');}catch(e){}
-      if(h&&h!==location.hostname.replace(/^www\./,'')){
-        if(/(^|\.)google\./.test(h)) src='Google (wyszukiwarka lub Mapy)';
-        else if(/bing\.|duckduckgo\.|yahoo\.|ecosia\./.test(h)) src='Inna wyszukiwarka ('+h+')';
-        else if(/linkedin\.|lnkd\.in/.test(h)) src='LinkedIn';
-        else if(/facebook\.|fb\.|instagram\./.test(h)) src='Facebook / Instagram';
-        else src='Link na stronie: '+h;
-      }
-    }
-    t={src,first:location.pathname,pages:[]};
-  }
-  const name=document.body&&document.body.classList.contains('subpage')
-    ?(document.title.split(/\s[–|-]\s/)[0]||location.pathname):'Strona główna';
-  if(t.pages[t.pages.length-1]!==name) t.pages.push(name);
-  t.pages=t.pages.slice(-12);
-  try{sessionStorage.setItem(KEY,JSON.stringify(t));}catch(e){}
-  return t;
-})();
+// Nic nie jest zapisywane w przeglądarce. Źródło odczytujemy z adresu strony
+// (oznaczone linki ?z=...) albo z adresu poprzedniej strony, a dołączamy je
+// do wiadomości tylko wtedy, gdy ktoś sam wyśle formularz.
+const SRC_NAMES={linkedin:'LinkedIn',facebook:'Facebook / Instagram',fb:'Facebook / Instagram',qr:'Kod QR',gmb:'Profil firmy w Google',google:'Google (wyszukiwarka lub Mapy)',mail:'E-mail',email:'E-mail',sms:'SMS',wizytowka:'Wizytówka w telefonie',szukaj:'Inna wyszukiwarka'};
+function detectSource(){
+  const q=new URLSearchParams(location.search);
+  const tag=(q.get('z')||q.get('utm_source')||'').toLowerCase();
+  if(tag) return {tag,label:SRC_NAMES[tag]||tag};
+  let h='';try{h=document.referrer?new URL(document.referrer).hostname.replace(/^www\./,''):'';}catch(e){}
+  const own=location.hostname.replace(/^www\./,'');
+  if(!h) return {tag:'',label:'Wejście bezpośrednie (wpisany adres, zakładka lub link z aplikacji)'};
+  if(h===own) return {tag:'',label:'',internal:true};
+  if(/(^|\.)google\./.test(h)) return {tag:'google',label:SRC_NAMES.google};
+  if(/bing\.|duckduckgo\.|yahoo\.|ecosia\./.test(h)) return {tag:'szukaj',label:SRC_NAMES.szukaj};
+  if(/linkedin\.|lnkd\.in/.test(h)) return {tag:'linkedin',label:'LinkedIn'};
+  if(/facebook\.|fb\.|instagram\./.test(h)) return {tag:'facebook',label:SRC_NAMES.facebook};
+  return {tag:h,label:'Link na stronie: '+h};
+}
+const SOURCE=detectSource();
+// na podstronie: przekaż źródło dalej w linkach do strony głównej (w adresie, bez zapisywania)
+window.addEventListener('DOMContentLoaded',()=>{
+  if(!document.body.classList.contains('subpage')||!SOURCE.tag) return;
+  document.querySelectorAll('a[href^="../"]').forEach(a=>{
+    const href=a.getAttribute('href'), i=href.indexOf('#');
+    const base=i<0?href:href.slice(0,i), hash=i<0?'':href.slice(i);
+    a.setAttribute('href',base+(base.includes('?')?'&':'?')+'z='+encodeURIComponent(SOURCE.tag)+hash);
+  });
+});
 function fillTrasa(form){
   const set=(id,v)=>{const el=form.querySelector('#'+id); if(el) el.value=v;};
-  set('fZrodlo',TRASA.src);
-  set('fPierwsza',TRASA.first);
-  set('fOgladane',TRASA.pages.join(' → '));
+  let label=SOURCE.label;
+  if(SOURCE.internal){let p='';try{p=new URL(document.referrer).pathname;}catch(e){} label='Przejście z innej strony serwisu ('+p+'), źródło nieznane';}
+  set('fZrodlo',label);
   set('fZeStrony',location.pathname);
 }
 // temat z podstrony: ../?temat=slug#kontakt
