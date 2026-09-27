@@ -1,7 +1,7 @@
 :root {
   --bg:#0b0f1e; --surface:#131929; --surface2:#1c2640;
   --accent:#4e8ecb; --accent-dim:rgba(78,142,203,0.15);
-  --gold:#c8a96e; --text:#e8edf5; --muted:#7a8aa0;
+  --gold:#c8a96e; --gold-dim:rgba(200,169,110,0.12); --text:#e8edf5; --muted:#7a8aa0;
   --border:rgba(78,142,203,0.2); --nav-h:70px;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -807,3 +807,21 @@ input[type=range].calc-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 
 .footer-social{display:flex;gap:10px;margin-bottom:4px;}
 .footer-social a{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);color:var(--muted);transition:color .2s,border-color .2s,box-shadow .2s;}
 .footer-social a:hover{color:var(--gold);border-color:var(--gold);box-shadow:0 0 16px -6px rgba(200,169,110,.6);}
+
+/* === FORMULARZ: pytania na start === */
+.form-select{width:100%;padding:13px 16px;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:'Nunito Sans',sans-serif;font-size:.95rem;outline:none;cursor:pointer;transition:border-color .2s;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%234e8ecb' stroke-width='1.6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:40px;}
+.form-select:focus{border-color:var(--accent);}
+.form-select option{background:#111626;color:var(--text);}
+.form-fieldset{border:0;padding:0;min-width:0;}
+.form-fieldset legend{display:block;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;padding:0;}
+.form-chips{gap:8px;}
+.form-chips label{padding:8px 13px;font-size:.82rem;}
+.form-2col{display:grid;grid-template-columns:1fr 1fr;gap:0 16px;}
+@media(max-width:520px){.form-2col{grid-template-columns:1fr;}}
+
+/* === ZAPISZ KONTAKT (vCard) === */
+.vcard-btn{display:flex;align-items:center;gap:14px;margin:6px 0 28px;padding:14px 18px;border:1px solid var(--border);background:var(--surface);color:var(--text);text-decoration:none;transition:border-color .2s,background .2s;}
+.vcard-btn svg{color:var(--gold);flex-shrink:0;}
+.vcard-btn strong{display:block;font-family:'Rajdhani',sans-serif;font-weight:600;font-size:1rem;letter-spacing:.04em;}
+.vcard-btn small{display:block;font-size:.78rem;color:var(--muted);margin-top:2px;}
+.vcard-btn:hover{border-color:var(--gold);background:var(--gold-dim);}

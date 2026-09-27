@@ -76,8 +76,9 @@ const LEGAL_DOCS={
       <ul>
         <li>imię i nazwisko</li>
         <li>adres email lub numer telefonu</li>
-        <li>treść wiadomości</li>
+        <li>treść wiadomości oraz informacje o obiekcie, które zaznaczysz (np. rodzaj obiektu, powierzchnia, przybliżone koszty energii)</li>
       </ul>
+      <p>Razem z wiadomością formularz przekazuje też informację techniczną: skąd trafiłeś na stronę (np. wyszukiwarka Google, LinkedIn, wejście bezpośrednie) oraz które strony serwisu oglądałeś podczas tej wizyty. Nie zawiera ona adresu IP ani żadnych identyfikatorów. Pomaga nam lepiej przygotować odpowiedź i ocenić, które formy informowania o naszych usługach działają.</p>
       <h4>Cel i podstawa przetwarzania</h4>
       <p><strong>Odpowiedź na zapytanie</strong> — przetwarzamy dane w celu udzielenia odpowiedzi na Twoje pytanie lub przygotowania oferty (podstawa: art. 6 ust. 1 lit. b RODO — niezbędność do podjęcia działań przed zawarciem umowy, lub art. 6 ust. 1 lit. f RODO — prawnie uzasadniony interes administratora).</p>
       <p><strong>Marketing</strong> — jeśli wyraziłeś zgodę na otrzymywanie informacji marketingowych, będziemy przesyłać Ci informacje o usługach i promocjach (podstawa: art. 6 ust. 1 lit. a RODO — zgoda). Zgodę możesz wycofać w dowolnym momencie.</p>
@@ -116,6 +117,7 @@ const LEGAL_DOCS={
       <p>Pliki cookies (ciasteczka) i podobne technologie (np. pamięć przeglądarki) to małe porcje danych zapisywane na Twoim urządzeniu podczas odwiedzania strony internetowej.</p>
       <h4>Czego używamy</h4>
       <p><strong>Elementy niezbędne</strong> — zapamiętanie, że zapoznałeś się z informacją o prywatności (w pamięci przeglądarki), oraz zabezpieczenie formularza kontaktowego przed spamem (Cloudflare Turnstile). Są konieczne do działania strony i nie wymagają zgody.</p>
+      <p><strong>Informacja do formularza</strong> — w bieżącej karcie przeglądarki (sessionStorage, nie cookies) zapamiętujemy, skąd trafiłeś na stronę i które jej strony oglądasz. Dołączamy to do wiadomości tylko wtedy, gdy sam wyślesz formularz; w przeciwnym razie informacja nie opuszcza Twojej przeglądarki i znika po zamknięciu karty.</p>
       <p><strong>Statystyki odwiedzin</strong> — Cloudflare Web Analytics działa <strong>bez plików cookies</strong> i bez identyfikowania użytkowników. Zbiera wyłącznie anonimowe dane zbiorcze o ruchu na stronie.</p>
       <p>Nie używamy cookies reklamowych ani narzędzi śledzących.</p>
       <h4>Jak zarządzać cookies</h4>
@@ -128,7 +130,7 @@ const LEGAL_DOCS={
       </ul>
       <p>Zablokowanie elementów niezbędnych może utrudnić wysłanie formularza kontaktowego.</p>
       <h4>Okres przechowywania</h4>
-      <p>Informacja o zapoznaniu się z komunikatem o prywatności pozostaje w pamięci Twojej przeglądarki do czasu jej wyczyszczenia.</p>
+      <p>Informacja o zapoznaniu się z komunikatem o prywatności pozostaje w pamięci Twojej przeglądarki do czasu jej wyczyszczenia. Informacja o źródle wizyty i oglądanych stronach jest usuwana automatycznie po zamknięciu karty przeglądarki.</p>
       <h4>Podstawa prawna</h4>
       <p>Elementy niezbędne oraz anonimowe statystyki odwiedzin stosujemy na podstawie prawnie uzasadnionego interesu administratora (art. 6 ust. 1 lit. f RODO), polegającego na zapewnieniu działania i bezpieczeństwa strony oraz jej rozwoju.</p>
     `
@@ -318,6 +320,7 @@ async function submitForm(e){
   btn.textContent='Wysyłanie...';
   btn.disabled=true;
   
+  fillTrasa(e.target);
   const data=new FormData(e.target);
   
   try{
@@ -349,6 +352,59 @@ async function submitForm(e){
 const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function lsGet(k){try{return localStorage.getItem(k);}catch(e){return null;}}
 function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+
+// --- SKĄD PRZYSZŁO ZAPYTANIE ---
+// Zapamiętuje w bieżącej karcie (sessionStorage) źródło wizyty i oglądane strony.
+// Dane opuszczają przeglądarkę tylko razem z wiadomością wysłaną przez formularz.
+const TRASA=(function(){
+  const KEY='ekospec_trasa';
+  let t=null;
+  try{t=JSON.parse(sessionStorage.getItem(KEY)||'null');}catch(e){}
+  if(!t||!t.src){
+    const q=new URLSearchParams(location.search);
+    const tag=q.get('z')||q.get('utm_source');
+    let src='Wejście bezpośrednie (wpisany adres, zakładka, QR, link z maila lub aplikacji)';
+    if(tag){
+      const T={linkedin:'LinkedIn',facebook:'Facebook',fb:'Facebook',qr:'Kod QR',gmb:'Profil firmy w Google',google:'Profil firmy w Google',mail:'E-mail',email:'E-mail',sms:'SMS',wizytowka:'Wizytówka'};
+      src=(T[tag.toLowerCase()]||tag)+' (oznaczony link)';
+    } else if(document.referrer){
+      let h='';try{h=new URL(document.referrer).hostname.replace(/^www\./,'');}catch(e){}
+      if(h&&h!==location.hostname.replace(/^www\./,'')){
+        if(/(^|\.)google\./.test(h)) src='Google (wyszukiwarka lub Mapy)';
+        else if(/bing\.|duckduckgo\.|yahoo\.|ecosia\./.test(h)) src='Inna wyszukiwarka ('+h+')';
+        else if(/linkedin\.|lnkd\.in/.test(h)) src='LinkedIn';
+        else if(/facebook\.|fb\.|instagram\./.test(h)) src='Facebook / Instagram';
+        else src='Link na stronie: '+h;
+      }
+    }
+    t={src,first:location.pathname,pages:[]};
+  }
+  const name=document.body&&document.body.classList.contains('subpage')
+    ?(document.title.split(/\s[–|-]\s/)[0]||location.pathname):'Strona główna';
+  if(t.pages[t.pages.length-1]!==name) t.pages.push(name);
+  t.pages=t.pages.slice(-12);
+  try{sessionStorage.setItem(KEY,JSON.stringify(t));}catch(e){}
+  return t;
+})();
+function fillTrasa(form){
+  const set=(id,v)=>{const el=form.querySelector('#'+id); if(el) el.value=v;};
+  set('fZrodlo',TRASA.src);
+  set('fPierwsza',TRASA.first);
+  set('fOgladane',TRASA.pages.join(' → '));
+  set('fZeStrony',location.pathname);
+}
+// temat z podstrony: ../?temat=slug#kontakt
+window.addEventListener('DOMContentLoaded',()=>{
+  const sel=document.getElementById('fTemat'); if(!sel) return;
+  const q=new URLSearchParams(location.search), slug=q.get('temat');
+  if(slug){
+    const o=sel.querySelector(`option[data-slug="${CSS.escape(slug)}"]`);
+    if(o) sel.value=o.value||o.textContent;
+    q.delete('temat');
+    const rest=q.toString();
+    try{history.replaceState(null,'',location.pathname+(rest?'?'+rest:'')+location.hash);}catch(e){}
+  }
+});
 
 // --- start strony (bez intro) ---
 window.addEventListener('DOMContentLoaded',()=>{
@@ -542,6 +598,14 @@ document.querySelectorAll('.services-grid, .cases-grid, .about-stats').forEach(g
   document.querySelectorAll('input[name=calcAge]').forEach(r=>r.addEventListener('change',calc));
   cta.addEventListener('click',()=>{
     const ta=document.querySelector('#kontakt textarea[name=wiadomosc]');
+    if(last.v){
+      const OB={dom:'Dom jednorodzinny',wielo:'Budynek wielorodzinny / wspólnota',biuro:'Biuro, sklep, usługi',hotel:'Hotel, pensjonat',prod:'Zakład produkcyjny, warsztat',publ:'Szkoła, urząd, obiekt publiczny'};
+      const r=document.querySelector(`#kontakt input[name=Obiekt][value="${OB[type.value]}"]`); if(r) r.checked=true;
+      const k=document.getElementById('fKoszt');
+      if(k&&!k.value) k.selectedIndex=last.v<=20000?1:last.v<=100000?2:last.v<=500000?3:4;
+      const t=document.getElementById('fTemat');
+      if(t&&!t.value) t.value='Obniżenie kosztów energii';
+    }
     if(ta&&last.v&&!ta.value.trim()){
       ta.value=`Dzień dobry, skorzystałem z kalkulatora na stronie.\nObiekt: ${last.type}\nRoczny koszt energii: ok. ${fmt(last.v)} zł\nWiek instalacji: ${last.age}\nSzacowany potencjał: ${fmt(last.mLo)} – ${fmt(last.mHi)} zł rocznie (${last.lo}–${last.hi}%).\nProszę o kontakt w sprawie oceny obiektu.`;
     }

@@ -699,6 +699,10 @@
           <div class="ci-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
           <div><div class="ci-label">Email</div><a class="ci-val" href="mailto:biuro@ekospec.pro">biuro@ekospec.pro</a></div>
         </div>
+        <a class="vcard-btn" href="ekospec-kontakt.vcf" download="Ekospec - Bartłomiej Głąbiński.vcf">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2.5"/><circle cx="12" cy="10" r="2.6"/><path d="M8 16.5c.8-1.6 2.3-2.4 4-2.4s3.2.8 4 2.4"/></svg>
+          <span><strong>Zapisz kontakt w telefonie</strong><small>Jedno kliknięcie dodaje Ekospec do Twoich kontaktów</small></span>
+        </a>
         <div class="social-block">
           <div class="ci-label">Znajdziesz mnie też</div>
           <div class="social-row">
@@ -720,10 +724,62 @@
           <input type="text" name="_gotcha" style="display:none !important" tabindex="-1" autocomplete="off"/>
           <div class="form-row"><label>Imię i nazwisko</label><input type="text" name="imie" placeholder="Jan Kowalski" required/></div>
           <div class="form-row"><label>Email</label><input type="email" name="_replyto" placeholder="jan@firma.pl" required/></div>
-          <div class="form-row"><label>Telefon (opcjonalnie)</label><input type="text" name="telefon" placeholder="+48 573 018 657"/></div>
-          <div class="form-row"><label>Wiadomość</label><textarea name="wiadomosc" placeholder="Opisz krótko swój obiekt i potrzeby..."></textarea></div>
+          <div class="form-row"><label>Telefon (opcjonalnie)</label><input type="tel" name="telefon" placeholder="+48 573 018 657"/></div>
+          <div class="form-row"><label for="fTemat">Czego dotyczy zapytanie?</label>
+            <select class="form-select" id="fTemat" name="Temat">
+              <option value="">Wybierz (opcjonalnie)</option>
+              <option data-slug="audyt-energetyczny">Audyt energetyczny</option>
+              <option data-slug="optymalizacja-kosztow">Obniżenie kosztów energii</option>
+              <option data-slug="planowanie-modernizacji">Planowanie modernizacji</option>
+              <option data-slug="lekarz-budynkow">Instalacja nie działa, jak powinna (Lekarz budynków)</option>
+              <option data-slug="instalacje">Projekt lub wykonanie instalacji</option>
+              <option data-slug="automatyka-budynkowa">Automatyka budynkowa</option>
+              <option data-slug="tani-prad">Tańszy zakup energii elektrycznej</option>
+              <option data-slug="doradztwo-techniczne">Doradztwo techniczne</option>
+              <option>Coś innego / nie wiem</option>
+            </select>
+          </div>
+          <fieldset class="form-row form-fieldset">
+            <legend>Rodzaj obiektu</legend>
+            <div class="calc-chips form-chips">
+              <input type="radio" name="Obiekt" id="fo1" value="Dom jednorodzinny"/><label for="fo1">Dom</label>
+              <input type="radio" name="Obiekt" id="fo2" value="Budynek wielorodzinny / wspólnota"/><label for="fo2">Wspólnota / blok</label>
+              <input type="radio" name="Obiekt" id="fo3" value="Hotel, pensjonat"/><label for="fo3">Hotel / pensjonat</label>
+              <input type="radio" name="Obiekt" id="fo4" value="Biuro, sklep, usługi"/><label for="fo4">Biuro / usługi</label>
+              <input type="radio" name="Obiekt" id="fo5" value="Zakład produkcyjny, warsztat"/><label for="fo5">Produkcja</label>
+              <input type="radio" name="Obiekt" id="fo6" value="Szkoła, urząd, obiekt publiczny"/><label for="fo6">Obiekt publiczny</label>
+              <input type="radio" name="Obiekt" id="fo7" value="Inny"/><label for="fo7">Inny</label>
+            </div>
+          </fieldset>
+          <div class="form-2col">
+            <div class="form-row"><label for="fPow">Powierzchnia</label>
+              <select class="form-select" id="fPow" name="Powierzchnia">
+                <option value="">Opcjonalnie</option>
+                <option>do 200 m²</option>
+                <option>200–1 000 m²</option>
+                <option>1 000–5 000 m²</option>
+                <option>powyżej 5 000 m²</option>
+                <option>nie wiem</option>
+              </select>
+            </div>
+            <div class="form-row"><label for="fKoszt">Roczne koszty energii</label>
+              <select class="form-select" id="fKoszt" name="Roczne koszty energii">
+                <option value="">Opcjonalnie</option>
+                <option>do 20 tys. zł</option>
+                <option>20–100 tys. zł</option>
+                <option>100–500 tys. zł</option>
+                <option>powyżej 500 tys. zł</option>
+                <option>nie wiem</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row"><label>Wiadomość</label><textarea name="wiadomosc" placeholder="Co się dzieje w obiekcie, co chcesz osiągnąć, czy jest termin..."></textarea></div>
+          <input type="hidden" name="Źródło wizyty" id="fZrodlo"/>
+          <input type="hidden" name="Pierwsza strona" id="fPierwsza"/>
+          <input type="hidden" name="Oglądane strony" id="fOgladane"/>
+          <input type="hidden" name="Wysłano ze strony" id="fZeStrony"/>
           <div class="form-check"><input type="checkbox" id="rodo" required/><label for="rodo">Wyrażam zgodę na przetwarzanie moich danych osobowych przez Ekospec w celu odpowiedzi na zapytanie, zgodnie z <a href="#" onclick="openLegal('privacy');return false;">Polityką Prywatności</a>. Zgoda jest dobrowolna i może być odwołana w każdej chwili.</label></div>
-          <div class="form-check"><input type="checkbox" id="marketing"/><label for="marketing">Wyrażam zgodę na przesyłanie informacji marketingowych drogą elektroniczną (opcjonalnie).</label></div>
+          <div class="form-check"><input type="checkbox" id="marketing" name="Zgoda marketingowa" value="tak"/><label for="marketing">Wyrażam zgodę na przesyłanie informacji marketingowych drogą elektroniczną (opcjonalnie).</label></div>
           <div class="cf-turnstile" data-sitekey="0x4AAAAAADI8N6z7SVSHoBVp" data-theme="dark"></div>
           <button type="submit" class="btn-primary" style="width:100%;justify-content:center;margin-top:8px;">Wyślij wiadomość</button>
         </form>
