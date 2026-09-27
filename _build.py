@@ -82,7 +82,11 @@ def build_page(src):
 <meta property="og:title" content="{meta['tytul']}">
 <meta property="og:description" content="{meta['opis']}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{DOMAIN}/og-image-ekospec.png">
+<meta property="og:image" content="{DOMAIN}/og/{slug}.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ekospec – {meta['nazwa']}">
+<meta name="twitter:image" content="{DOMAIN}/og/{slug}.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">

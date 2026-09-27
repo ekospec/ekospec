@@ -23,8 +23,9 @@ function rejectCookies(){lsSet('cookies_choice','rejected');document.getElementB
 
 // === SHARE ===
 function shareP(){
-  const shareUrl = window.location.origin + window.location.pathname;
-  if(navigator.share){navigator.share({title:'Ekospec',text:'Polecam firmę Ekospec',url:shareUrl});}
+  const shareUrl = window.location.origin + window.location.pathname + '?z=polecenie';
+  const text = 'Polecam Ekospec – inżynier z Nowego Targu, który obniża koszty energii i rozwiązuje problemy z instalacjami.';
+  if(navigator.share){navigator.share({title:'Ekospec',text,url:shareUrl}).catch(()=>{});}
   else{navigator.clipboard.writeText(shareUrl).then(()=>{
     const b=document.getElementById('shareBtn');
     const o=b.innerHTML;
@@ -356,7 +357,7 @@ function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
 // Nic nie jest zapisywane w przeglądarce. Źródło odczytujemy z adresu strony
 // (oznaczone linki ?z=...) albo z adresu poprzedniej strony, a dołączamy je
 // do wiadomości tylko wtedy, gdy ktoś sam wyśle formularz.
-const SRC_NAMES={linkedin:'LinkedIn',facebook:'Facebook / Instagram',fb:'Facebook / Instagram',qr:'Kod QR',gmb:'Profil firmy w Google',google:'Google (wyszukiwarka lub Mapy)',mail:'E-mail',email:'E-mail',sms:'SMS',wizytowka:'Wizytówka w telefonie',szukaj:'Inna wyszukiwarka'};
+const SRC_NAMES={linkedin:'LinkedIn',facebook:'Facebook / Instagram',fb:'Facebook / Instagram',qr:'Kod QR',gmb:'Profil firmy w Google',google:'Google (wyszukiwarka lub Mapy)',mail:'E-mail',email:'E-mail',sms:'SMS',polecenie:'Polecenie znajomego (przycisk „Poleć znajomemu”)',wizytowka:'Wizytówka w telefonie',szukaj:'Inna wyszukiwarka'};
 function detectSource(){
   const q=new URLSearchParams(location.search);
   const tag=(q.get('z')||q.get('utm_source')||'').toLowerCase();
