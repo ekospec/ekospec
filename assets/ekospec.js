@@ -638,3 +638,24 @@ document.querySelectorAll('.services-grid, .cases-grid, .about-stats').forEach(g
   inp.addEventListener('blur',()=>{const v=parse(inp.value); inp.value=v?fmt(v):'';});
   upd();
 })();
+
+/* Cloudflare Turnstile (ochrona formularza) – skrypt doczytywany dopiero, gdy formularz zbliża się do ekranu,
+   żeby nie spowalniać startu strony na telefonach. Działa tak samo jak wcześniej. */
+(function(){
+  const box=document.querySelector('.cf-turnstile');
+  if(!box) return;
+  let loaded=false;
+  const load=()=>{
+    if(loaded) return; loaded=true;
+    const s=document.createElement('script');
+    s.src='https://challenges.cloudflare.com/turnstile/v0/api.js';
+    s.async=true; s.defer=true;
+    document.head.appendChild(s);
+  };
+  const form=box.closest('form');
+  if(form){form.addEventListener('focusin',load,{once:true});form.addEventListener('pointerdown',load,{once:true});}
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(e=>{if(e.some(x=>x.isIntersecting)){io.disconnect();load();}},{rootMargin:'800px 0px'});
+    io.observe(form||box);
+  } else load();
+})();
