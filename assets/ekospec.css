@@ -653,7 +653,7 @@ input[type=range].calc-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 
 }
 @media(max-width:900px){
   .hero-grid{grid-template-columns:1fr;gap:28px;}
-  .hero-logo{width:min(60vw,240px);margin-top:8px;}
+  .hero-logo{display:none;} /* na telefonach i tabletach bez logo słoń+obwód – szybszy start strony */
   .proces-grid{grid-template-columns:1fr;gap:40px;}
   .proces-sticky{position:static;}
   .proces-nav{display:none;}

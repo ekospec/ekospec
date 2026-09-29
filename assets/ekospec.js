@@ -416,6 +416,7 @@ function initHeroLogo(){
   const slon=document.getElementById('hlSlon');
   const obw=document.getElementById('hlObwod');
   if(!slon||!obw) return;
+  if(window.matchMedia('(max-width:900px)').matches) return; // na telefonie logo jest ukryte
   const setMask=(el,m)=>{el.style.webkitMaskImage=m;el.style.maskImage=m;};
   const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
   let started=false;
