@@ -47,6 +47,7 @@ function lbShow(){
   const el=lbItems[lbIndex];
   const img=el.querySelector('img');
   document.getElementById('lb-img').src=img ? (img.dataset.full||img.currentSrc||img.src) : '';
+  document.getElementById('lb-img').alt=(img&&img.alt)||'Zdjęcie realizacji Ekospec';
   document.getElementById('lb-title').textContent=el.dataset.title||'';
   document.getElementById('lb-desc').textContent=el.dataset.desc||'';
 }
