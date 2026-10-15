@@ -1,0 +1,26 @@
+# Po każdej publikacji zgłasza adresy z sitemap.xml do IndexNow (Bing, Yandex, Seznam i in.).
+# Darmowe. Klucz: plik 0e7d9d2a15eeb3df751cb5a9febc7482.txt w katalogu głównym strony.
+name: IndexNow
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  zglos:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Poczekaj na publikację strony (GitHub Pages)
+        run: sleep 150
+      - name: Zgłoś adresy z sitemap.xml
+        env:
+          KEY: 0e7d9d2a15eeb3df751cb5a9febc7482
+          HOST: ekospec.pro
+        run: |
+          URLS=$(curl -fsSL "https://$HOST/sitemap.xml" | grep -o '<loc>[^<]*</loc>' | sed -e 's/<loc>//' -e 's#</loc>##')
+          JSON=$(printf '%s\n' $URLS | python3 -c 'import sys,json,os; u=[l.strip() for l in sys.stdin if l.strip()]; print(json.dumps({"host":os.environ["HOST"],"key":os.environ["KEY"],"keyLocation":"https://%s/%s.txt"%(os.environ["HOST"],os.environ["KEY"]),"urlList":u}))')
+          echo "$JSON"
+          CODE=$(curl -s -o /dev/null -w '%{http_code}' -X POST "https://api.indexnow.org/indexnow" -H 'Content-Type: application/json; charset=utf-8' -d "$JSON")
+          echo "Odpowiedź IndexNow: $CODE"
+          case "$CODE" in 200|202) exit 0;; *) exit 1;; esac
