@@ -20,9 +20,6 @@ const obs=new IntersectionObserver(entries=>{
 },{threshold:.1,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
 
-// === COOKIES ===
-function acceptCookies(){lsSet('cookies_choice','accepted');document.getElementById('cookie-banner').classList.remove('show');}
-function rejectCookies(){lsSet('cookies_choice','rejected');document.getElementById('cookie-banner').classList.remove('show');}
 
 // === SHARE ===
 function shareP(){
@@ -123,7 +120,8 @@ const LEGAL_DOCS={
       <h4>Czym są pliki cookies</h4>
       <p>Pliki cookies (ciasteczka) i podobne technologie (np. pamięć przeglądarki) to małe porcje danych zapisywane na Twoim urządzeniu podczas odwiedzania strony internetowej.</p>
       <h4>Czego używamy</h4>
-      <p><strong>Elementy niezbędne</strong> — zapamiętanie, że zapoznałeś się z informacją o prywatności (w pamięci przeglądarki), oraz zabezpieczenie formularza kontaktowego przed spamem (Cloudflare Turnstile). Są konieczne do działania strony i nie wymagają zgody.</p>
+      <p><strong>Strona nie zapisuje plików cookies ani niczego w pamięci Twojej przeglądarki.</strong></p>
+      <p><strong>Elementy niezbędne</strong> — zabezpieczenie formularza kontaktowego przed spamem (Cloudflare Turnstile). Jest konieczne do działania formularza i nie wymaga zgody.</p>
       <p><strong>Statystyki odwiedzin</strong> — Cloudflare Web Analytics działa <strong>bez plików cookies</strong> i bez identyfikowania użytkowników. Zbiera wyłącznie anonimowe dane zbiorcze o ruchu na stronie.</p>
       <p>Nie używamy cookies reklamowych ani narzędzi śledzących.</p>
       <h4>Jak zarządzać cookies</h4>
@@ -134,9 +132,7 @@ const LEGAL_DOCS={
         <li>Safari — Preferencje → Prywatność</li>
         <li>Microsoft Edge — Ustawienia → Pliki cookie i uprawnienia witryny</li>
       </ul>
-      <p>Zablokowanie elementów niezbędnych może utrudnić wysłanie formularza kontaktowego.</p>
-      <h4>Okres przechowywania</h4>
-      <p>Informacja o zapoznaniu się z komunikatem o prywatności pozostaje w pamięci Twojej przeglądarki do czasu jej wyczyszczenia.</p>
+      <p>Zablokowanie zabezpieczenia Cloudflare Turnstile może uniemożliwić wysłanie formularza kontaktowego.</p>
       <h4>Podstawa prawna</h4>
       <p>Elementy niezbędne oraz anonimowe statystyki odwiedzin stosujemy na podstawie prawnie uzasadnionego interesu administratora (art. 6 ust. 1 lit. f RODO), polegającego na zapewnieniu działania i bezpieczeństwa strony oraz jej rozwoju.</p>
     `
@@ -362,8 +358,6 @@ async function submitForm(e){
 // PRZEBUDOWA 2026-09
 // =====================================================
 const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-function lsGet(k){try{return localStorage.getItem(k);}catch(e){return null;}}
-function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
 
 // --- SKĄD PRZYSZŁO ZAPYTANIE ---
 // Nic nie jest zapisywane w przeglądarce. Źródło odczytujemy z adresu strony
@@ -418,8 +412,6 @@ window.addEventListener('DOMContentLoaded',()=>{
 window.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('fabWrap').style.display='flex';
   document.getElementById('shareBtn').style.display='flex';
-  if(!lsGet('cookies_choice'))
-    setTimeout(()=>document.getElementById('cookie-banner').classList.add('show'),1800);
   initHeroLogo();
 });
 
