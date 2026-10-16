@@ -109,7 +109,9 @@ def build_page(src):
   <!-- @nav -->
   <!-- /@nav -->
 
+<main id="tresc">
 {body.strip()}
+</main>
 
   <!-- @footer -->
   <!-- /@footer -->

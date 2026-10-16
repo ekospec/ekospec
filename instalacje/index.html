@@ -120,6 +120,7 @@
 <div id="site">
 
   <!-- @nav -->
+  <a class="skip-link" href="#tresc">Przejdź do treści</a>
   <!-- NAV -->
   <nav id="navbar">
     <a href="../#hero" class="nav-logo">
@@ -133,7 +134,7 @@
       <li><a href="../#kalkulator">Kalkulator</a></li>
       <li><a href="../#kontakt">Kontakt</a></li>
     </ul>
-    <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMenu()">
+    <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu" onclick="toggleMenu()">
       <span></span><span></span><span></span>
     </button>
   </nav>
@@ -149,6 +150,7 @@
   </div>
   <!-- /@nav -->
 
+<main id="tresc">
 <!-- NAGŁÓWEK PODSTRONY -->
   <section class="sub-hero">
     <div class="sub-hero-grid">
@@ -304,6 +306,7 @@
       <a href="../tani-prad/">Tani prąd</a>
     </div>
   </section>
+</main>
 
   <!-- @footer -->
   <!-- FOOTER -->
@@ -314,7 +317,7 @@
         <p>Profesjonalne doradztwo w zakresie efektywności energetycznej dla firm, instytucji oraz osób prywatnych.</p>
       </div>
       <div class="footer-links">
-        <h5>Nawigacja</h5>
+        <h2 class="f-h">Nawigacja</h2>
         <a href="../#o-mnie">O mnie</a>
         <a href="../#oferta">Oferta</a>
         <a href="../#realizacje">Realizacje</a>
@@ -322,7 +325,7 @@
         <a href="../#kontakt">Kontakt</a>
       </div>
       <div class="footer-links">
-        <h5>Obserwuj i oceń</h5>
+        <h2 class="f-h">Obserwuj i oceń</h2>
         <div class="footer-social">
           <a href="https://www.linkedin.com/company/przedsi%C4%99biorstwo-techniczne-us%C5%82ugowo-handlowe-jantar/" target="_blank" rel="noopener" aria-label="Ekospec na LinkedIn" title="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9.75h4v11.5H3zM9.5 9.75h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.6 4.77 6v5.95h-4v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8v5.4h-4z"/></svg></a>
           <a href="https://www.facebook.com/profile.php?id=61589672399854" target="_blank" rel="noopener" aria-label="Ekospec na Facebooku" title="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21.5v-8h2.7l.4-3.2h-3.1V8.3c0-.9.26-1.55 1.56-1.55h1.66V3.9a22 22 0 00-2.42-.13c-2.4 0-4.04 1.47-4.04 4.15v2.38H7.55v3.2h2.71v8z"/></svg></a>
@@ -331,7 +334,7 @@
         <a href="https://g.page/r/CbBREKboJ0EaEBM/review" target="_blank" rel="noopener">Wystaw opinię w Google</a>
       </div>
       <div class="footer-links">
-        <h5>Informacje prawne</h5>
+        <h2 class="f-h">Informacje prawne</h2>
         <a href="../#" onclick="openLegal('privacy');return false;">Polityka prywatności</a>
         <a href="../#" onclick="openLegal('cookies');return false;">Polityka cookies</a>
         <a href="../#" onclick="openLegal('rodo');return false;">Informacja RODO</a>
@@ -350,7 +353,7 @@
 <!-- COOKIE BANNER -->
 <div id="cookie-banner">
   <div class="cookie-text">
-    <h4>PRYWATNOŚĆ I COOKIES</h4>
+    <h2 class="cookie-h">PRYWATNOŚĆ I COOKIES</h2>
     <p>Strona używa tylko elementów niezbędnych do działania (np. zapamiętanie tej informacji i zabezpieczenie formularza). Statystyki odwiedzin zbieramy anonimowo, bez plików cookies i bez identyfikowania osób. <a href="#" onclick="openLegal('cookies');return false;">Polityka cookies</a> · <a href="#" onclick="openLegal('privacy');return false;">Polityka prywatności</a></p>
   </div>
   <div class="cookie-btns">
@@ -360,18 +363,18 @@
 
 <!-- MODAL PRAWNY -->
 <div id="legal-modal" onclick="closeLegalBg(event)">
-  <div class="lm-box">
+  <div class="lm-box" role="dialog" aria-modal="true" aria-labelledby="lm-title">
     <div class="lm-header">
       <h3 id="lm-title">Polityka prywatności</h3>
-      <button class="lm-close" onclick="closeLegal()">&#x2715;</button>
+      <button class="lm-close" aria-label="Zamknij" onclick="closeLegal()">&#x2715;</button>
     </div>
     <div class="lm-body" id="lm-body"></div>
   </div>
 </div>
 
 <!-- MODAL OFERTY (PC) -->
-<div id="service-modal" onclick="closeServiceModalBg(event)">
-  <button class="sm-close" onclick="closeServiceModal()">&#x2715;</button>
+<div id="service-modal" role="dialog" aria-modal="true" aria-label="Szczegóły usługi" onclick="closeServiceModalBg(event)">
+  <button class="sm-close" aria-label="Zamknij" onclick="closeServiceModal()">&#x2715;</button>
   <div class="sm-box">
     <div class="sm-text">
       <div class="sm-eyebrow"><span id="sm-number"></span></div>
@@ -386,10 +389,10 @@
 </div>
     
 <!-- LIGHTBOX -->
-<div id="lightbox" onclick="closeLightboxBg(event)">
-  <button class="lb-close" onclick="closeLightbox()">&#x2715;</button>
-  <button class="lb-prev" onclick="lbNav(-1)">&#8249;</button>
-  <button class="lb-next" onclick="lbNav(1)">&#8250;</button>
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Galeria realizacji" onclick="closeLightboxBg(event)">
+  <button class="lb-close" aria-label="Zamknij galerię" onclick="closeLightbox()">&#x2715;</button>
+  <button class="lb-prev" aria-label="Poprzednie zdjęcie" onclick="lbNav(-1)">&#8249;</button>
+  <button class="lb-next" aria-label="Następne zdjęcie" onclick="lbNav(1)">&#8250;</button>
   <div class="lb-inner">
     <div class="lb-img-wrap"><img id="lb-img" src="" alt="Zdjęcie realizacji Ekospec"/></div>
     <div class="lb-caption">
@@ -408,7 +411,7 @@
 </div>
 
 <!-- Poleć znajomemu -->
-<button class="share-btn" id="shareBtn" style="display:none;" onclick="shareP()">
+<button class="share-btn" id="shareBtn" style="display:none;" aria-label="Poleć znajomemu" onclick="shareP()">
   <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
   <span>Poleć znajomemu</span>
 </button>

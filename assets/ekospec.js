@@ -3,11 +3,14 @@ window.addEventListener('scroll',()=>{
   document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40);
 });
 function toggleMenu(){
-  document.getElementById('hamburger').classList.toggle('open');
-  document.getElementById('mobileMenu').classList.toggle('open');
+  const h=document.getElementById('hamburger');
+  const open=document.getElementById('mobileMenu').classList.toggle('open');
+  h.classList.toggle('open',open);
+  h.setAttribute('aria-expanded',open);
 }
 function closeMenu(){
   document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('hamburger').setAttribute('aria-expanded','false');
   document.getElementById('mobileMenu').classList.remove('open');
 }
 
@@ -42,6 +45,7 @@ function openLightbox(el){
   lbShow();
   document.getElementById('lightbox').classList.add('open');
   document.body.style.overflow='hidden';
+  dlgOpen('lightbox','.lb-close');
 }
 function lbShow(){
   const el=lbItems[lbIndex];
@@ -54,6 +58,7 @@ function lbShow(){
 function closeLightbox(){
   document.getElementById('lightbox').classList.remove('open');
   document.body.style.overflow='';
+  dlgClose();
 }
 function closeLightboxBg(e){if(e.target===document.getElementById('lightbox'))closeLightbox();}
 function lbNav(dir){
@@ -175,10 +180,12 @@ function openLegal(type){
   document.getElementById('lm-body').scrollTop=0;
   document.getElementById('legal-modal').classList.add('open');
   document.body.style.overflow='hidden';
+  dlgOpen('legal-modal','.lm-close');
 }
 function closeLegal(){
   document.getElementById('legal-modal').classList.remove('open');
   document.body.style.overflow='';
+  dlgClose();
 }
 function closeLegalBg(e){
   if(e.target===document.getElementById('legal-modal'))closeLegal();
@@ -264,11 +271,13 @@ function openServiceModal(card){
   }
   document.querySelector('.sm-text').scrollTop = 0;
   document.getElementById('service-modal').classList.add('open');
+  dlgOpen('service-modal','.sm-close');
   document.body.style.overflow = 'hidden';
 }
 function closeServiceModal(){
   document.getElementById('service-modal').classList.remove('open');
   document.body.style.overflow = '';
+  dlgClose();
 }
 function closeServiceModalBg(e){
   if(e.target===document.getElementById('service-modal')) closeServiceModal();
@@ -333,12 +342,14 @@ async function submitForm(e){
     
     if(res.ok){
       btn.textContent='✓ Wysłano – odpiszemy wkrótce';
+      formSay('Wiadomość wysłana. Odpiszemy wkrótce.');
       btn.style.background='#2a6b3a';
       e.target.reset();
     } else {
       btn.textContent='Błąd wysyłania — spróbuj ponownie';
       btn.style.background='#8b2020';
       btn.disabled=false;
+      formSay('Nie udało się wysłać wiadomości. Spróbuj ponownie.');
     }
   } catch(err){
     btn.textContent='Błąd wysyłania — spróbuj ponownie';
@@ -661,3 +672,22 @@ document.querySelectorAll('.services-grid, .cases-grid, .about-stats').forEach(g
     io.observe(form||box);
   } else load();
 })();
+
+// === Dostępność (audyt 2026-10) ===
+let dlgReturn=null;
+function dlgOpen(id,closeSel){
+  if(!dlgReturn) dlgReturn=document.activeElement;
+  const b=document.querySelector('#'+id+' '+closeSel);
+  if(b) setTimeout(()=>b.focus(),30);
+}
+function dlgClose(){
+  const el=dlgReturn; dlgReturn=null;
+  if(el && document.contains(el) && el.focus) el.focus();
+}
+function formSay(t){const s=document.getElementById('formStatus'); if(s) s.textContent=t;}
+document.addEventListener('keydown',e=>{
+  const t=e.target;
+  if(t && t.matches && t.matches('.case-img[data-lb]') && (e.key==='Enter'||e.key===' ')){
+    e.preventDefault(); openLightbox(t);
+  }
+});
