@@ -1,7 +1,8 @@
 /* =====================================================
    EKOSPEC — efekty przestrzenne (warianty 1 i 2)
    Bez bibliotek. Tylko komputer z myszą, nie przy „ogranicz ruch”.
-   Włączenie: klasy fx-tilt (wariant 1) i fx-logo3d (wariant 2) na <html>.
+   Włączenie: klasy fx-tilt (wariant 1), fx-logo3d (wariant 2) i fx-spin (obrót run) na <html>.
+   Prędkość obrotu run: atrybut data-spin na <html> = sekundy na pełny obrót (domyślnie 90).
    ===================================================== */
 (function(){
   const root=document.documentElement;
@@ -9,7 +10,7 @@
              && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   window.EKO_FX_CAPABLE=capable;
   if(!capable) return;
-  if(!root.hasAttribute('data-fx-manual')) root.classList.add('fx-tilt','fx-logo3d');
+  if(!root.hasAttribute('data-fx-manual')) root.classList.add('fx-tilt','fx-logo3d','fx-spin');
   const on=c=>root.classList.contains(c);
   const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
   const lerp=(a,b,t)=>a+(b-a)*t;
@@ -49,7 +50,7 @@
     // stan animacji
     let px=0,py=0,tx=0,ty=0;            // kursor (wygładzony / docelowy)
     const t0=performance.now();
-    let visible=true, raf=0;
+    let visible=true, raf=0, spin=0, last=t0;
     window.addEventListener('pointermove',e=>{
       tx=(e.clientX/innerWidth-.5); ty=(e.clientY/innerHeight-.5);
     },{passive:true});
@@ -57,20 +58,30 @@
 
     function frame(now){
       raf=0;
-      if(!on('fx-logo3d')){ reset(); if(visible) raf=requestAnimationFrame(frame); return; }
-      const t=now-t0;
+      const t=now-t0, dt=Math.min(now-last,50)/1000; last=now;
+      // obrót run: przy ładowaniu szybciej, potem płynnie zwalnia do spokojnego tempa i kręci się dalej
+      const rev=+(root.dataset.spin||90);
+      const speed=360/rev + 75*Math.exp(-t/1500);                 // stopnie na sekundę
+      if(on('fx-spin')) spin=(spin+speed*dt)%360;
+      const hero=document.getElementById('hero');
+      const p=hero?clamp(scrollY/hero.offsetHeight,0,1):0;
+      if(!on('fx-logo3d')){
+        reset();
+        if(on('fx-spin')) box.style.setProperty('--hz',spin.toFixed(2)+'deg');
+        if(visible) raf=requestAnimationFrame(frame); return;
+      }
       // wejście: medalion ustawia się z ukosa do pozycji frontalnej
       const k=clamp((t-1100)/1700,0,1), ke=1-Math.pow(1-k,3);
       const by=lerp(-30,0,ke), bx=lerp(11,0,ke);
       px=lerp(px,tx,.06); py=lerp(py,ty,.06);
-      const hero=document.getElementById('hero');
-      const p=hero?clamp(scrollY/hero.offsetHeight,0,1):0;
       const idle=Math.sin(t/2600)*1.6*ke;
       const hy=by + px*22 + idle;
       const hx=bx - py*15 + p*20;
       box.style.setProperty('--hy',hy.toFixed(2)+'deg');
       box.style.setProperty('--hx',hx.toFixed(2)+'deg');
-      box.style.setProperty('--hz',(p*55).toFixed(2)+'deg');        // pierścień run obraca się jak tarcza
+      const hz=(on('fx-spin')?spin:0) + p*55;                     // obrót run + dokręcenie przy przewijaniu
+      box.style.setProperty('--hz',hz.toFixed(2)+'deg');
+      box.style.setProperty('--gang',(105-hz).toFixed(2)+'deg');   // refleks stoi w miejscu, runy przesuwają się pod nim
       box.style.setProperty('--hpy',(p*70).toFixed(1)+'px');
       box.style.setProperty('--hs',(1-Math.abs(hy)/90).toFixed(3));
       // refleks: co 7 s przelatuje po runach, poza tym podąża za nachyleniem
@@ -82,7 +93,7 @@
       if(visible) raf=requestAnimationFrame(frame);
     }
     function reset(){
-      ['--hy','--hx','--hz','--hpy','--hs','--gl'].forEach(v=>box.style.removeProperty(v));
+      ['--hy','--hx','--hz','--hpy','--hs','--gl','--gang'].forEach(v=>box.style.removeProperty(v));
       glint.style.opacity=0;
     }
     raf=requestAnimationFrame(frame);
