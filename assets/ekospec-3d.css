@@ -1,0 +1,58 @@
+/* =====================================================
+   EKOSPEC — efekty przestrzenne (warianty 1 i 2)
+   Wariant 1 (.fx-tilt): przechył kart za kursorem + paralaksa sekcji powitalnej
+   Wariant 2 (.fx-logo3d): logo jako medalion 3D — obrót, grubość, złoty refleks
+   Działa tylko na komputerze (mysz) i gdy system nie ogranicza ruchu.
+   ===================================================== */
+
+/* ---------- WARIANT 2: medalion 3D ---------- */
+.fx-logo3d .hero-logo{perspective:1300px;}
+.fx-logo3d .hl-stage{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform;
+  transform:rotateX(var(--hx,0deg)) rotateY(var(--hy,0deg)) translateY(var(--hpy,0px));}
+.hl-stage{position:absolute;inset:0;}
+.hl-stage picture{display:contents;}
+/* warstwy: pierścień z tyłu, słoń wysunięty do przodu */
+.fx-logo3d .hl-ringwrap{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateZ(var(--hz,0deg));}
+.hl-ringwrap{position:absolute;inset:0;}
+.fx-logo3d .hl-slon,.fx-logo3d .hl-base:not(.ring){transform:translateZ(46px);}
+/* grubość metalu: warstwy pierścienia za przodem */
+.hl-edge{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;opacity:0;
+  transition:opacity .8s ease;filter:brightness(.42) sepia(.5);}
+.fx-logo3d .hl-edge.on{opacity:1;}
+.fx-logo3d .hl-ringwrap .hl-obwod{transform:translateZ(1px);}
+/* złoty refleks światła przesuwający się po runach */
+.hl-glint{position:absolute;inset:0;pointer-events:none;opacity:0;transform:translateZ(2px);
+  -webkit-mask:url(../obwod.svg) center/contain no-repeat;mask:url(../obwod.svg) center/contain no-repeat;
+  background:linear-gradient(105deg,transparent 0 calc(var(--gl,0) * 100% - 9%),rgba(255,236,190,.95) calc(var(--gl,0) * 100%),transparent calc(var(--gl,0) * 100% + 9%));
+  mix-blend-mode:screen;transition:opacity .6s ease;}
+.fx-logo3d .hl-glint.on{opacity:1;}
+/* cień medalionu na "podłodze" — podkreśla przestrzeń */
+.hl-shadow{position:absolute;left:14%;right:14%;bottom:-9%;height:9%;border-radius:50%;pointer-events:none;opacity:0;
+  background:radial-gradient(ellipse at center,rgba(0,0,0,.55),transparent 70%);filter:blur(6px);transition:opacity .8s;
+  transform:scaleX(var(--hs,1));}
+.fx-logo3d .hl-shadow.on{opacity:1;}
+
+/* ---------- WARIANT 1: przechył kart ---------- */
+.fx-tilt .service-card,.fx-tilt .case-card{transform-style:preserve-3d;
+  transform:perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--lift,0px));
+  transition:transform .5s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .4s;}
+.fx-tilt .service-card.fx-on,.fx-tilt .case-card.fx-on{transition:transform .12s linear,border-color .3s,box-shadow .4s;}
+.fx-tilt .service-card:hover{--lift:-6px;transform:perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--lift));}
+.fx-tilt .case-card:hover{--lift:-4px;transform:perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--lift));}
+/* odblask jak na szkle/metalu, podąża za kursorem */
+.fx-glare{position:absolute;inset:0;pointer-events:none;z-index:3;opacity:0;transition:opacity .4s ease;mix-blend-mode:screen;
+  background:radial-gradient(260px circle at var(--gx,50%) var(--gy,0%),rgba(255,240,205,.16),transparent 60%),
+             linear-gradient(calc(var(--ga,115deg)),transparent 35%,rgba(200,169,110,.10) 50%,transparent 65%);}
+.fx-tilt .service-card:hover .fx-glare,.fx-tilt .case-card:hover .fx-glare{opacity:1;}
+/* ikona i numer usługi lekko "wyjeżdżają" nad kartę */
+.fx-tilt .service-card .service-icon,.fx-tilt .service-card .service-number{transform:translateZ(28px);transition:transform .5s cubic-bezier(.16,1,.3,1);}
+.fx-tilt .case-card .case-tag{transform:translateZ(30px);}
+/* paralaksa sekcji powitalnej i zdjęć realizacji */
+.fx-tilt .energy-flow{transform:translate3d(0,var(--pe,0px),0);}
+.fx-tilt .hero-content{transform:translate3d(0,var(--pc,0px),0);}
+.fx-tilt .case-img img{transform:translate3d(0,var(--pi,0px),0) scale(1.1);transition:transform .6s cubic-bezier(.16,1,.3,1);}
+.fx-tilt .case-card:hover .case-img img{transform:translate3d(0,var(--pi,0px),0) scale(1.15);}
+
+@media (prefers-reduced-motion: reduce){
+  .hl-glint,.hl-edge,.hl-shadow,.fx-glare{display:none;}
+}
