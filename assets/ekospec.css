@@ -642,7 +642,7 @@ input[type=range].calc-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 
 }
 @media(max-width:900px){
   .hero-grid{grid-template-columns:1fr;gap:28px;}
-  .hero-logo{display:none;} /* na telefonach i tabletach bez logo słoń+obwód – szybszy start strony */
+  .hero-logo{display:none;} /* na telefonach i tabletach zamiast niego lekkie .hero-logo-m */
   .proces-grid{grid-template-columns:1fr;gap:40px;}
   .proces-sticky{position:static;}
   .proces-nav{display:none;}
@@ -837,3 +837,49 @@ input[type=range].calc-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 
 .skip-link:focus{top:12px;}
 .case-img:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+
+/* =====================================================
+   LOGO NA TELEFON I TABLET (do 900 px)
+   Te same etapy co na komputerze: słoń wyłania się od środka, złoty obwód
+   rysuje się trzema łukami, potem runy powoli obracają się wokół słonia.
+   Wydajność: pliki ~6 KB (gzip) wczytywane dopiero po załadowaniu strony,
+   bez JavaScriptu w pętli i bez filtrów; maski tylko przez ~2,5 s, potem
+   wyłącznie obrót (transform) liczony przez kartę graficzną; pauza poza ekranem.
+   ===================================================== */
+@property --hlm-r{syntax:'<percentage>';inherits:false;initial-value:0%;}
+@property --hlm-a{syntax:'<angle>';inherits:false;initial-value:0deg;}
+.hero-logo-m{display:none;}
+@media(max-width:900px){
+  .hero-logo-m{display:block;position:relative;width:min(62vw,250px);aspect-ratio:488/511;justify-self:center;margin-top:4px;}
+  .hero-logo-m::before{content:'';position:absolute;inset:-18%;border-radius:50%;pointer-events:none;
+    background:radial-gradient(circle,rgba(78,142,203,.16) 0%,rgba(200,169,110,.06) 38%,transparent 66%);}
+  .hero-logo-m img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;user-select:none;opacity:0;}
+  .hlm-clip{position:absolute;inset:0;overflow:hidden;contain:strict;}
+  .hlm-ring{position:absolute;inset:0;transform-origin:49.7% 50%;}
+  .hero-logo-m.go img{opacity:1;}
+  .hero-logo-m.go .hlm-ghost{opacity:.18;transition:opacity .6s;}
+  .hero-logo-m.go .hlm-ghost-s{opacity:.06;}
+  /* słoń: odsłanianie od środka */
+  .hero-logo-m.go .hlm-slon{
+    -webkit-mask-image:radial-gradient(circle at 50% 55%,#000 var(--hlm-r),transparent calc(var(--hlm-r) + 8%));
+            mask-image:radial-gradient(circle at 50% 55%,#000 var(--hlm-r),transparent calc(var(--hlm-r) + 8%));
+    animation:hlmSlon .9s cubic-bezier(.65,0,.35,1) .2s both;}
+  /* obwód: trzy łuki rysowane jednocześnie */
+  .hero-logo-m.go .hlm-obwod{
+    -webkit-mask-image:conic-gradient(from -90deg,#000 0deg var(--hlm-a),transparent var(--hlm-a) 120deg,#000 120deg calc(120deg + var(--hlm-a)),transparent calc(120deg + var(--hlm-a)) 240deg,#000 240deg calc(240deg + var(--hlm-a)),transparent calc(240deg + var(--hlm-a)) 360deg);
+            mask-image:conic-gradient(from -90deg,#000 0deg var(--hlm-a),transparent var(--hlm-a) 120deg,#000 120deg calc(120deg + var(--hlm-a)),transparent calc(120deg + var(--hlm-a)) 240deg,#000 240deg calc(240deg + var(--hlm-a)),transparent calc(240deg + var(--hlm-a)) 360deg);
+    animation:hlmObwod 1.4s cubic-bezier(.65,0,.35,1) 1.15s both;}
+  /* po narysowaniu maski znikają – zostaje sam obrót */
+  .hero-logo-m.done .hlm-slon,.hero-logo-m.done .hlm-obwod{-webkit-mask-image:none;mask-image:none;animation:none;}
+  /* obrót run: na starcie szybciej, potem spokojnie (pełny obrót w 90 s) */
+  .hero-logo-m.go .hlm-ring{will-change:transform;
+    animation:hlmSpinUp 4s cubic-bezier(.15,.55,.35,1) 0s 1 both,hlmSpin 90s steps(1800) 4s infinite;}
+  .hero-logo-m.paused .hlm-ring{animation-play-state:paused;}
+}
+@keyframes hlmSlon{from{--hlm-r:0%;}to{--hlm-r:92%;}}
+@keyframes hlmObwod{from{--hlm-a:0deg;}to{--hlm-a:120deg;}}
+@keyframes hlmSpinUp{from{transform:rotate(0deg);}to{transform:rotate(130deg);}}
+@keyframes hlmSpin{from{transform:rotate(130deg);}to{transform:rotate(490deg);}}
+@media (prefers-reduced-motion:reduce){
+  .hero-logo-m.go .hlm-slon,.hero-logo-m.go .hlm-obwod,.hero-logo-m.go .hlm-ring{animation:none;-webkit-mask-image:none;mask-image:none;}
+}

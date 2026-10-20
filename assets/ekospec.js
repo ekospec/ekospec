@@ -413,6 +413,7 @@ window.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('fabWrap').style.display='flex';
   document.getElementById('shareBtn').style.display='flex';
   initHeroLogo();
+  initHeroLogoMobile();
 });
 
 // --- HERO: słoń i obwód rysują się ---
@@ -683,3 +684,31 @@ document.addEventListener('keydown',e=>{
     e.preventDefault(); openLightbox(t);
   }
 });
+
+// --- LOGO NA TELEFON I TABLET ---
+// Pliki (~6 KB) wczytywane dopiero po pełnym załadowaniu strony, więc nie spowalniają startu.
+// Animacja w CSS rusza, gdy logo pojawi się na ekranie; poza ekranem obrót jest wstrzymany.
+function initHeroLogoMobile(){
+  const box=document.getElementById('heroLogoM');
+  if(!box||!window.matchMedia('(max-width:900px)').matches) return;
+  const imgs=[...box.querySelectorAll('img[data-src]')];
+  let ready=false, seen=false, started=false;
+  const go=()=>{
+    if(started||!ready||!seen) return; started=true;
+    box.classList.add('go');
+    setTimeout(()=>box.classList.add('done'),2700);
+  };
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(e=>{
+      const vis=e[0].isIntersecting;
+      if(vis){seen=true;go();}
+      box.classList.toggle('paused',!vis);
+    },{threshold:.35}).observe(box);
+  } else seen=true;
+  const load=()=>{
+    imgs.forEach(i=>{i.decoding='async';i.src=i.dataset.src;});
+    Promise.all(imgs.map(i=>i.decode?i.decode().catch(()=>{}):Promise.resolve())).then(()=>{ready=true;go();});
+  };
+  const later=()=>('requestIdleCallback' in window)?requestIdleCallback(load,{timeout:1200}):setTimeout(load,200);
+  if(document.readyState==='complete') later(); else window.addEventListener('load',later,{once:true});
+}
