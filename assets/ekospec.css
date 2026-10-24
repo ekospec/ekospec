@@ -597,7 +597,8 @@ input[type=range].calc-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 
 .calc-select{width:100%;padding:13px 14px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:'Nunito Sans',sans-serif;font-size:.95rem;outline:none;cursor:pointer;}
 .calc-select:focus{border-color:var(--accent);}
 .calc-chips{display:flex;flex-wrap:wrap;gap:10px;}
-.calc-chips input{position:absolute;opacity:0;pointer-events:none;}
+.calc-chips{position:relative;}
+.calc-chips input,.form-row .calc-chips input{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;margin:0;padding:0;border:0;left:0;top:0;}
 .calc-chips label{margin:0;padding:10px 16px;border:1px solid var(--border);font-family:'Nunito Sans',sans-serif;font-size:.86rem;letter-spacing:0;text-transform:none;color:var(--muted);cursor:pointer;transition:all .2s;}
 .calc-chips input:checked+label{border-color:var(--gold);color:var(--text);background:var(--gold-dim);}
 .calc-chips input:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px;}
