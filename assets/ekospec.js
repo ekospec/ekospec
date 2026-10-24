@@ -395,17 +395,21 @@ function fillTrasa(form){
   set('fZrodlo',label);
   set('fZeStrony',location.pathname);
 }
-// temat z podstrony: ../?temat=slug#kontakt
+// temat z podstrony: ../#kontakt-slug (fragment adresu – wyszukiwarki go pomijają, więc nie ma duplikatów stron)
+// obsługa także starych linków ../?temat=slug#kontakt
 window.addEventListener('DOMContentLoaded',()=>{
   const sel=document.getElementById('fTemat'); if(!sel) return;
-  const q=new URLSearchParams(location.search), slug=q.get('temat');
-  if(slug){
-    const o=sel.querySelector(`option[data-slug="${CSS.escape(slug)}"]`);
-    if(o) sel.value=o.value||o.textContent;
-    q.delete('temat');
-    const rest=q.toString();
-    try{history.replaceState(null,'',location.pathname+(rest?'?'+rest:'')+location.hash);}catch(e){}
-  }
+  const q=new URLSearchParams(location.search);
+  let slug=q.get('temat'), fromHash=false;
+  const m=location.hash.match(/^#kontakt-([a-z0-9-]+)$/);
+  if(m){slug=m[1];fromHash=true;}
+  if(!slug) return;
+  const o=sel.querySelector(`option[data-slug="${CSS.escape(slug)}"]`);
+  if(o) sel.value=o.value||o.textContent;
+  q.delete('temat');
+  const rest=q.toString();
+  try{history.replaceState(null,'',location.pathname+(rest?'?'+rest:'')+'#kontakt');}catch(e){}
+  if(fromHash){const k=document.getElementById('kontakt'); if(k) requestAnimationFrame(()=>k.scrollIntoView());}
 });
 
 // --- start strony (bez intro) ---

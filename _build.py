@@ -55,7 +55,7 @@ def build_page(src):
     faq = re.findall(r'<details class="faq-item">\s*<summary>(.*?)</summary>\s*<div class="faq-a">(.*?)</div>', body, flags=re.S)
     strip = lambda s: re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', s)).strip()
     graph = [
-        {'@type': 'Service', 'name': meta['nazwa'], 'serviceType': meta['nazwa'], 'description': meta['opis'], 'url': url,
+        {'@type': 'Service', 'name': meta['nazwa'], 'serviceType': meta['nazwa'], 'description': meta['opis'], 'url': url, 'image': f'{DOMAIN}/og/{slug}.jpg',
          'provider': {'@type': 'ProfessionalService', 'name': 'Ekospec', 'url': DOMAIN + '/', 'telephone': '+48573018657',
                       'address': {'@type': 'PostalAddress', 'streetAddress': 'ul. Szaflarska 100/1', 'addressLocality': 'Nowy Targ', 'postalCode': '34-400', 'addressCountry': 'PL'}},
          'areaServed': {'@type': 'Country', 'name': 'Polska'}},
