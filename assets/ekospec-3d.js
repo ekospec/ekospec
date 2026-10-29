@@ -30,7 +30,7 @@
     if(ghostRing) ring.appendChild(ghostRing);
     const edges=[];
     for(let i=5;i>=1;i--){
-      const e=document.createElement('img'); e.className='hl-edge'; e.alt=''; e.setAttribute('aria-hidden','true');
+      const e=document.createElement('img'); e.className='hl-edge'; e.alt='Element logo Ekospec'; e.setAttribute('aria-hidden','true');
       e.style.transform=`translateZ(${-i*1.6}px)`; e.style.filter=`brightness(${.62-i*.07}) sepia(.6)`;
       ring.appendChild(e); edges.push(e);
     }
