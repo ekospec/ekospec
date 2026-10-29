@@ -1,0 +1,3 @@
+# Konfiguracja GitHub Pages (Jekyll). Pliki z listy zostają w repozytorium, ale nie trafiają na stronę.
+exclude:
+  - CLAUDE.md

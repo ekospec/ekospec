@@ -22,7 +22,8 @@ modernizacje i wykonawstwo instalacji, automatyka budynkowa.
   **Nie edytuj ręcznie** `*/index.html` podstron ani treści między znacznikami `@nazwa` w `index.html` —
   zmieniaj źródło w `_strony/` lub `_partials/`, uruchom `_build.py` i commituj źródło razem z wynikiem.
 - Hosting: **GitHub Pages** z gałęzi `main` — push na `main` = publikacja. Domena: ekospec.pro (`CNAME`).
-  Foldery zaczynające się od `_` nie są publikowane.
+  Foldery zaczynające się od `_` nie są publikowane; pozostałe pliki do ukrycia (np. ten `CLAUDE.md`)
+  wpisz w `exclude` w `_config.yml`.
 - `.github/workflows/indexnow.yml` — zgłasza zmienione adresy do IndexNow (Bing) po pushu;
   klucz w `0e7d9d2a15eeb3df751cb5a9febc7482.txt` — nie usuwaj.
 - Język strony: polski (`lang="pl"`, `og:locale` pl_PL). Wszystkie teksty dla użytkownika po polsku,
