@@ -19,17 +19,32 @@ const obs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
 },{threshold:.1,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+// Przejście z menu / linku #sekcja: pokaż sekcję od razu, bez czekania na animację
+function revealNow(id){
+  const sec=id&&document.getElementById(id);
+  if(!sec) return;
+  sec.querySelectorAll('.fade-up:not(.visible)').forEach(el=>{
+    el.classList.add('instant','visible');
+    requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.remove('instant')));
+  });
+}
+document.addEventListener('click',e=>{
+  const a=e.target.closest&&e.target.closest('a[href*="#"]');
+  if(!a||a.pathname!==location.pathname) return;
+  revealNow(decodeURIComponent(a.hash.slice(1)));
+});
+if(location.hash) revealNow(decodeURIComponent(location.hash.slice(1)).replace(/^kontakt-.*/,'kontakt'));
 
 
 // === SHARE ===
-function shareP(){
+function shareP(btn){
   const shareUrl = window.location.origin + window.location.pathname + '?z=polecenie';
   const text = 'Polecam Ekospec – inżynier z Nowego Targu, który obniża koszty energii i rozwiązuje problemy z instalacjami.';
   if(navigator.share){navigator.share({title:'Ekospec',text,url:shareUrl}).catch(()=>{});}
   else{navigator.clipboard.writeText(shareUrl).then(()=>{
-    const b=document.getElementById('shareBtn');
+    const b=btn||document.getElementById('shareBtn');
     const o=b.innerHTML;
-    b.innerHTML='<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Skopiowano!</span>';
+    b.innerHTML='<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>Skopiowano link!</span>';
     setTimeout(()=>b.innerHTML=o,2000);
   });}
 }
@@ -69,102 +84,141 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight')lbNav(1);
   if(e.key==='ArrowLeft')lbNav(-1);
 });  
+// Dokumenty prawne. Treść przygotowana 2026-10 do akceptacji właściciela (nie jest poradą prawną).
+const LEGAL_UPDATED='29 października 2026 r.';
 const LEGAL_DOCS={
   privacy:{
     title:'Polityka prywatności',
     html:`
-      <h4>Administrator danych osobowych</h4>
-      <p>Administratorem Twoich danych osobowych jest <strong>Bartłomiej Głąbiński</strong>, prowadzący działalność gospodarczą pod firmą <strong>Przedsiębiorstwo Techniczne Usługowo Handlowe JANTAR</strong>, ul. Szaflarska 100/1, 34-400 Nowy Targ, NIP: 7352516870, email: <strong>biuro@ekospec.pro</strong>.</p>
-      <h4>Jakie dane zbieramy</h4>
-      <p>Zbieramy wyłącznie dane, które sam nam przekazujesz za pośrednictwem formularza kontaktowego na stronie:</p>
+      <p>Ta polityka wyjaśnia, jakie dane osobowe przetwarzam w związku z działaniem strony ekospec.pro i kontaktem ze mną, w jakim celu, jak długo i jakie masz prawa. Spełnia obowiązek informacyjny z art. 13 RODO (Rozporządzenie Parlamentu Europejskiego i Rady (UE) 2016/679).</p>
+      <h4>1. Administrator danych</h4>
+      <p>Administratorem Twoich danych osobowych jest <strong>Bartłomiej Głąbiński</strong>, prowadzący działalność gospodarczą pod firmą <strong>Przedsiębiorstwo Techniczne Usługowo Handlowe JANTAR Bartłomiej Głąbiński</strong>, ul. Szaflarska 100/1, 34-400 Nowy Targ, NIP 7352516870 (marka Ekospec).</p>
+      <p>Kontakt w sprawach danych osobowych: <strong>biuro@ekospec.pro</strong>, tel. +48 573 018 657 lub listownie na adres powyżej. Nie wyznaczyłem inspektora ochrony danych — nie jest to wymagane przy tej skali działalności.</p>
+      <h4>2. Jakie dane przetwarzam i skąd je mam</h4>
+      <p>Przetwarzam wyłącznie dane, które sam mi przekazujesz:</p>
       <ul>
-        <li>imię i nazwisko</li>
-        <li>adres email lub numer telefonu</li>
-        <li>treść wiadomości oraz informacje o obiekcie, które zaznaczysz (np. rodzaj obiektu, powierzchnia, przybliżone koszty energii)</li>
+        <li><strong>formularz kontaktowy</strong> — imię i nazwisko, adres e-mail, numer telefonu (opcjonalnie), temat, treść wiadomości oraz informacje o obiekcie, które zaznaczysz (rodzaj obiektu, powierzchnia, przybliżone koszty energii);</li>
+        <li><strong>kontakt telefoniczny, e-mailowy lub przez WhatsApp</strong> — dane, które podasz w rozmowie lub wiadomości (zwykle imię, numer telefonu lub adres e-mail i opis sprawy);</li>
+        <li><strong>współpraca</strong> — jeśli zawrzemy umowę: dane potrzebne do jej wykonania i wystawienia faktury (np. adres obiektu, dane firmy, NIP).</li>
       </ul>
-      <p>Razem z wiadomością formularz przekazuje też informację techniczną: skąd trafiłeś na stronę (np. wyszukiwarka Google, LinkedIn, wejście bezpośrednie) oraz z której strony serwisu wysłano formularz. Informacja ta nie jest zapisywana na Twoim urządzeniu i nie zawiera adresu IP ani żadnych identyfikatorów. Pomaga nam lepiej przygotować odpowiedź i ocenić, które formy informowania o naszych usługach działają.</p>
-      <h4>Cel i podstawa przetwarzania</h4>
-      <p><strong>Odpowiedź na zapytanie</strong> — przetwarzamy dane w celu udzielenia odpowiedzi na Twoje pytanie lub przygotowania oferty (podstawa: art. 6 ust. 1 lit. b RODO — niezbędność do podjęcia działań przed zawarciem umowy, lub art. 6 ust. 1 lit. f RODO — prawnie uzasadniony interes administratora).</p>
-      <p><strong>Marketing</strong> — jeśli wyraziłeś zgodę na otrzymywanie informacji marketingowych, będziemy przesyłać Ci informacje o usługach i promocjach (podstawa: art. 6 ust. 1 lit. a RODO — zgoda). Zgodę możesz wycofać w dowolnym momencie.</p>
-      <h4>Okres przechowywania danych</h4>
-      <p>Dane przechowujemy przez okres niezbędny do obsługi zapytania, a następnie przez czas wynikający z przepisów prawa (np. obowiązek archiwizacji dokumentów księgowych) lub do momentu wycofania zgody na marketing.</p>
-      <h4>Odbiorcy danych</h4>
-      <p>Twoje dane nie są sprzedawane ani udostępniane podmiotom trzecim w celach komercyjnych. Mogą być przetwarzane wyłącznie przez dostawców usług technicznych niezbędnych do działania strony:</p>
+      <p>Razem z formularzem przesyłana jest też informacja techniczna: skąd trafiłeś na stronę (np. wyszukiwarka Google, LinkedIn, wejście bezpośrednie) i z której podstrony wysłano wiadomość. Nie jest ona zapisywana na Twoim urządzeniu i nie zawiera adresu IP ani identyfikatorów.</p>
+      <h4>3. Cele i podstawy prawne</h4>
       <ul>
-        <li><strong>GitHub</strong> (GitHub Pages) — hosting strony,</li>
-        <li><strong>Formspree</strong> — przekazywanie wiadomości z formularza kontaktowego na adres biuro@ekospec.pro,</li>
-        <li><strong>Cloudflare</strong> — zabezpieczenie formularza przed spamem (Turnstile) oraz anonimowe statystyki odwiedzin (Web Analytics).</li>
+        <li><strong>Odpowiedź na zapytanie i przygotowanie oferty</strong> — art. 6 ust. 1 lit. b RODO (działania na Twoje żądanie przed zawarciem umowy), a gdy zapytanie nie dotyczy umowy — art. 6 ust. 1 lit. f RODO (mój prawnie uzasadniony interes: prowadzenie korespondencji i odpowiadanie na pytania).</li>
+        <li><strong>Wykonanie umowy</strong> (audyt, doradztwo, projekt, wykonawstwo) — art. 6 ust. 1 lit. b RODO.</li>
+        <li><strong>Obowiązki podatkowe i księgowe</strong> (faktury, ewidencja) — art. 6 ust. 1 lit. c RODO w związku z przepisami podatkowymi.</li>
+        <li><strong>Ustalenie, dochodzenie lub obrona roszczeń</strong> — art. 6 ust. 1 lit. f RODO (prawnie uzasadniony interes: ochrona moich praw).</li>
+        <li><strong>Informacje marketingowe</strong> — tylko jeśli zaznaczysz osobną zgodę w formularzu: art. 6 ust. 1 lit. a RODO oraz art. 398 ustawy z dnia 12 lipca 2024 r. — Prawo komunikacji elektronicznej (zgoda na marketing bezpośredni e-mailem lub telefonicznie). Zgodę możesz wycofać w każdej chwili, np. pisząc na biuro@ekospec.pro.</li>
+        <li><strong>Bezpieczeństwo strony i ochrona formularza przed spamem</strong> oraz <strong>statystyki odwiedzin</strong> — art. 6 ust. 1 lit. f RODO (prawnie uzasadniony interes: zapewnienie działania, bezpieczeństwa i rozwoju strony).</li>
       </ul>
-      <h4>Statystyki odwiedzin</h4>
-      <p>Korzystamy z usługi Cloudflare Web Analytics, która nie używa plików cookies, nie śledzi użytkowników między stronami i nie tworzy ich profili. Zbieramy wyłącznie dane zbiorcze: liczbę odwiedzin, odwiedzane podstrony, źródło wejścia (np. wyszukiwarka), rodzaj urządzenia i przeglądarki oraz kraj. Na tej podstawie nie da się zidentyfikować konkretnej osoby.</p>
-      <h4>Twoje prawa</h4>
-      <p>Przysługuje Ci prawo do:</p>
+      <h4>4. Jak długo przechowuję dane</h4>
       <ul>
-        <li>dostępu do swoich danych i otrzymania ich kopii</li>
-        <li>sprostowania (poprawienia) danych</li>
-        <li>usunięcia danych („prawo do bycia zapomnianym")</li>
-        <li>ograniczenia przetwarzania danych</li>
-        <li>przenoszenia danych</li>
-        <li>wniesienia sprzeciwu wobec przetwarzania</li>
-        <li>wycofania zgody w dowolnym momencie (bez wpływu na zgodność z prawem przetwarzania dokonanego przed wycofaniem)</li>
-        <li>wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych (ul. Stawki 2, 00-193 Warszawa)</li>
+        <li>zapytania, po których nie doszło do współpracy — do 12 miesięcy od ostatniego kontaktu (na wypadek pytań uzupełniających), a potem je usuwam;</li>
+        <li>dane związane z umową — przez czas jej wykonywania, a następnie do upływu terminu przedawnienia roszczeń (co do zasady 6 lat, a dla roszczeń związanych z działalnością gospodarczą 3 lata — art. 118 Kodeksu cywilnego);</li>
+        <li>faktury i dokumenty księgowe — 5 lat, licząc od końca roku kalendarzowego, w którym upłynął termin płatności podatku (art. 86 w zw. z art. 70 Ordynacji podatkowej);</li>
+        <li>dane do marketingu — do wycofania zgody lub wniesienia sprzeciwu;</li>
+        <li>dane techniczne u dostawców (logi serwera, zabezpieczenia) — przez okresy określone w ich politykach, zwykle krótkie.</li>
       </ul>
-      <p>Aby skorzystać z powyższych praw, skontaktuj się z nami pod adresem: <strong>biuro@ekospec.pro</strong></p>
-      <h4>Dobrowolność podania danych</h4>
-      <p>Podanie danych jest dobrowolne, jednak niezbędne do udzielenia odpowiedzi na zapytanie. Brak podania danych uniemożliwi kontakt zwrotny.</p>
+      <h4>5. Komu przekazuję dane</h4>
+      <p>Nie sprzedaję danych i nie udostępniam ich w celach marketingowych innym firmom. Dane mogą trafić wyłącznie do dostawców usług, z których korzystam przy prowadzeniu strony i firmy, i tylko w zakresie potrzebnym do ich usługi:</p>
+      <ul>
+        <li><strong>GitHub, Inc.</strong> (GitHub Pages) — hosting strony; serwer zapisuje w logach m.in. adres IP odwiedzającego w celach bezpieczeństwa;</li>
+        <li><strong>Formspree, Inc.</strong> — przekazanie wiadomości z formularza na adres biuro@ekospec.pro;</li>
+        <li><strong>Cloudflare, Inc.</strong> — ochrona formularza przed spamem (Turnstile, przetwarza m.in. adres IP i dane techniczne przeglądarki) oraz statystyki odwiedzin (Web Analytics);</li>
+        <li>dostawca poczty elektronicznej obsługujący adres biuro@ekospec.pro;</li>
+        <li>przy współpracy: biuro rachunkowe lub doradca podatkowy, a w razie sporu — kancelaria prawna;</li>
+        <li>organy publiczne — tylko gdy wymaga tego prawo.</li>
+      </ul>
+      <p>Jeśli piszesz do mnie przez <strong>WhatsApp</strong>, operatorem komunikatora jest Meta (WhatsApp Ireland Ltd.), który przetwarza dane na własnych zasadach opisanych w polityce prywatności WhatsApp.</p>
+      <h4>6. Przekazywanie danych poza Europejski Obszar Gospodarczy</h4>
+      <p>GitHub, Formspree i Cloudflare to firmy z siedzibą w Stanach Zjednoczonych, więc dane mogą być przetwarzane w USA. Przekazanie odbywa się na podstawie decyzji Komisji Europejskiej z 10 lipca 2023 r. stwierdzającej odpowiedni stopień ochrony (EU-US Data Privacy Framework, art. 45 RODO) — w odniesieniu do firm w nim certyfikowanych — lub standardowych klauzul umownych zatwierdzonych przez Komisję Europejską (art. 46 ust. 2 lit. c RODO). Kopię zabezpieczeń możesz uzyskać, pisząc na biuro@ekospec.pro.</p>
+      <h4>7. Statystyki odwiedzin</h4>
+      <p>Korzystam z Cloudflare Web Analytics, która nie używa plików cookies, nie śledzi odwiedzających między stronami i nie tworzy profili. Widzę wyłącznie dane zbiorcze: liczbę odwiedzin, odwiedzane podstrony, źródło wejścia, rodzaj urządzenia i przeglądarki oraz kraj. Na ich podstawie nie da się zidentyfikować konkretnej osoby.</p>
+      <h4>8. Twoje prawa</h4>
+      <p>Masz prawo do:</p>
+      <ul>
+        <li>dostępu do swoich danych i otrzymania ich kopii (art. 15 RODO),</li>
+        <li>sprostowania danych (art. 16 RODO),</li>
+        <li>usunięcia danych (art. 17 RODO),</li>
+        <li>ograniczenia przetwarzania (art. 18 RODO),</li>
+        <li>przeniesienia danych przetwarzanych na podstawie zgody lub umowy (art. 20 RODO),</li>
+        <li>wycofania zgody w dowolnym momencie — bez wpływu na zgodność z prawem przetwarzania przed jej wycofaniem,</li>
+        <li>wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych, ul. Stawki 2, 00-193 Warszawa (uodo.gov.pl), jeśli uznasz, że przetwarzam dane niezgodnie z prawem.</li>
+      </ul>
+      <p><strong>Prawo sprzeciwu (art. 21 RODO).</strong> W każdej chwili możesz wnieść sprzeciw wobec przetwarzania danych na podstawie mojego prawnie uzasadnionego interesu (art. 6 ust. 1 lit. f RODO) z przyczyn związanych z Twoją szczególną sytuacją. Sprzeciw wobec marketingu bezpośredniego uwzględnię zawsze, bez podawania przyczyny.</p>
+      <p>Aby skorzystać z praw, napisz na <strong>biuro@ekospec.pro</strong>. Odpowiem bez zbędnej zwłoki, najpóźniej w ciągu miesiąca.</p>
+      <h4>9. Czy musisz podać dane</h4>
+      <p>Podanie danych jest dobrowolne, ale bez danych kontaktowych nie odpowiem na zapytanie, a bez danych wymaganych przepisami nie zawrę umowy i nie wystawię faktury. Zgoda na marketing nie jest warunkiem odpowiedzi ani współpracy.</p>
+      <h4>10. Profilowanie</h4>
+      <p>Nie podejmuję decyzji w sposób zautomatyzowany i nie profiluję odwiedzających w rozumieniu art. 22 RODO. Kalkulator oszczędności na stronie działa wyłącznie w Twojej przeglądarce — wpisane w nim liczby nie są nigdzie wysyłane, chyba że sam przeniesiesz je do formularza.</p>
+      <h4>11. Linki do innych serwisów</h4>
+      <p>Strona zawiera linki do LinkedIn, Facebooka, Google i WhatsApp. Po przejściu do tych serwisów obowiązują ich własne zasady prywatności.</p>
+      <h4>12. Zmiany polityki</h4>
+      <p>Politykę aktualizuję, gdy zmienia się sposób działania strony lub przepisy. Ostatnia aktualizacja: <strong>${LEGAL_UPDATED}</strong></p>
     `
   },
   cookies:{
     title:'Polityka cookies',
     html:`
       <h4>Czym są pliki cookies</h4>
-      <p>Pliki cookies (ciasteczka) i podobne technologie (np. pamięć przeglądarki) to małe porcje danych zapisywane na Twoim urządzeniu podczas odwiedzania strony internetowej.</p>
-      <h4>Czego używamy</h4>
-      <p><strong>Strona nie zapisuje plików cookies ani niczego w pamięci Twojej przeglądarki.</strong></p>
-      <p><strong>Elementy niezbędne</strong> — zabezpieczenie formularza kontaktowego przed spamem (Cloudflare Turnstile). Jest konieczne do działania formularza i nie wymaga zgody.</p>
-      <p><strong>Statystyki odwiedzin</strong> — Cloudflare Web Analytics działa <strong>bez plików cookies</strong> i bez identyfikowania użytkowników. Zbiera wyłącznie anonimowe dane zbiorcze o ruchu na stronie.</p>
-      <p>Nie używamy cookies reklamowych ani narzędzi śledzących.</p>
-      <h4>Jak zarządzać cookies</h4>
-      <p>Możesz w każdej chwili zmienić ustawienia cookies w swojej przeglądarce. Poniżej linki do instrukcji dla popularnych przeglądarek:</p>
+      <p>Pliki cookies (ciasteczka) i podobne technologie (np. pamięć lokalna przeglądarki) to małe porcje danych zapisywane na Twoim urządzeniu lub z niego odczytywane podczas odwiedzania strony. Zasady ich stosowania określa art. 399 ustawy z dnia 12 lipca 2024 r. — Prawo komunikacji elektronicznej: na zapisywanie informacji nieniezbędnych potrzebna jest Twoja zgoda.</p>
+      <h4>Czego używa ta strona</h4>
+      <p><strong>Strona ekospec.pro sama nie zapisuje plików cookies ani niczego w pamięci Twojej przeglądarki</strong>, dlatego nie wyświetla baneru z prośbą o zgodę.</p>
       <ul>
-        <li>Google Chrome — Ustawienia → Prywatność i bezpieczeństwo → Pliki cookie</li>
-        <li>Mozilla Firefox — Opcje → Prywatność i bezpieczeństwo</li>
-        <li>Safari — Preferencje → Prywatność</li>
+        <li><strong>Ochrona formularza (Cloudflare Turnstile)</strong> — działa w osobnej ramce dostawcy Cloudflare dopiero wtedy, gdy przewiniesz stronę do formularza. Do sprawdzenia, że wiadomość wysyła człowiek, może odczytywać z przeglądarki informacje techniczne. Jest to niezbędne do wykonania usługi, której żądasz (wysłania wiadomości), więc nie wymaga zgody.</li>
+        <li><strong>Statystyki odwiedzin (Cloudflare Web Analytics)</strong> — działają <strong>bez plików cookies</strong>, bez zapisywania czegokolwiek na urządzeniu i bez identyfikowania odwiedzających.</li>
+      </ul>
+      <p>Nie używam cookies reklamowych, pikseli śledzących (np. Meta Pixel) ani Google Analytics.</p>
+      <h4>Serwisy zewnętrzne</h4>
+      <p>Po kliknięciu linku do LinkedIn, Facebooka, Google lub WhatsApp przechodzisz do serwisów, które mogą stosować własne cookies na zasadach opisanych w swoich politykach.</p>
+      <h4>Jak zarządzać cookies</h4>
+      <p>Ustawienia cookies zmienisz w swojej przeglądarce:</p>
+      <ul>
+        <li>Google Chrome — Ustawienia → Prywatność i bezpieczeństwo → Pliki cookie innych firm</li>
+        <li>Mozilla Firefox — Ustawienia → Prywatność i bezpieczeństwo</li>
+        <li>Safari — Ustawienia → Prywatność</li>
         <li>Microsoft Edge — Ustawienia → Pliki cookie i uprawnienia witryny</li>
       </ul>
-      <p>Zablokowanie zabezpieczenia Cloudflare Turnstile może uniemożliwić wysłanie formularza kontaktowego.</p>
+      <p>Zablokowanie zabezpieczenia Cloudflare Turnstile może uniemożliwić wysłanie formularza — wtedy zadzwoń lub napisz na biuro@ekospec.pro.</p>
       <h4>Podstawa prawna</h4>
-      <p>Elementy niezbędne oraz anonimowe statystyki odwiedzin stosujemy na podstawie prawnie uzasadnionego interesu administratora (art. 6 ust. 1 lit. f RODO), polegającego na zapewnieniu działania i bezpieczeństwa strony oraz jej rozwoju.</p>
+      <p>Ochronę formularza i statystyki stosuję na podstawie prawnie uzasadnionego interesu (art. 6 ust. 1 lit. f RODO): zapewnienia działania, bezpieczeństwa i rozwoju strony. Więcej o danych osobowych w Polityce prywatności.</p>
+      <p>Ostatnia aktualizacja: <strong>${LEGAL_UPDATED}</strong></p>
     `
   },
   rodo:{
     title:'Informacja RODO',
     html:`
       <h4>Klauzula informacyjna — art. 13 RODO</h4>
-      <p>Zgodnie z art. 13 Rozporządzenia Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych (RODO) informujemy:</p>
+      <p>Skrót najważniejszych informacji. Pełna treść jest w Polityce prywatności.</p>
       <h4>1. Administrator danych</h4>
       <p><strong>Bartłomiej Głąbiński</strong><br/>
-      Przedsiębiorstwo Techniczne Usługowo Handlowe JANTAR<br/>
+      Przedsiębiorstwo Techniczne Usługowo Handlowe JANTAR Bartłomiej Głąbiński<br/>
       ul. Szaflarska 100/1, 34-400 Nowy Targ<br/>
       NIP: 7352516870<br/>
-      Email: biuro@ekospec.pro</p>
-      <h4>2. Cel i podstawa prawna przetwarzania</h4>
+      E-mail: biuro@ekospec.pro, tel. +48 573 018 657</p>
+      <h4>2. Cele i podstawy prawne</h4>
       <ul>
-        <li>Obsługa zapytań i korespondencji — art. 6 ust. 1 lit. b lub f RODO</li>
-        <li>Marketing usług własnych — art. 6 ust. 1 lit. a RODO (zgoda)</li>
-        <li>Wykonanie umowy lub podjęcie działań przed jej zawarciem — art. 6 ust. 1 lit. b RODO</li>
-        <li>Wypełnienie obowiązków prawnych (np. podatkowych) — art. 6 ust. 1 lit. c RODO</li>
+        <li>odpowiedź na zapytanie i przygotowanie oferty — art. 6 ust. 1 lit. b RODO, a gdy zapytanie nie dotyczy umowy — art. 6 ust. 1 lit. f RODO,</li>
+        <li>wykonanie umowy — art. 6 ust. 1 lit. b RODO,</li>
+        <li>obowiązki podatkowe i księgowe — art. 6 ust. 1 lit. c RODO,</li>
+        <li>dochodzenie i obrona roszczeń, bezpieczeństwo strony, statystyki — art. 6 ust. 1 lit. f RODO,</li>
+        <li>marketing — wyłącznie za zgodą: art. 6 ust. 1 lit. a RODO i art. 398 Prawa komunikacji elektronicznej.</li>
       </ul>
-      <h4>3. Okres przechowywania danych</h4>
-      <p>Dane przetwarzane są przez okres niezbędny do realizacji celu, dla którego zostały zebrane, a następnie przez czas wynikający z przepisów prawa (w szczególności przepisów podatkowych i rachunkowych — do 5 lat od końca roku kalendarzowego, w którym powstał obowiązek podatkowy).</p>
-      <h4>4. Prawa osoby, której dane dotyczą</h4>
-      <p>Przysługuje Ci prawo do: dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia danych, wniesienia sprzeciwu oraz — w przypadku zgody — jej wycofania w dowolnym momencie bez wpływu na zgodność z prawem przetwarzania sprzed wycofania.</p>
-      <h4>5. Prawo do skargi</h4>
-      <p>Masz prawo wniesienia skargi do organu nadzorczego — <strong>Prezesa Urzędu Ochrony Danych Osobowych</strong>, ul. Stawki 2, 00-193 Warszawa, gdy uznasz że przetwarzanie danych narusza przepisy RODO.</p>
-      <h4>6. Dobrowolność podania danych</h4>
-      <p>Podanie danych osobowych jest dobrowolne. Niepodanie danych niezbędnych do obsługi zapytania uniemożliwi udzielenie odpowiedzi lub zawarcie umowy.</p>
-      <h4>7. Zautomatyzowane podejmowanie decyzji</h4>
-      <p>Dane osobowe nie będą wykorzystywane do zautomatyzowanego podejmowania decyzji ani profilowania.</p>
+      <h4>3. Odbiorcy</h4>
+      <p>Dostawcy usług technicznych (GitHub — hosting, Formspree — formularz, Cloudflare — ochrona formularza i statystyki, dostawca poczty e-mail), przy współpracy biuro rachunkowe i kancelaria prawna, a także organy publiczne, gdy wymaga tego prawo.</p>
+      <h4>4. Przekazanie poza EOG</h4>
+      <p>GitHub, Formspree i Cloudflare mają siedzibę w USA. Przekazanie odbywa się na podstawie EU-US Data Privacy Framework (art. 45 RODO) lub standardowych klauzul umownych (art. 46 ust. 2 lit. c RODO).</p>
+      <h4>5. Okres przechowywania</h4>
+      <p>Zapytania bez współpracy — do 12 miesięcy od ostatniego kontaktu. Dane z umowy — do przedawnienia roszczeń (art. 118 Kodeksu cywilnego). Dokumenty księgowe — 5 lat od końca roku, w którym upłynął termin płatności podatku. Marketing — do wycofania zgody.</p>
+      <h4>6. Twoje prawa</h4>
+      <p>Dostęp do danych, sprostowanie, usunięcie, ograniczenie przetwarzania, przeniesienie danych, sprzeciw (art. 21 RODO — w tym zawsze wobec marketingu) oraz wycofanie zgody w dowolnym momencie bez wpływu na zgodność z prawem wcześniejszego przetwarzania.</p>
+      <h4>7. Skarga</h4>
+      <p>Możesz złożyć skargę do <strong>Prezesa Urzędu Ochrony Danych Osobowych</strong>, ul. Stawki 2, 00-193 Warszawa.</p>
+      <h4>8. Dobrowolność</h4>
+      <p>Podanie danych jest dobrowolne, ale niezbędne do odpowiedzi na zapytanie lub zawarcia umowy. Zgoda na marketing nie jest warunkiem współpracy.</p>
+      <h4>9. Profilowanie</h4>
+      <p>Dane nie służą do zautomatyzowanego podejmowania decyzji ani profilowania.</p>
+      <p>Ostatnia aktualizacja: <strong>${LEGAL_UPDATED}</strong></p>
     `
   }
 };
@@ -284,6 +338,18 @@ document.addEventListener('keydown', e=>{
   }
 });
 
+// „Czytaj więcej”: na PC otwiera okno (aria-haspopup), niżej rozwija kartę (aria-expanded)
+function syncReadMoreAria(){
+  const pc=window.innerWidth>1024;
+  document.querySelectorAll('.read-more-btn').forEach(b=>{
+    const card=b.closest('.service-card');
+    if(pc){b.removeAttribute('aria-expanded');b.setAttribute('aria-haspopup','dialog');}
+    else{b.removeAttribute('aria-haspopup');b.setAttribute('aria-expanded',card&&card.classList.contains('open')?'true':'false');}
+  });
+}
+syncReadMoreAria();
+window.addEventListener('resize',syncReadMoreAria);
+
 // Klik w „Czytaj więcej" — na PC modal, niżej zachowanie dotychczasowe
 function toggleService(btn){
   const card = btn.closest('.service-card');
@@ -302,6 +368,7 @@ function toggleService(btn){
     if(c!==card) c.classList.remove('open');
   });
   card.classList.toggle('open', !isOpen);
+  syncReadMoreAria();
 
   const start = performance.now();
   const duration = 600;

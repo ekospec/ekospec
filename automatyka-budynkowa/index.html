@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" class="no-js">
 <head>
 <meta charset="UTF-8">
+<script>document.documentElement.classList.remove('no-js')</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Automatyka budynkowa i sterowanie instalacjami (BMS) | Ekospec</title>
 <meta name="description" content="Automatyka budynkowa, która łączy ogrzewanie, wentylację i chłodzenie w sprawną całość: projekt, programowanie, uruchomienie i poprawa sterowania.">
@@ -125,7 +126,7 @@
   <!-- NAV -->
   <nav id="navbar">
     <a href="../#hero" class="nav-logo">
-      <img id="navLogo" src="../logo-ekospec-104.webp" srcset="../logo-ekospec-104.webp 1x, ../logo-ekospec-156.webp 1.5x, ../logo-ekospec-208.webp 2x" width="52" height="52" alt="Ekospec"/>
+      <img id="navLogo" src="../logo-ekospec-104.webp" srcset="../logo-ekospec-104.webp 1x, ../logo-ekospec-156.webp 1.5x, ../logo-ekospec-208.webp 2x" width="52" height="52" alt=""/>
       <span class="nav-logo-text">EKOSPEC</span>
     </a>
     <ul class="nav-links">
@@ -315,7 +316,7 @@
   <footer>
     <div class="footer-inner">
       <div class="footer-brand">
-        <a href="../#hero" class="nav-logo"><img id="footerLogo" src="../logo-ekospec-104.webp" srcset="../logo-ekospec-104.webp 1x, ../logo-ekospec-156.webp 1.5x, ../logo-ekospec-208.webp 2x" width="52" height="52" alt="Ekospec"/><span class="nav-logo-text">EKOSPEC</span></a>
+        <a href="../#hero" class="nav-logo"><img id="footerLogo" src="../logo-ekospec-104.webp" srcset="../logo-ekospec-104.webp 1x, ../logo-ekospec-156.webp 1.5x, ../logo-ekospec-208.webp 2x" width="52" height="52" alt=""/><span class="nav-logo-text">EKOSPEC</span></a>
         <p>Profesjonalne doradztwo w zakresie efektywności energetycznej dla firm, instytucji oraz osób prywatnych.</p>
       </div>
       <div class="footer-links">
@@ -369,7 +370,7 @@
   <div class="sm-box">
     <div class="sm-text">
       <div class="sm-eyebrow"><span id="sm-number"></span></div>
-      <h3 id="sm-title"></h3>
+      <h3 id="sm-title">Szczegóły usługi</h3>
       <div class="sm-divider"></div>
       <div id="sm-content"></div>
     </div>
@@ -394,15 +395,15 @@
 </div>
 
 <!-- FAB (szybki kontakt) -->
-<div class="fab-wrap" id="fabWrap" style="display:none;">
+<aside class="fab-wrap" id="fabWrap" style="display:none;" aria-label="Szybki kontakt">
   <div class="fab-tooltip">Zadzwoń teraz</div>
   <a href="tel:+48573018657" class="fab-btn" aria-label="Zadzwoń">
     <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.22 2.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.28-1.28a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
   </a>
-</div>
+</aside>
 
-<!-- Poleć znajomemu -->
-<button class="share-btn" id="shareBtn" style="display:none;" aria-label="Poleć znajomemu" onclick="shareP()">
+<!-- Poleć znajomemu (pływający tylko na komputerze; na telefonie przycisk jest w sekcji Kontakt) -->
+<button class="share-btn" id="shareBtn" style="display:none;" aria-label="Poleć znajomemu" onclick="shareP(this)">
   <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
   <span>Poleć znajomemu</span>
 </button>

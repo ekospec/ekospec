@@ -68,9 +68,10 @@ def build_page(src):
             {'@type': 'Question', 'name': strip(q), 'acceptedAnswer': {'@type': 'Answer', 'text': strip(a)}} for q, a in faq]})
     schema = json.dumps({'@context': 'https://schema.org', '@graph': graph}, ensure_ascii=False, indent=1)
     html = f'''<!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" class="no-js">
 <head>
 <meta charset="UTF-8">
+<script>document.documentElement.classList.remove('no-js')</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{meta['tytul']}</title>
 <meta name="description" content="{meta['opis']}">

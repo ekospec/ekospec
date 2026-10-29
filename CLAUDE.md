@@ -84,10 +84,11 @@ modernizacje i wykonawstwo instalacji, automatyka budynkowa.
 - **Animacje:** subtelne, celowe (wejście sekcji, hover, mikrointerakcje); tylko `transform`/`opacity`.
 
 ## Znane braki / zadania do zrobienia
-- [ ] Dokumenty prawne (polityka prywatności, cookies, RODO) istnieją tylko jako okna modalne
-      (`LEGAL_DOCS` w `assets/ekospec.js`, linki `href="#"` + `openLegal()`). Do decyzji właściciela:
-      osobne podstrony z własnym adresem URL (lepsze dla RODO i wyszukiwarek). Treść prawną
-      zatwierdza właściciel.
+- [ ] Dokumenty prawne (polityka prywatności, cookies, RODO) są oknami modalnymi
+      (`LEGAL_DOCS` w `assets/ekospec.js`, data w `LEGAL_UPDATED`). Treść uzupełniona 2026-10
+      (art. 13 RODO, transfer do USA, okresy przechowywania, PKE art. 398/399) — czeka na akceptację
+      właściciela. Do decyzji: osobne podstrony z własnym adresem URL. Przy każdej zmianie usług
+      zewnętrznych (hosting, formularz, analityka) zaktualizuj te teksty.
 - [ ] Sekcja „Zaufali mi” ma jedno logo klienta — przygotuj układ skalujący się na więcej logotypów.
 - [ ] Liczby w sekcji „O mnie” (audyty, % oszczędności, lata, klienci) zmienia tylko właściciel.
 

@@ -458,9 +458,8 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:52px
 }
 
 /* ===== ANIMATIONS ===== */
-.fade-up{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease;}
-.fade-up.visible{opacity:1;transform:translateY(0);}
-.d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}.d4{transition-delay:.4s;}.d5{transition-delay:.5s;}
+/* .fade-up — patrz „PŁYNNE WJEŻDŻANIE” niżej */
+.d1{transition-delay:.06s;}.d2{transition-delay:.12s;}.d3{transition-delay:.18s;}.d4{transition-delay:.24s;}.d5{transition-delay:.3s;}
 
 /* ===== RESPONSIVE ===== */
 @media(max-width:900px){
@@ -626,15 +625,17 @@ input[type=range].calc-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 
 .service-icon{transition:color .4s,filter .4s;}
 
 /* ----- PŁYNNE WJEŻDŻANIE ----- */
-.fade-up{opacity:0;transform:translateY(34px) scale(.985);filter:blur(4px);
-  transition:opacity 1s var(--ease-out),transform 1s var(--ease-out),filter 1s var(--ease-out);}
-.fade-up.visible{opacity:1;transform:none;filter:none;}
-.section-eyebrow::before{transition:width .9s var(--ease-out) .15s;}
+/* tylko opacity + transform (karta graficzna), krótko — treść ma być widoczna od razu */
+.fade-up{opacity:0;transform:translateY(20px);
+  transition:opacity .5s var(--ease-out),transform .5s var(--ease-out);}
+.fade-up.visible{opacity:1;transform:none;}
+.fade-up.instant{transition:none !important;}
+.section-eyebrow::before{transition:width .6s var(--ease-out) .1s;}
 .section-eyebrow.fade-up:not(.visible)::before{width:0;}
-.section-divider.fade-up{transform:none;filter:none;transform-origin:left;}
+.section-divider.fade-up{transform:none;transform-origin:left;}
 .section-divider.fade-up:not(.visible){transform:scaleX(0);}
-.section-divider.fade-up{transition:transform 1.1s var(--ease-out),opacity .6s ease;}
-.no-js .fade-up{opacity:1;transform:none;filter:none;}
+.section-divider.fade-up{transition:transform .7s var(--ease-out),opacity .4s ease;}
+.no-js .fade-up{opacity:1;transform:none;}
 
 /* ----- RESPONSYWNOŚĆ ----- */
 @media(max-width:1100px){
@@ -684,7 +685,7 @@ input[type=range].calc-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 
   html{scroll-behavior:auto;}
   .energy-flow .pulse{display:none;}
   .energy-flow .node.on,.hero-logo::before{animation:none;}
-  .fade-up{transform:none;filter:none;transition:opacity .8s ease;}
+  .fade-up{transform:none;transition:opacity .3s ease;}
   .p-card{transform:none;}
   .case-card:hover,.service-card:hover{transform:none;}
 }
@@ -883,4 +884,41 @@ input[type=range].calc-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 
 @keyframes hlmSpin{from{transform:rotate(130deg);}to{transform:rotate(490deg);}}
 @media (prefers-reduced-motion:reduce){
   .hero-logo-m.go .hlm-slon,.hero-logo-m.go .hlm-obwod,.hero-logo-m.go .hlm-ring{animation:none;-webkit-mask-image:none;mask-image:none;}
+}
+
+/* =====================================================
+   CZYTELNOŚĆ I POLA KLIKNIĘCIA (przegląd 2026-10)
+   Najmniejszy tekst ok. 13 px, mniejsze rozstrzelenie etykiet pisanych wersalikami,
+   linki i przyciski tekstowe min. 32 px wysokości (WCAG 2.5.8: min. 24 px).
+   ===================================================== */
+.nav-links a{display:inline-block;padding:10px 0;font-size:.875rem;letter-spacing:.1em;}
+.hero-eyebrow{font-size:.85rem;letter-spacing:.2em;}
+.section-eyebrow{font-size:.82rem;letter-spacing:.22em;}
+.stat-label{font-size:.875rem;}
+.about-photo-label,.expand-img-label{font-size:.75rem;letter-spacing:.2em;}
+.p-label,.check-head{font-size:.82rem;letter-spacing:.18em;}
+.case-facts dt{font-size:.8rem;letter-spacing:.14em;}
+.case-tag,.gallery-item::after,.trust-logo span{font-size:.8rem;letter-spacing:.14em;}
+.ci-label,.form-row label,.form-fieldset legend,.cta-contact span{font-size:.8rem;letter-spacing:.12em;}
+.form-check label{font-size:.85rem;}
+.calc-field label,.calc-field legend{font-size:.82rem;letter-spacing:.14em;}
+.calc-scale,.footer-bottom{font-size:.8rem;}
+.calc-note,.check-note,.numbers-note{font-size:.85rem;opacity:1;}
+.gauge .g-lbl{font-size:12px;}
+.footer-links .f-h{font-size:.8rem;letter-spacing:.16em;}
+.footer-links a,.crumbs{font-size:.875rem;}
+.footer-links a{display:inline-block;padding:4px 0;}
+.form-check label a,.lm-body a{text-decoration:underline;text-underline-offset:2px;}
+.social-btn,.vcard-btn small,.fab-tooltip{font-size:.82rem;}
+.read-more-btn,.service-link,.rc-cta{font-size:.8rem;letter-spacing:.12em;}
+.read-more-btn,.service-link{min-height:32px;padding:4px 0;}
+/* numeracja 01–08 sugerowała kolejność usług, której nie ma */
+.service-number,.sm-eyebrow{display:none;}
+
+/* Pływające przyciski: „Poleć znajomemu” tylko na komputerze, na telefonie jest w sekcji Kontakt */
+.share-btn{color:#a9b6c8;font-size:.8rem;}
+.share-inline{display:none;width:100%;margin-top:-16px;font:inherit;text-align:left;cursor:pointer;}
+@media(max-width:900px){
+  .share-btn{display:none !important;}
+  .share-inline{display:flex;}
 }
